@@ -30,24 +30,23 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto">
                 <li class="nav-item">
-                    <a th:classappend="${menu} == 'member'? 'active text-success' " class="nav-link" aria-current="page" th:href="@{/member/list}">Member</a>
+                    <a th:classappend="${menu} == 'Seller'? 'active text-success' " class="nav-link" aria-current="page" th:href="@{/Seller/list}">팝니다</a>
                 </li>
                 <li class="nav-item">
-                    <a th:classappend="${menu} == 'board'? 'active text-success' " class="nav-link" th:href="@{/board/list}">Board</a>
+                    <a th:classappend="${menu} == 'Buyer'? 'active text-success' " class="nav-link" th:href="@{/Buyer/list}">삽니다</a>
                 </li>
                 <li class="nav-item">
-                    <a th:classappend="${menu} == 'guestbook'? 'active text-success' " class="nav-link" th:href="@{/guestbook/list}">GuestBook</a>
+                    <a th:classappend="${menu} == 'Freeboard'? 'active text-success' " class="nav-link" th:href="@{/Freeboard/list}">자유게시판</a>
                 </li>
                 <li class="nav-item">
-                    <a th:classappend="${menu} == 'translation'? 'active text-success' " class="nav-link" th:href="@{/translation/list}">Translation</a>
+                    <a th:classappend="${menu} == 'CS'? 'active text-success' " class="nav-link" th:href="@{/CS/list}">고객센터</a>
                 </li>
             </ul>
-            <form class="d-flex" role="search">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
         </div>
     </div>
 </nav>
+<div th:fragment="commondiv(aa)">
+    <h1 th:text="${aa}"></h1>
+</div>
 </body>
 </html>
