@@ -27,4 +27,8 @@ public class BuyerController {
     }
 
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 052e99cdcfae378bb077e4474a9fc2e82867e657
 }
