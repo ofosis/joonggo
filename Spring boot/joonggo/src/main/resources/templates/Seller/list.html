@@ -3,12 +3,64 @@
 <head th:replace="~{layout/layout :: head('Seller')}">
 </head>
 <body>
-    <nav th:replace="~{layout/layout :: nav('Seller')}"></nav>
-    <div class="container p-3">
-        <h1></h1>
-            <div>
-                <h1>판매</h1>
-            </div>
+<nav th:replace="~{layout/layout :: nav('Seller')}"></nav>
+<div class="container p-3">
+    <h1> Seller > list</h1>
+    <div class="row">
+        <div class="col">
+            <table class="table table-striped">
+<!--                - 판매-->
+<!--                목록에서 :: 사진, 제목, 가격, 주소-->
+<!--                들어가서 :: 사진, 회원정보(닉네임?), 주소, 신뢰도,-->
+<!--                제목, 작성시간, 카테고리, 가격, 내용, 관심채팅조회,판매상태-->
+                <tr>
+                    <th>사진</th>
+                    <th>제목</th>
+                    <th>가격</th>
+                    <th>주소로 바꿔야함, 지금은 카테고리</th>
+                </tr>
+                <tr th:each="Seller : ${list}">
+                    <td th:text="${Seller.img_idx}"></td>
+                    <td th:text="${Seller.sel_title}"></td>
+                    <td th:text="${Seller.sel_price}"></td>
+                    <td th:text="${Seller.sel_category}"></td>
+<!--                    주소를 넣어야 함!!-->
+                </tr>
+            </table>
+        </div>
     </div>
+<!--    <div class="row">-->
+<!--        <h1>총 페이지 개수 = [[ ${countPage} ]]</h1>-->
+<!--        <h1>총 행 개수 = [[ ${countRow} ]]</h1>-->
+<!--        <h1>현재 페이지 [[${pageNum}]]</h1>-->
+<!--        <div class="col d-flex justify-content-center">-->
+<!--            <nav aria-label="Page navigation example">-->
+<!--                <ul class="pagination">-->
+<!--                    <li class="page-item">-->
+<!--                        <a class="page-link" th:href="@{/board/list(pageNum=${pageNum-1})}"-->
+<!--                           th:classappend="${pageNum} == 1 ? 'disabled'"-->
+<!--                        >Previous</a>-->
+<!--                    </li>-->
+<!--                    <li th:each="i:${#numbers.sequence(1,countPage)}" class="page-item">-->
+<!--                        <a class="page-link" th:href="@{/board/list(pageNum=${i})}"-->
+<!--                           th:classappend="${#strings.replace(param.pageNum,' ','')} == ${i} ? 'active' : ''"-->
+<!--                        >[[ ${i} ]]</a>-->
+<!--                    </li>-->
+<!--                    <li class="page-item">-->
+<!--                        <a class="page-link" th:href="@{/board/list(pageNum=${pageNum+1})}"-->
+<!--                           th:classappend="${pageNum} == ${countPage} ? 'disabled'"-->
+<!--                        >Next</a>-->
+<!--                    </li>-->
+<!--                </ul>-->
+<!--            </nav>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--    <div class="row">-->
+<!--        <div class="col">-->
+<!--            <a href="/board/writeform" class="btn btn-dark">글쓰기</a>-->
+<!--            <button onclick="doDelete()" class="btn btn-dark">삭제</button>-->
+<!--        </div>-->
+<!--    </div>-->
+</div>
 </body>
 </html>
