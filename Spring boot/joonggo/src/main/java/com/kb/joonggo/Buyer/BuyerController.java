@@ -1,7 +1,7 @@
 package com.kb.joonggo.Buyer;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,16 +13,9 @@ import java.util.List;
 @RequestMapping("Buyer")
 public class BuyerController {
 
-    @Autowired
-    BuyRepository buyRepository;
-
-    @Autowired
-    BuyerReq buyerReq;
-
     @GetMapping("list")
-    public String list(Model model)
+    public String list()
     {
-        List<BuyerReq> list =
         return "Buyer/list";
     }
 

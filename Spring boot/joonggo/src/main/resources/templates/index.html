@@ -4,12 +4,8 @@
 </head>
 <body>
     <nav th:replace="~{layout/layout :: nav('home')}"></nav>
-    <div class="container p-3">
-        <h1></h1>
-            <div class="style" align="center";>
-                <h1>중 고 조 하</h1>
-            </div>
-    </div>
+    <header th:replace="~{layout/layout :: header('home')}"></header>
+    <section th:replace="~{layout/layout :: section('home')}"></section>
 </body>
 </html>
 <script>
