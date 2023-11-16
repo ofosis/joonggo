@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kb.joonggo.Freeboard.FreeboardRepository">
+
+    <select id="selectRow" parameterType="Integer" resultType="Freeboard">
+        select * from Freeboard
+    </select>
+
+   <!-- <select id="list" resultType="Freeboard" parameterType="Integer">
+        SELECT * FROM Freeboard
+        ORDER BY idx desc
+        LIMIT #{pageNum},5;
+    </select>
+
+    <select id="countRow" resultType="Integer">
+        select count(*) from Freeboard
+    </select>
+
+    <insert id="insert" parameterType="Freeboard">
+        insert into Freeboard
+        (title, content, name, originalfilename)
+        values
+        ( #{title}, #{content}, #{name}, #{originalfilename} )
+    </insert>
+
+    <update id="update" parameterType="Freeboard">
+        UPDATE Freeboard
+        SET name = #{name},
+        title = #{title},
+        content = #{content},
+        originalfilename = #{originalfilename}
+        WHERE idx = #{idx}
+    </update>
+
+    <delete id="delete" parameterType="java.util.List">
+        delete from Freeboard
+        WHERE idx in
+        <foreach item="idx" collection="idxList" open="(" separator="," close=")">
+            #{idx}
+        </foreach>
+    </delete>
+-->
+</mapper>
