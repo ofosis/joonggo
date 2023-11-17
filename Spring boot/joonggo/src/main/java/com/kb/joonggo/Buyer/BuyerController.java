@@ -12,10 +12,19 @@ import java.util.List;
 @Controller
 @RequestMapping("Buyer")
 public class BuyerController {
+    @Autowired
+    BuyerRepository buyerRepository;
 
     @GetMapping("list")
-    public String list()
+    public String list(Model model)
     {
+        try {
+            model.addAttribute("list", buyerRepository.list());
+        }
+        catch (Exception e){
+            System.out.println(e.toString());
+        }
+
         return "Buyer/list";
     }
 
