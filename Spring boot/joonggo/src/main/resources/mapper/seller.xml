@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kb.joonggo.Seller.SellerRepository">
+
+    <select id="selectRow" parameterType="Integer" resultType="Seller">
+        select * from board where idx = #{idx}
+    </select>
+
+    <select id="list" resultType="Seller">
+        SELECT * FROM Seller
+        ORDER BY sel_idx desc
+    </select>
+
+<!--    <select id="list" resultType="Seller" parameterType="Integer">-->
+<!--        SELECT * FROM Seller-->
+<!--        ORDER BY sel_idx desc-->
+<!--        LIMIT #{pageNum},5;-->
+<!--    </select>-->
+
+    <select id="countRow" resultType="Integer">
+        select count(*) from Seller
+    </select>
+
+    <insert id="insert" parameterType="Seller">
+        insert into Seller
+        (sel_idx, sel_title, sel_content, sel_date, sel_price, sel_category, sel_count, sel_state, mbr_idx, img_idx)
+        values
+        ( #{sel_idx}, #{sel_title}, #{sel_content}, #{sel_date}, #{sel_price}, #{sel_category}, #{sel_count}, #{sel_state}, #{mbr_idx}, #{img_idx})
+    </insert>
+
+    <update id="update" parameterType="Seller">
+        UPDATE Seller
+        SET sel_idx = #{sel_idx},
+        title = #{title},
+        sel_content = #{sel_content},
+        sel_date = #{sel_date},
+        sel_price = #{sel_price},
+        sel_category = #{sel_category},
+        sel_count = #{sel_count},
+        sel_state = #{sel_state},
+        mbr_idx = #{mbr_idx},
+        img_idx = #{img_idx}
+        WHERE idx = #{idx}
+    </update>
+
+    <delete id="delete" parameterType="java.util.List">
+        delete from Seller
+        WHERE idx in
+        <foreach item="sel_idx" collection="idxList" open="(" separator="," close=")">
+            #{sel_idx}
+        </foreach>
+    </delete>
+
+</mapper>
