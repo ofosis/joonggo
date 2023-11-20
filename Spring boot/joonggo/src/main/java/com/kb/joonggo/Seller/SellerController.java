@@ -35,9 +35,6 @@ public class SellerController {
         catch (Exception e){
             System.out.println(e.toString());
         }
-
         return "Seller/list";
     }
-
-
 }
