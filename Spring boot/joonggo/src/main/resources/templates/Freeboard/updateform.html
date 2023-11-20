@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{layout/common :: head('Freeboard')}">
+<head th:replace="~{layout/layout :: head('Freeboard')}">
 </head>
 <body>
-<nav th:replace="~{layout/common :: nav('Freeboard')}"></nav>
+<nav th:replace="~{layout/layout :: nav('Freeboard')}"></nav>
 <div class="container p-3">
-    <h1>Board > updateForm</h1>
+    <h1>FreeBoard > updateForm</h1>
     <div class="row">
         <div class="col">
             <form action="/Freeboard/updateproc" method="post" th:object="${FreeboardReq}" enctype="multipart/form-data">

@@ -1,34 +1,33 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{layout/common :: head('Freeboard')}">
-</head>
-<body>
-<nav th:replace="~{layout/common :: nav('Freeboard')}"></nav>
+<head th:replace="~{layout/layout :: head('Freeboard')}">
+</head><body>
+<nav th:replace="~{layout/layout :: nav('Freeboard')}"></nav>
 <div class="container p-3">
-    <h1>Board > list</h1>
+    <h1>FreeBoard > list</h1>
     <div class="row">
         <div class="col">
             <table class="table table-striped">
                 <tr>
                     <th></th>
-                    <th>idx</th>
+                    <th>fr_idx</th>
                     <th>제목</th>
                     <th>작성자</th>
                 </tr>
                 <tr th:each="Freeboard : ${list}">
                     <td class="text-center">
-                        <input type="checkbox" name="idx" id="" th:value="${Freeboard.idx}" class="form-check-input" onclick="addIdx(this);">
+                        <input type="checkbox" name="fr_idx" id="" th:value="${Freeboard.fr_idx}" class="form-check-input" onclick="addIdx(this);">
                     </td>
-                    <td th:text="${board.idx}"></td>
+                    <td th:text="${Freeboard.fr_idx}"></td>
                     <td>
-                        <a th:href="@{/Freeboard/view(idx=${Freeboard.idx})}" th:text="${Freeboard.title}"></a>
+                        <a th:href="@{/Freeboard/view(fr_idx=${Freeboard.fr_idx})}" th:text="${Freeboard.fr_title}"></a>
                     </td>
-                    <td th:text="${Freeboard.name}"></td>
+                    <td th:text="${Freeboard.fr_content}"></td>
                 </tr>
             </table>
         </div>
     </div>
-    <div class="row">
+   <!-- <div class="row">
         <h1>총 페이지 개수 = [[ ${countPage} ]]</h1>
         <h1>총 행 개수 = [[ ${countRow} ]]</h1>
         <h1>현재 페이지 [[${pageNum}]]</h1>
@@ -53,7 +52,7 @@
                 </ul>
             </nav>
         </div>
-    </div>
+    </div>-->
     <div class="row">
         <div class="col">
             <a href="/Freeboard/writeform" class="btn btn-dark">글쓰기</a>

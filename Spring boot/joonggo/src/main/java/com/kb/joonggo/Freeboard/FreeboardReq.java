@@ -5,6 +5,8 @@ import jakarta.validation.constraints.NotEmpty;
 import lombok.Builder;
 import lombok.Data;
 
+import java.util.Date;
+
 @Data
 @Builder
 public class FreeboardReq {
@@ -16,7 +18,9 @@ public class FreeboardReq {
     @NotEmpty
     private String fr_content;
     @NotEmpty
-    private int fr_time;
+    private Date fr_time;
+
+    private String originalfilename;
 
     private int mbr_idx;
 }

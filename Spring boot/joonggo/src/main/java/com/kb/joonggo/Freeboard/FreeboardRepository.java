@@ -8,7 +8,8 @@ import java.util.List;
 public interface FreeboardRepository {
     public void delete(List idxList);
 
-    public List<FreeBoard> list(int pageNum);
+//    public List<FreeBoard> list(int pageNum);
+    public List<FreeBoard> list();
 
     public void insert(FreeBoard freeBoard);
 
