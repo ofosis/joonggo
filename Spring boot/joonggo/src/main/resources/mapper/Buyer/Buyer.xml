@@ -3,7 +3,17 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.kb.joonggo.Buyer.BuyerRepository">
-    <select id="list" resultType="BuyerDTO">
-        select * from Buyer
+    <select id="selectRow" parameterType="Integer" resultType="BuyerDTO">
+        select * from Buyer where idx = #{buy_idx}
+    </select>
+
+    <select id="list" resultType="BuyerDTO" parameterType="Integer">
+        SELECT * FROM Buyer
+        ORDER BY buy_idx desc
+        LIMIT #{pageNum}, 5;
+    </select>
+
+    <select id="countRow" resultType="Integer">
+        select count(*) from Buyer
     </select>
 </mapper>

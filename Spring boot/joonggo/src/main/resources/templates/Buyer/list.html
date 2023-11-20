@@ -26,13 +26,41 @@
                             </div>
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                                 <div class="text-center">
-                                    <a class="btn btn-outline-dark mt-auto" href="#">View options</a>
+                                    <a class="btn btn-outline-dark mt-auto" href="/">View options</a>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+    <div class="row">
+        <h1>총 페이지 개수 = [[ ${countPage} ]]</h1>
+        <h1>총 행 개수 = [[ ${countRow} ]]</h1>
+        <h1>현재 페이지 = [[${pageNum}]]</h1>
+        <div class="col d-flex justify-content-center">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    <li class="page-item">
+                        <a class="page-link" th:href="@{/Buyer/list(pageNum=${pageNum-1})}"
+                                th:classappend="${pageNum} == 1 ? 'disabled'" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <li th:each="i:${#numbers.sequence(1, countPage)}" class="page-item">
+                        <a class="page-link" th:href="@{/Buyer/list(pageNum=${i})}"
+                                            th:classappend="${#strings.replace(param.pageNum, ' ', '')} == ${i} ? 'active' : ''"
+                        >[[ ${i} ]]</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" th:href="@{/Buyer/list(pageNum=${pageNum+1})}"
+                                th:classappend="${pageNum} == ${countPage} ? 'disabled'" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
         </div>
     </div>
 </section>
