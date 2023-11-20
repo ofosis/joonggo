@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout/layout :: head('home')}">
+</head>
+<body>
+<nav th:replace="~{layout/layout :: nav('home')}"></nav>
+
+    <div class="container p-3" style="width:450px;">
+        <div class="container mb-3 " style="text-align: center; font-size: 35px;"><label class="form-label">
+            회원 가입</label>
+        </div>
+
+        <div class="row">
+            <label for="mbr_name" class="col-sm-3 form-label text-left d-flex align-items-center">이름</label>
+            <div class="col-sm-9 mb-3">
+                <input type="text" class="form-control" id="mbr_name" placeholder="이름" style="border-color: #80A6FF;">
+            </div>
+        </div>
+
+        <div class="row">
+            <label for="mbr_contact" class="col-sm-3 form-label text-left d-flex align-items-center">휴대전화</label>
+            <div class="col-sm-9 mb-3">
+                <input type="text" class="form-control" id="mbr_contact" placeholder="휴대전화번호('-' 포함)" style="border-color: #80A6FF;">
+            </div>
+        </div>
+
+        <div class="row">
+            <label for="mbr_email" class="col-sm-3 form-label text-left d-flex align-items-center">이메일</label>
+            <div class="col-sm-9 mb-3">
+                <input type="text" class="form-control" id="mbr_email" placeholder="ex) qwer@gmail.com 형태로 입력" style="border-color: #80A6FF;">
+            </div>
+        </div>
+
+        <div class="row">
+            <label for="mbr_id" class="col-sm-3 form-label text-left d-flex align-items-center">아이디</label>
+            <div class="col-sm-9 mb-3">
+                <input type="text" class="form-control" id="mbr_id" placeholder="ID를 입력해주세요" style="border-color: #80A6FF;">
+            </div>
+        </div>
+
+        <div class="row">
+            <label for="mbr_pwd" class="col-sm-3 form-label text-left d-flex align-items-center">비밀번호</label>
+            <div class="col-sm-9 mb-3">
+                <input type="password" class="form-control" id="mbr_pwd" placeholder="Pass Word를 입력해주세요" style="border-color: #80A6FF" required>
+            </div>
+        </div>
+
+        <div class="row">
+            <label for="mbr_nick" class="col-sm-3 form-label text-left d-flex align-items-center">닉네임</label>
+            <div class="col-sm-9 mb-3">
+                <input type="text" class="form-control" id="mbr_nick" placeholder="닉네임" style="border-color: #80A6FF" required>
+            </div>
+        </div>
+
+        <div class="row">
+            <label for="mbr_addr" class="col-sm-3 form-label text-left d-flex align-items-center">주소</label>
+            <div class="col-sm-9 mb-3" style="position: relative;">
+                <select class="form-control" id="mbr_addr" style="border-color: #80A6FF; padding-right: 25px; display: inline-block;">
+                    <option value="00">대구광역시_구선택</option>
+                    <option value="01">대구광역시_군위군</option>
+                    <option value="02">대구광역시_남구</option>
+                    <option value="03">대구광역시_달서구</option>
+                    <option value="04">대구광역시_달성군</option>
+                    <option value="05">대구광역시_동구</option>
+                    <option value="06">대구광역시_북구</option>
+                    <option value="07">대구광역시_서구</option>
+                    <option value="08">대구광역시_수성구</option>
+                    <option value="09">대구광역시_중구</option>
+                </select>
+                <div style="position: absolute; top: 50%; right: 20px; transform: translateY(-50%); pointer-events: none;">
+                    ▼
+                </div>
+            </div>
+        </div>
+
+        <div class="mb-3" style="text-align: center;">
+            <small class="form-text text-muted ">* 모든 정보는 필수 입력 항목입니다. *</small>
+        </div>
+    </div>
+
+</body>
+</html>
