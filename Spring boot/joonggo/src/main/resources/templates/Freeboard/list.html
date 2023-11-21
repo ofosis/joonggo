@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{layout/layout :: head('Freeboard')}">
-</head><body>
+</head>
+<body>
 <nav th:replace="~{layout/layout :: nav('Freeboard')}"></nav>
 <div class="container p-3">
     <h1>FreeBoard > list</h1>
@@ -12,15 +13,17 @@
                     <th></th>
                     <th>idx</th>
                     <th>제목</th>
-                    <th>작성자</th>
+                    <th>닉네임</th>
                 </tr>
                 <tr th:each="FreeboardReq : ${list}">
                     <td class="text-center">
-                        <input type="checkbox" name="fr_idx" id="" th:value="${FreeboardReq.fr_idx}" class="form-check-input" onclick="addIdx(this);">
+                        <input type="checkbox" name="fr_idx" id="" th:value="${FreeboardReq.fr_idx}"
+                               class="form-check-input" onclick="addIdx(this);">
                     </td>
                     <td th:text="${FreeboardReq.fr_idx}"></td>
                     <td>
-                        <a th:href="@{/Freeboard/view(fr_idx=${FreeboardReq.fr_idx})}" th:text="${FreeboardReq.fr_title}"></a>
+                        <a th:href="@{/Freeboard/view(fr_idx=${FreeboardReq.fr_idx})}"
+                           th:text="${FreeboardReq.fr_title}"></a>
                     </td>
                     <td th:text="${FreeboardReq.mbr_nick}"></td>
                 </tr>
@@ -28,25 +31,25 @@
         </div>
     </div>
     <div class="row">
-        <h1>총 페이지 개수 = [[ ${countPage} ]]</h1>
-        <h1>총 행 개수 = [[ ${countRow} ]]</h1>
-        <h1>현재 페이지 [[${pageNum}]]</h1>
+        <h1 style="font-size: 18px;">총 페이지 개수 = [[ ${countPage} ]]</h1>
+        <h1 style="font-size: 18px;">총 행 개수 = [[ ${countRow} ]]</h1>
+        <h1 style="font-size: 18px;">현재 페이지 [[${pageNum}]]</h1>
         <div class="col d-flex justify-content-center">
             <nav aria-label="Page navigation example">
                 <ul class="pagination">
                     <li class="page-item">
                         <a class="page-link" th:href="@{/Freeboard/list(pageNum=${pageNum-1})}"
-                                th:classappend="${pageNum} == 1 ? 'disabled'"
+                           th:classappend="${pageNum} == 1 ? 'disabled'"
                         >Previous</a>
                     </li>
                     <li th:each="i:${#numbers.sequence(1,countPage)}" class="page-item">
                         <a class="page-link" th:href="@{/Freeboard/list(pageNum=${i})}"
-                                            th:classappend="${#strings.replace(param.pageNum,' ','')} == ${i} ? 'active' : ''"
+                           th:classappend="${#strings.replace(param.pageNum,' ','')} == ${i} ? 'active' : ''"
                         >[[ ${i} ]]</a>
                     </li>
                     <li class="page-item">
                         <a class="page-link" th:href="@{/Freeboard/list(pageNum=${pageNum+1})}"
-                                th:classappend="${pageNum} == ${countPage} ? 'disabled'"
+                           th:classappend="${pageNum} == ${countPage} ? 'disabled'"
                         >Next</a>
                     </li>
                 </ul>
