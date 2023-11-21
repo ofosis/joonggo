@@ -1,52 +1,36 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{layout/layout :: head('Freeboard')}">
-</head>
-<body>
+</head><body>
 <nav th:replace="~{layout/layout :: nav('Freeboard')}"></nav>
 <div class="container p-3">
-    <h1>FreeBoard > list</h1>
+    <h1>FreeBoard > view</h1>
     <div class="row">
         <div class="col">
-            <form action="/Freeboard/writeproc" method="post" th:object="${FreeboardReq}" enctype="multipart/form-data">
-                <div class="mb-3">
-                    <label for="title" class="form-label">Title</label>
-                    <input type="text" name="title" id="title" placeholder="title"
-                           th:field="*{title}"
-                           th:class="${#fields.hasErrors('title')}? 'form-control is-invalid':'form-control' "
-                           th:classappend="${first != 'true'} ? 'is-valid'"
-                           />
-                    <p th:if="${#fields.hasErrors('title')}" th:errors="*{title}" class="invalid-feedback"></p>
+            <div class="mb-3">
+                <label class="form-label">제목</label>
+                <p class="border p-2 m-3" th:text="${FreeboardReq.fr_title}"></p>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">내용</label>
+                <p class="border p-3 m-3" th:text="${FreeboardReq.fr_content}"></p>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">닉네임</label>
+                <p class="border p-2 m-3" th:text="${FreeboardReq.mbr_nick}"></p>
+            </div>
+<!--            <div class="mb-3">-->
+<!--                <label class="form-label">file</label>-->
+<!--                <a th:href="@{'/Freeboard/attach/'+${Freeboard.originalfilename}}" th:text="${FreeboardReq.originalfilename}"></a>-->
+<!--            </div>-->
+            <div class="mb-3 row justify-content-between">
+<!--                <div class="col-3 d-flex">-->
+<!--                    <a th:href="@{/Freeboard/updateform(fr_idx=${Freeboard.fr_idx})}" class="btn btn-dark">수정</a>-->
+<!--                </div>-->
+                <div class="col-3 d-flex justify-content-end">
+                    <a th:href="@{/Freeboard/list(pageNum=1)}" class="btn btn-dark">목록</a>
                 </div>
-                <div class="mb-3">
-                    <label for="content" class="form-label">Content</label>
-                    <textarea name="content" class="form-control fieldError" id="content" rows="3"
-                              th:field="*{content}"
-                              th:class="${#fields.hasErrors('content')}? 'form-control is-invalid':'form-control' "
-                              th:classappend="${first != 'true'} ? 'is-valid'" ></textarea>
-                    <p th:if="${#fields.hasErrors('content')}" th:errors="*{content}" class="invalid-feedback"></p>
-                </div>
-                <div class="mb-3">
-                    <label for="name" class="form-label">name</label>
-                    <input name="name" type="text" class="form-control" id="name" placeholder="name"
-                           th:field="*{name}"
-                           th:class="${#fields.hasErrors('name')}? 'form-control is-invalid':'form-control' "
-                           th:classappend="${first != 'true'} ? 'is-valid'" />
-                    <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="invalid-feedback"></p>
-                </div>
-                <div class="mb-3">
-                    <label for="file" class="form-label">file</label>
-                    <input name="file" type="file" class="form-control" id="file" placeholder="file"/>
-                </div>
-                <div class="mb-3 row justify-content-between">
-                    <div class="col-3">
-                        <input type="submit" class="btn btn-dark" value="저장"/>
-                    </div>
-                    <div class="col-3 d-flex justify-content-end">
-                        <a th:href="@{/Freeboard/list(pageNum=1)}" class="btn btn-dark">목록</a>
-                    </div>
-                </div>
-            </form>
+            </div>
         </div>
     </div>
 </div>

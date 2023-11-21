@@ -12,15 +12,15 @@
                 <div class="mb-3">
                     <label for="title" class="form-label">Title</label>
                     <input type="text" name="title" id="title" placeholder="title"
-                           th:field="*{title}"
+                           th:field="*{fr_title}"
                            th:class="${#fields.hasErrors('title')}? 'form-control is-invalid':'form-control' "
                            th:classappend="${first != 'true'} ? 'is-valid'"
                            />
                     <p th:if="${#fields.hasErrors('title')}" th:errors="*{title}" class="invalid-feedback"></p>
                 </div>
                 <div class="mb-3">
-                    <label for="content" class="form-label">Content</label>
-                    <textarea name="content" class="form-control fieldError" id="content" rows="3"
+                    <label for="fr_content" class="form-label">Content</label>
+                    <textarea name="content" class="form-control fieldError" id="fr_content" rows="3"
                               th:field="*{content}"
                               th:class="${#fields.hasErrors('content')}? 'form-control is-invalid':'form-control' "
                               th:classappend="${first != 'true'} ? 'is-valid'" ></textarea>

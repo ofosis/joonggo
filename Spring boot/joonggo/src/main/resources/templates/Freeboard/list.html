@@ -10,24 +10,24 @@
             <table class="table table-striped">
                 <tr>
                     <th></th>
-                    <th>fr_idx</th>
+                    <th>idx</th>
                     <th>제목</th>
                     <th>작성자</th>
                 </tr>
-                <tr th:each="Freeboard : ${list}">
+                <tr th:each="FreeboardReq : ${list}">
                     <td class="text-center">
-                        <input type="checkbox" name="fr_idx" id="" th:value="${Freeboard.fr_idx}" class="form-check-input" onclick="addIdx(this);">
+                        <input type="checkbox" name="fr_idx" id="" th:value="${FreeboardReq.fr_idx}" class="form-check-input" onclick="addIdx(this);">
                     </td>
-                    <td th:text="${Freeboard.fr_idx}"></td>
+                    <td th:text="${FreeboardReq.fr_idx}"></td>
                     <td>
-                        <a th:href="@{/Freeboard/view(fr_idx=${Freeboard.fr_idx})}" th:text="${Freeboard.fr_title}"></a>
+                        <a th:href="@{/Freeboard/view(fr_idx=${FreeboardReq.fr_idx})}" th:text="${FreeboardReq.fr_title}"></a>
                     </td>
-                    <td th:text="${Freeboard.fr_content}"></td>
+                    <td th:text="${FreeboardReq.mbr_nick}"></td>
                 </tr>
             </table>
         </div>
     </div>
-   <!-- <div class="row">
+    <div class="row">
         <h1>총 페이지 개수 = [[ ${countPage} ]]</h1>
         <h1>총 행 개수 = [[ ${countRow} ]]</h1>
         <h1>현재 페이지 [[${pageNum}]]</h1>
@@ -52,7 +52,7 @@
                 </ul>
             </nav>
         </div>
-    </div>-->
+    </div>
     <div class="row">
         <div class="col">
             <a href="/Freeboard/writeform" class="btn btn-dark">글쓰기</a>

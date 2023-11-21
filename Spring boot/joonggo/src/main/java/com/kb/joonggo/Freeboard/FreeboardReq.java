@@ -15,12 +15,19 @@ public class FreeboardReq {
 
     @NotEmpty
     private String fr_title;
+
     @NotEmpty
     private String fr_content;
-    @NotEmpty
+
+    @Nullable
     private Date fr_time;
 
+    @Nullable
     private String originalfilename;
 
+    @NotEmpty
+    private String mbr_nick;
+
+    @Nullable
     private int mbr_idx;
 }

@@ -27,24 +27,31 @@ public class FreeboardController {
 //    private String uploadPath;
 
     @GetMapping("list")
-//    public String list(Model model, @RequestParam(required = false, defaultValue = "1") int pageNum) {
-    public String list(Model model) {
-//        model.addAttribute("pageNum", pageNum);
-//
-//        pageNum = (pageNum - 1) * 5;
-//        List<FreeBoard> list = freeboardRepository.list(pageNum);
-//        int countRow = freeboardRepository.countRow();
+    public String list(Model model, @RequestParam(required = false, defaultValue = "1") int pageNum) {
+//    public String list(Model model) {
+        model.addAttribute("pageNum", pageNum);
 
-//        model.addAttribute("list", list);
+        pageNum = (pageNum - 1) * 5;
+        List<FreeBoard> list = freeboardRepository.list(pageNum);
+        int countRow = freeboardRepository.countRow();
 
-//        model.addAttribute("countRow", countRow);
+        model.addAttribute("list", list);
 
-//        int countPage = (countRow / 5) + ((countRow % 5 > 0) ? 1 : 0);
-//        model.addAttribute("countPage", countPage);
-        List<FreeBoard> list = freeboardRepository.list();
-        model.addAttribute("list",list);
+        model.addAttribute("countRow", countRow);
+
+        int countPage = (countRow / 5) + ((countRow % 5 > 0) ? 1 : 0);
+        model.addAttribute("countPage", countPage);
+     // List<FreeBoard> list = freeboardRepository.list();
+     //   model.addAttribute("list",list);
 
         return "Freeboard/list";
+    }
+    @GetMapping("view")
+    public String view(Model model,int fr_idx){
+        FreeboardReq freeboardreq = freeboardRepository.selectRow(fr_idx);
+        model.addAttribute("FreeboardReq",freeboardreq);
+        System.out.println(freeboardreq);
+        return "Freeboard/view";
     }
 
 //    @GetMapping("writeform")

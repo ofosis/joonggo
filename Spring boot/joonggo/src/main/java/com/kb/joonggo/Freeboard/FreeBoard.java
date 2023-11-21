@@ -15,6 +15,7 @@ public class FreeBoard {
     private Date fr_time;
     private String originalfilename;
     private int mbr_idx;
+   // private String mbr_nick;
 }
 
 
