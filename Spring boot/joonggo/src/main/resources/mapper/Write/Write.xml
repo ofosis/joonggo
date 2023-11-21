@@ -4,16 +4,16 @@
 
 <mapper namespace="com.kb.joonggo.Write.WriteRepository">
 
-    <insert id="insert" parameterType="WriteDTO">
+<!--    <insert id="insert" parameterType="WriteDTO">-->
 
-    </insert>
+<!--    </insert>-->
 
 
-    <insert id="insert" parameterType="Board">
-        insert into board
-        (title, content, name, originalfilename)
-        values
-        ( #{title}, #{content}, #{name}, #{originalfilename} )
-    </insert>
+<!--    <insert id="insert" parameterType="WriteDTO">-->
+<!--        insert into board-->
+<!--        (title, content, name, originalfilename)-->
+<!--        values-->
+<!--        ( #{title}, #{content}, #{name}, #{originalfilename} )-->
+<!--    </insert>-->
 
 </mapper>

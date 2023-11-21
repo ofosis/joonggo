@@ -16,32 +16,33 @@ public class WriteController {
     @Autowired
     WriteRepository writeRepository;
 
-    @GetMapping("WriteForm")
-    public String writeFrom(){
-        return "Write/WriteForm";
+    @GetMapping("writeForm")
+    public String writeFrom(Model model, WriteReq writeReq){
+        model.addAttribute("first","true");
+        return "Write/writeForm";
     }
 
     @PostMapping("writeproc")
     public String writeproc(Model model, WriteReq writeReq){
 
         // db에 저장
-        WriteDTO writeDTO = WriteDTO.builder()
-                .tb_idx(writeReq.getIdx())
-                .tb_title(writeReq.getTitle())
-                .tb_content(writeReq.getContent())
-                .tb_date(writeReq.getDate())
-                .tb_price(writeReq.getPrice())
-                .tb_category(writeReq.getCategory())
-                .tb_count(writeReq.getCount())
-                .tb_state(writeReq.getState())
-                .mbr_idx(writeReq.getMbr_idx())
-                .img_idx(writeReq.getImg_idx())
-                .build();
+//        WriteDTO writeDTO = WriteDTO.builder()
+//                .tb_idx(writeReq.getIdx())
+//                .tb_title(writeReq.getTitle())
+//                .tb_content(writeReq.getContent())
+//                .tb_date(writeReq.getDate())
+//                .tb_price(writeReq.getPrice())
+//                .tb_category(writeReq.getCategory())
+//                .tb_count(writeReq.getCount())
+//                .tb_state(writeReq.getState())
+//                .mbr_idx(writeReq.getMbr_idx())
+//                .img_idx(writeReq.getImg_idx())
+//                .build();
+//
+//        writeRepository.insert(writeDTO);
 
-        writeRepository.insert(writeDTO);
 
-
-        return "/";
+        return "redirect:/";
     }
 
 }

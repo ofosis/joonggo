@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kb.joonggo.Tradeboard.TradeboardRepository">
+
+    <select id="BuyAlllist" resultType="TradeboardDTO">
+        select * from Tradeboard where tb_state = "구매중"
+    </select>
+
+    <select id="Buylist" resultType="TradeboardDTO" parameterType="Integer">
+        SELECT * FROM Tradeboard
+        where tb_state = "구매중"
+        ORDER BY tb_idx desc
+        LIMIT #{pageNum}, 5;
+    </select>
+
+    <select id="selectBuyRow" parameterType="Integer" resultType="TradeboardDTO">
+        select * from Tradeboard where tb_idx = #{tb_idx}
+    </select>
+
+    <select id="countBuyRow" resultType="Integer">
+        select count(*) from Tradeboard
+    </select>
+
+
+
+    <select id="SellAlllist" resultType="TradeboardDTO">
+        select * from Tradeboard where tb_state = "판매중"
+    </select>
+
+    <select id="Selllist" resultType="TradeboardDTO" parameterType="Integer">
+        SELECT * FROM Tradeboard
+        where tb_state = "판매중"
+        ORDER BY tb_idx desc
+        LIMIT #{pageNum}, 5;
+    </select>
+
+    <select id="selectSellRow" parameterType="Integer" resultType="TradeboardDTO">
+        select * from Tradeboard where tb_idx = #{tb_idx}
+    </select>
+
+    <select id="countSellRow" resultType="Integer">
+        select count(*) from Tradeboard
+    </select>
+
+
+</mapper>

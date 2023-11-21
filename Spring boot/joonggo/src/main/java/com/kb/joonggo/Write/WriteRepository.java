@@ -10,8 +10,8 @@ import java.util.List;
 public interface WriteRepository {
 
 
-    public List<WriteDTO> list();
+//    public List<WriteDTO> list();
 
-    public void insert(WriteDTO writeDTO);
+//    public void insert(WriteDTO writeDTO);
 
 }

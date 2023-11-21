@@ -1,7 +1,9 @@
 package com.kb.joonggo.Write;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Data;
+import org.springframework.lang.Nullable;
 
 import java.util.Date;
 
@@ -9,24 +11,26 @@ import java.util.Date;
 @Builder
 public class WriteReq {
 
-    private int idx;
-
+//    private int idx;
+    @NotNull
     private String title;
 
+    @Nullable
     private String content;
 
-    private Date date;
+//    private Date date;
 
-    private int price;
+//    private int price;
 
-    private String category;
+//    private String category;
 
-    private int count;
+//    private int count;
 
-    private String state;
+//    private String state;
 
-    private int mbr_idx;
+//    private int mbr_idx;
 
-    private int img_idx;
+//    @Nullable
+//    private int img_idx;
 
 }

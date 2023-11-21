@@ -23,13 +23,16 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
                 <li class="nav-item">
-                    <a th:classappend="${menu} == 'Seller'? 'active text-success' " class="nav-link" aria-current="page" th:href="@{/Seller/list}">팝니다</a>
+                    <a th:classappend="${menu} == 'Seller'? 'active text-success' " class="nav-link" aria-current="page" th:href="@{/Trade/selllist}">팝니다</a>
                 </li>
                 <li class="nav-item">
-                    <a th:classappend="${menu} == 'Buyer'? 'active text-success' " class="nav-link" th:href="@{/Buyer/list}">삽니다</a>
+                    <a th:classappend="${menu} == 'Buyer'? 'active text-success' " class="nav-link" th:href="@{/Trade/buylist}">삽니다</a>
                 </li>
                 <li class="nav-item">
                     <a th:classappend="${menu} == 'Freeboard'? 'active text-success' " class="nav-link" th:href="@{/Freeboard/list}">자유게시판</a>
+                </li>
+                <li class="nav-item">
+                    <a th:classappend="${menu} == 'WriteForm'? 'active text-success' " class="nav-link" th:href="@{/Write/writeForm}">임시글작성</a>
                 </li>
                 <li class="nav-item">
                     <a th:classappend="${menu} == 'Login'? 'active text-success' " class="nav-link" th:href="@{/Login/loginpage}">로그인</a>

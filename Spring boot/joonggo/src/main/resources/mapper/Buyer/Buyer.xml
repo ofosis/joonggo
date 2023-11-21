@@ -4,7 +4,7 @@
 
 <mapper namespace="com.kb.joonggo.Buyer.BuyerRepository">
     <select id="selectRow" parameterType="Integer" resultType="BuyerDTO">
-        select * from Buyer where idx = #{buy_idx}
+        select * from Buyer where buy_idx = #{buy_idx}
     </select>
 
     <select id="list" resultType="BuyerDTO" parameterType="Integer">
