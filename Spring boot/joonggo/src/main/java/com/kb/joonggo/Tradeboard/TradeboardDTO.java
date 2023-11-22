@@ -1,9 +1,13 @@
 package com.kb.joonggo.Tradeboard;
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
+
 import java.util.Date;
 @Data
 @Builder
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class TradeboardDTO {
     private int tb_idx;
     private String tb_title;

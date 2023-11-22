@@ -16,4 +16,7 @@ public interface TradeboardRepository {
     public int countSellRow();
     public TradeboardDTO selectSellRow(int idx);
 
+
+    public void insert(TradeboardDTO tradeboardDTO);
+
 }
