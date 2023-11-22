@@ -5,7 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="62ccc8d7-8f4b-4299-92c6-83cf605b8eaf" name="변경" comment="">
+      <change afterPath="$PROJECT_DIR$/Spring boot/joonggo/src/main/java/com/kb/joonggo/Tradeboard/TradebardService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spring boot/joonggo/src/main/java/com/kb/joonggo/Tradeboard/TradeboardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Spring boot/joonggo/src/main/java/com/kb/joonggo/Tradeboard/TradeboardController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spring boot/joonggo/src/main/resources/templates/Freeboard/view.html" beforeDir="false" afterPath="$PROJECT_DIR$/Spring boot/joonggo/src/main/resources/templates/Freeboard/view.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spring boot/joonggo/src/main/resources/templates/Trade/buylist.html" beforeDir="false" afterPath="$PROJECT_DIR$/Spring boot/joonggo/src/main/resources/templates/Trade/buylist.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spring boot/joonggo/src/main/resources/templates/Trade/selllist.html" beforeDir="false" afterPath="$PROJECT_DIR$/Spring boot/joonggo/src/main/resources/templates/Trade/selllist.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spring boot/joonggo/src/main/resources/templates/aPost/Watchpost.html" beforeDir="false" afterPath="$PROJECT_DIR$/Spring boot/joonggo/src/main/resources/templates/Trade/productdetail.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spring boot/joonggo/src/main/resources/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/Spring boot/joonggo/src/main/resources/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spring boot/joonggo/src/main/resources/templates/layout/layout.html" beforeDir="false" afterPath="$PROJECT_DIR$/Spring boot/joonggo/src/main/resources/templates/layout/layout.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,7 +40,7 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "1120__buysell",
+    "git-widget-placeholder": "feature/productboard",
     "ignore.virus.scanning.warn.message": "true",
     "last_opened_file_path": "C:/Users/KB/Documents/joonggo"
   }

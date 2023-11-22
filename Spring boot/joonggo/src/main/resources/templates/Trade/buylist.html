@@ -15,7 +15,7 @@
             <div th:each="TradeboardDTO : ${Buylist}" class="col mb-5">
                 <div class="card h-100">
                     <!-- Product image-->
-                    <div class="col mb-5" onclick="handleImageClick(/* pass necessary parameters here */)">
+                    <div class="col mb-5" th:onclick="|handleImageClick('${TradeboardDTO.tb_content}', '${TradeboardDTO.tb_title}', '${TradeboardDTO.tb_price}', '${TradeboardDTO.tb_nick}', '${TradeboardDTO.tb_category}', '${TradeboardDTO.tb_state}')">
                         <div class="card h-100">
                             <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
                             <div class="card-body p-4">
@@ -36,11 +36,11 @@
         </div>
     </div>
     <script>
-        function handleImageClick(/* pass necessary parameters here */) {
-         // Add your logic for image click here
-         // Example: Redirect to the POSTWRITE page
-         window.location.href = "/aPost/Watchpost";
-     }
+        function handleImageClick(tbco, tbti, tbpr, tbni, tbca, tbst) {
+            // Add your logic for image click here
+            // Example: Redirect to the product detail page and pass parameters
+             window.location.href = "/Trade/productdetail?tbco=" + tbco + "&tbti=" + tbti + "&tbpr=" + tbpr + "&tbni=" + tbni + "&tbca=" + tbca + "&tbst=" + tbst;
+    }
     </script>
     <div class="row">
         <h1>총 페이지 개수 = [[ ${countBuyPage} ]]</h1>
@@ -76,7 +76,6 @@
     <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2023</p></div>
 </footer>
 <!-- Bootstrap core JS-->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 <!-- Core theme JS-->
 <script src="/js/scripts.js"></script>
 </body>

@@ -60,4 +60,9 @@ public class TradeboardController {
         return "Trade/selllist";
     }
 
+    @GetMapping("productdetail")
+    private String detail(){
+        return "Trade/productdetail";
+    }
+
 }

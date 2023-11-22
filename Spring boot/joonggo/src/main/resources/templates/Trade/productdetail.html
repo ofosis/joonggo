@@ -1,24 +1,36 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{layout/layout :: head('Freeboard')}">
+<head th:replace="~{layout/layout :: head('home')}">
 </head>
 <body>
-<nav th:replace="~{layout/layout :: nav('Freeboard')}"></nav>
+<nav th:replace="~{layout/layout :: nav('home')}"></nav>
 <div class="container p-3">
-    <h1>FreeBoard > view</h1>
     <div class="row">
         <div class="col">
             <div class="mb-3">
                 <label class="form-label">제목</label>
-                <p class="border p-2 m-3" th:text="${FreeboardReq.fr_title}"></p>
+                <p class="border p-2 m-3" th:text="${param.tbti}"></p>
             </div>
             <div class="mb-3">
                 <label class="form-label">내용</label>
-                <p class="border p-3 m-3" th:text="${FreeboardReq.fr_content}"></p>
+                <p class="border p-3 m-3" th:text="${param.tbco}"></p>
             </div>
             <div class="mb-3">
                 <label class="form-label">닉네임</label>
-                <p class="border p-2 m-3" th:text="${FreeboardReq.mbr_nick}"></p>
+                <p class="border p-2 m-3" th:text="${param.tbni}"></p>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">가격</label>
+                <p class="border p-2 m-3" th:text="${param.tbpr}"></p>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">카테고리</label>
+                <p class="border p-2 m-3" th:text="${param.tbca}"></p>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">카테고리</label>
+                <p class="border p-2 m-3" th:text="${param.tbst}"></p>
             </div>
 <!--            <div class="mb-3">-->
 <!--                <label class="form-label">file</label>-->
@@ -29,7 +41,7 @@
 <!--                    <a th:href="@{/Freeboard/updateform(fr_idx=${Freeboard.fr_idx})}" class="btn btn-dark">수정</a>-->
 <!--                </div>-->
                 <div class="col-3 d-flex justify-content-end">
-                    <a th:href="@{/Freeboard/list(pageNum=1)}" class="btn btn-dark">목록</a>
+                    <a class="btn btn-dark">목록</a>
                 </div>
             </div>
         </div>
