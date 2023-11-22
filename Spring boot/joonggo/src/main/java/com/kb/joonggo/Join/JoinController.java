@@ -47,17 +47,17 @@ public class JoinController {
     }
     @GetMapping("check_id")
     @ResponseBody
-    public String check_id(String id) {
+    public String check_id(String mbr_id) {
         System.out.println("check_id 컨트롤러들어옴");
-
-        Join DBjoin = joinRepository.check_id(id);
+        System.out.println(mbr_id);
+        Join DBjoin = joinRepository.check_id(mbr_id);
 
         if(DBjoin != null) {
-            System.out.println("id :"+id);
+            System.out.println("중복이 아닐때 id :"+DBjoin);
             return  "fail";
         }
         else {
-            System.out.println("id :"+id);
+            System.out.println("중복일 때 id :"+DBjoin);
             return "suc";
         }
 
