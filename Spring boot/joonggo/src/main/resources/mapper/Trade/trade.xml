@@ -20,7 +20,7 @@
     </select>
 
     <select id="countBuyRow" resultType="Integer">
-        select count(*) from Tradeboard
+        select count(*) from Tradeboard where tb_state = "구매중"
     </select>
 
 
@@ -41,7 +41,7 @@
     </select>
 
     <select id="countSellRow" resultType="Integer">
-        select count(*) from Tradeboard
+        select count(*) from Tradeboard where tb_state = "판매중"
     </select>
 
 

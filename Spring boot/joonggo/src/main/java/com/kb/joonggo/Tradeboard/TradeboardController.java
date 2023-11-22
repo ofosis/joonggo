@@ -16,13 +16,13 @@ public class TradeboardController {
     TradeboardRepository tradeboardRepository;
 
     @GetMapping("buylist")
-    public String buylist(Model model, @RequestParam(required = false, defaultValue = "1") int pageNum)
+    public String buylist(Model model, @RequestParam(required = false, defaultValue = "1") int BuypageNum)
     {
         try {
-            model.addAttribute("pageNum", pageNum);
+            model.addAttribute("BuypageNum", BuypageNum);
 
-            pageNum = (pageNum - 1) * 5;
-            List<TradeboardDTO> Buylist = tradeboardRepository.Buylist(pageNum);
+            BuypageNum = (BuypageNum - 1) * 5;
+            List<TradeboardDTO> Buylist = tradeboardRepository.Buylist(BuypageNum);
             int countBuyRow = tradeboardRepository.countBuyRow();
 
             model.addAttribute("Buylist", Buylist);
@@ -39,13 +39,13 @@ public class TradeboardController {
     }
 
     @GetMapping("selllist")
-    public String selllist(Model model, @RequestParam(required = false, defaultValue = "1") int pageNum)
+    public String selllist(Model model, @RequestParam(required = false, defaultValue = "1") int SellpageNum)
     {
         try {
-            model.addAttribute("pageNum", pageNum);
+            model.addAttribute("SellpageNum", SellpageNum);
 
-            pageNum = (pageNum - 1) * 5;
-            List<TradeboardDTO> Selllist = tradeboardRepository.Selllist(pageNum);
+            SellpageNum = (SellpageNum - 1) * 5;
+            List<TradeboardDTO> Selllist = tradeboardRepository.Selllist(SellpageNum);
             int countSellRow = tradeboardRepository.countSellRow();
 
             model.addAttribute("Selllist", Selllist);

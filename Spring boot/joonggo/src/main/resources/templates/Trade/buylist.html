@@ -38,24 +38,24 @@
     <div class="row">
         <h1>총 페이지 개수 = [[ ${countBuyPage} ]]</h1>
         <h1>총 행 개수 = [[ ${countBuyRow} ]]</h1>
-        <h1>현재 페이지 = [[${pageBuyNum}]]</h1>
+        <h1>현재 페이지 = [[${BuypageNum}]]</h1>
         <div class="col d-flex justify-content-center">
             <nav aria-label="Page navigation example">
                 <ul class="pagination">
                     <li class="page-item">
-                        <a class="page-link" th:href="@{/Trade/buylist(pageBuyNum=${pageBuyNum-1})}"
-                           th:classappend="${pageBuyNum} == 1 ? 'disabled'" aria-label="Previous">
+                        <a class="page-link" th:href="@{/Trade/buylist(BuypageNum=${BuypageNum-1})}"
+                           th:classappend="${BuypageNum} == 1 ? 'disabled'" aria-label="Previous">
                             <span aria-hidden="true">&laquo;</span>
                         </a>
                     </li>
                     <li th:each="i:${#numbers.sequence(1, countBuyPage)}" class="page-item">
-                        <a class="page-link" th:href="@{/Trade/buylist(pageBuyNum=${i})}"
-                           th:classappend="${#strings.replace(param.pageBuyNum, ' ', '')} == ${i} ? 'active' : ''"
+                        <a class="page-link" th:href="@{/Trade/buylist(BuypageNum=${i})}"
+                           th:classappend="${#strings.replace(param.BuypageNum, ' ', '')} == ${i} ? 'active' : ''"
                         >[[ ${i} ]]</a>
                     </li>
                     <li class="page-item">
-                        <a class="page-link" th:href="@{/Trade/buylist(pageBuyNum=${pageBuyNum+1})}"
-                           th:classappend="${pageBuyNum} == ${countBuyPage} ? 'disabled'" aria-label="Next">
+                        <a class="page-link" th:href="@{/Trade/buylist(BuypageNum=${BuypageNum+1})}"
+                           th:classappend="${BuypageNum} == ${countBuyPage} ? 'disabled'" aria-label="Next">
                             <span aria-hidden="true">&raquo;</span>
                         </a>
                     </li>

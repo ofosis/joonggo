@@ -38,24 +38,24 @@
     <div class="row">
         <h1>총 페이지 개수 = [[ ${countSellPage} ]]</h1>
         <h1>총 행 개수 = [[ ${countSellRow} ]]</h1>
-        <h1>현재 페이지 = [[${pageNum}]]</h1>
+        <h1>현재 페이지 = [[${SellpageNum}]]</h1>
         <div class="col d-flex justify-content-center">
             <nav aria-label="Page navigation example">
                 <ul class="pagination">
                     <li class="page-item">
-                        <a class="page-link" th:href="@{/Trade/selllist(pageNum=${pageNum-1})}"
-                           th:classappend="${pageNum} == 1 ? 'disabled'" aria-label="Previous">
+                        <a class="page-link" th:href="@{/Trade/selllist(SellpageNum=${SellpageNum-1})}"
+                           th:classappend="${SellpageNum} == 1 ? 'disabled'" aria-label="Previous">
                             <span aria-hidden="true">&laquo;</span>
                         </a>
                     </li>
                     <li th:each="i:${#numbers.sequence(1, countSellPage)}" class="page-item">
-                        <a class="page-link" th:href="@{/Trade/selllist(pageNum=${i})}"
-                           th:classappend="${#strings.replace(param.pageNum, ' ', '')} == ${i} ? 'active' : ''"
+                        <a class="page-link" th:href="@{/Trade/selllist(SellpageNum=${i})}"
+                           th:classappend="${#strings.replace(param.SellpageNum, ' ', '')} == ${i} ? 'active' : ''"
                         >[[ ${i} ]]</a>
                     </li>
                     <li class="page-item">
-                        <a class="page-link" th:href="@{/Trade/selllist(pageNum=${pageNum+1})}"
-                           th:classappend="${pageNum} == ${countSellPage} ? 'disabled'" aria-label="Next">
+                        <a class="page-link" th:href="@{/Trade/selllist(SellpageNum=${SellpageNum+1})}"
+                           th:classappend="${SellpageNum} == ${countSellPage} ? 'disabled'" aria-label="Next">
                             <span aria-hidden="true">&raquo;</span>
                         </a>
                     </li>
