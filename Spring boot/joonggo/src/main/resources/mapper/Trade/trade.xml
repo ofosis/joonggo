@@ -12,7 +12,7 @@
         SELECT * FROM Tradeboard
         where tb_state = "구매중"
         ORDER BY tb_idx desc
-        LIMIT #{pageNum}, 5;
+        LIMIT #{pageNum}, 3;
     </select>
 
     <select id="selectBuyRow" parameterType="Integer" resultType="TradeboardDTO">
@@ -33,7 +33,7 @@
         SELECT * FROM Tradeboard
         where tb_state = "판매중"
         ORDER BY tb_idx desc
-        LIMIT #{pageNum}, 5;
+        LIMIT #{pageNum}, 3;
     </select>
 
     <select id="selectSellRow" parameterType="Integer" resultType="TradeboardDTO">
