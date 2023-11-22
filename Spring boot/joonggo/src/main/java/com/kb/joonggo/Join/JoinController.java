@@ -49,21 +49,22 @@ public class JoinController {
     @ResponseBody
     public String check_id(String mbr_id) {
         System.out.println("check_id 컨트롤러들어옴");
-        System.out.println(mbr_id);
+        System.out.println("입력된 mbr_id : "+mbr_id);
+
+        if(mbr_id.equals(""))
+            return  "비어 있을수없습니다.";
+
         Join DBjoin = joinRepository.check_id(mbr_id);
 
         if(DBjoin != null) {
-            System.out.println("중복이 아닐때 id :"+DBjoin);
-            return  "fail";
+            System.out.println("중복일 때 id : "+mbr_id);
+            return  mbr_id+"는 중복된 아이디 입니다.";
         }
         else {
-            System.out.println("중복일 때 id :"+DBjoin);
-            return "suc";
+            System.out.println("중복 아닐 때 id :"+mbr_id);
+            return "사용가능한 아이디입니다";
         }
-
-
     }
-
 }
 
 

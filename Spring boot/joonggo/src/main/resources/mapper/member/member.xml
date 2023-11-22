@@ -11,10 +11,8 @@
         #{mbr_email}, #{mbr_addr})
     </select>
 
-    <select id="check_id" parameterType="String" resultType="Join">
+    <select id="check_id" parameterType="java.lang.String" resultType="Join">
         SELECT * FROM Member WHERE mbr_id = #{mbr_id}
     </select>
-
-
 </mapper>
 
