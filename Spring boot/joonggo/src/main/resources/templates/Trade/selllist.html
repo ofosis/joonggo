@@ -15,7 +15,7 @@
             <div th:each="TradeboardDTO : ${Selllist}" class="col mb-5">
                 <div class="card h-100">
                     <!-- Product image-->
-                    <div class="col mb-5">
+                    <div class="col mb-5" onclick="handleImageClick(/* pass necessary parameters here */)">
                         <div class="card h-100">
                             <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
                             <div class="card-body p-4">
@@ -35,6 +35,13 @@
             </div>
         </div>
     </div>
+    <script>
+        function handleImageClick(/* pass necessary parameters here */) {
+         // Add your logic for image click here
+         // Example: Redirect to the POSTWRITE page
+         window.location.href = "/aPost/Watchpost";
+     }
+    </script>
     <div class="row">
         <h1>총 페이지 개수 = [[ ${countSellPage} ]]</h1>
         <h1>총 행 개수 = [[ ${countSellRow} ]]</h1>
