@@ -23,7 +23,7 @@
 
                 <div class="mb-3">
                     <label for="content" class="form-label">Content</label>
-                    <textarea name="content" class="form-control fieldError" id="content" rows="3"
+                    <textarea name="content" class="form-control fieldError" id="content" rows="3" placeholder="content"
                               th:field="*{content}"
                               th:class="${#fields.hasErrors('content')}? 'form-control is-invalid':'form-control' "
                               th:classappend="${first != 'true'} ? 'is-valid'" ></textarea>
