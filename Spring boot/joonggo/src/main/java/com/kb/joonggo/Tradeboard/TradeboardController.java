@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -103,7 +106,20 @@ public class TradeboardController {
             return "redirect:/Freeboard/list";
         }
         System.out.println("에러 발생 X");
+
+        // 문자열로 된 date를 Date로 변환
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
+        Date parsedDate;
+        try {
+            parsedDate = dateFormat.parse(tradeboardReq.getDate());
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return "redirect:/Freeboard/list";
+        }
+
         System.out.println(tradeboardReq);
+
+
 
         /* 저장하는 부분 시작 */
         // tradeboardReq 객체를 tradeboard 객체로 변환
@@ -111,7 +127,7 @@ public class TradeboardController {
 //                .originalfilename(tradeboardReq.getOriginalfilename())
                 .tb_title(tradeboardReq.getTitle())
                 .tb_content(tradeboardReq.getContent())
-                .tb_date(tradeboardReq.getDate())
+                .tb_date(parsedDate)
                 .tb_price(tradeboardReq.getPrice())
                 .tb_category(tradeboardReq.getCategory())
                 .tb_count(0)

@@ -45,7 +45,7 @@
     </select>
 
     <insert id="insert" parameterType="TradeboardDTO">
-        insert into TradeboardDTO
+        insert into Tradeboard
         (tb_title, tb_content, tb_date, tb_price, tb_category, tb_count, tb_state, mbr_idx, img_idx)
         values
         (#{tb_title}, #{tb_content}, #{tb_date}, #{tb_price}, #{tb_category}, #{tb_count}, #{tb_state}, #{mbr_idx}, #{img_idx})

@@ -20,7 +20,7 @@ public class TradeboardReq {
     @NotEmpty
     private String content;
     @NotNull
-    private Date date;
+    private String date;
     @NotNull
     private int price;
     @NotEmpty
