@@ -14,5 +14,5 @@
     <select id="check_id" parameterType="java.lang.String" resultType="Join">
         SELECT * FROM Member WHERE mbr_id = #{mbr_id}
     </select>
-</mapper>
 
+</mapper>

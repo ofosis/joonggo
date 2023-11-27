@@ -29,7 +29,6 @@ public class JoinController {
 
         System.out.println(joinReq);
 
-
         Join join = Join.builder()
                         .mbr_nick(joinReq.getMbr_nick())
                         .mbr_id(joinReq.getMbr_id())

@@ -5,7 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="62ccc8d7-8f4b-4299-92c6-83cf605b8eaf" name="변경" comment="">
+      <change afterPath="$PROJECT_DIR$/Spring boot/joonggo/src/main/java/com/kb/joonggo/Find/Find.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Spring boot/joonggo/src/main/java/com/kb/joonggo/Find/FindRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Spring boot/joonggo/src/main/java/com/kb/joonggo/Find/FindReq.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Spring boot/joonggo/src/main/resources/mapper/Find/member.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spring boot/joonggo/src/main/java/com/kb/joonggo/Find/FindController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Spring boot/joonggo/src/main/java/com/kb/joonggo/Find/FindController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spring boot/joonggo/src/main/java/com/kb/joonggo/Join/JoinController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Spring boot/joonggo/src/main/java/com/kb/joonggo/Join/JoinController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spring boot/joonggo/src/main/java/com/kb/joonggo/Join/JoinReq.java" beforeDir="false" afterPath="$PROJECT_DIR$/Spring boot/joonggo/src/main/java/com/kb/joonggo/Join/JoinReq.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spring boot/joonggo/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/Spring boot/joonggo/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spring boot/joonggo/src/main/resources/mapper/member/member.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Spring boot/joonggo/src/main/resources/mapper/member/member.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spring boot/joonggo/src/main/resources/templates/Find/findpage.html" beforeDir="false" afterPath="$PROJECT_DIR$/Spring boot/joonggo/src/main/resources/templates/Find/findpage.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spring boot/joonggo/src/main/resources/templates/Join/joinpage.html" beforeDir="false" afterPath="$PROJECT_DIR$/Spring boot/joonggo/src/main/resources/templates/Join/joinpage.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spring boot/joonggo/src/main/resources/templates/Login/loginpage.html" beforeDir="false" afterPath="$PROJECT_DIR$/Spring boot/joonggo/src/main/resources/templates/Login/loginpage.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,9 +42,9 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "1120__buysell",
+    "git-widget-placeholder": "1122ej",
     "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "C:/Users/KB/Documents/joonggo"
+    "last_opened_file_path": "C:/Users/KB/Desktop/Joonggo/Spring boot/joonggo"
   }
 }]]></component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="애플리케이션 수준" UseSingleDictionary="true" transferred="true" />
