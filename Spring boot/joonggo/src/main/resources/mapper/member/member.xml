@@ -15,6 +15,9 @@
         SELECT * FROM Member WHERE mbr_id = #{mbr_id}
     </select>
 
+    <select id="selectRow2" resultType="TradeboardDTO" parameterType="Integer">
+        select * from Tradeboard where tb_idx = #{tb_idx}
+    </select>
 
 </mapper>
 

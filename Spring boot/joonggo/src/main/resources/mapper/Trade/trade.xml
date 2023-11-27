@@ -16,13 +16,16 @@
     </select>
 
     <select id="selectBuyRow" parameterType="Integer" resultType="TradeboardDTO">
-        select * from Tradeboard where tb_idx = #{tb_idx}
+        SELECT * FROM Tradeboard JOIN Member ON Tradeboard.mbr_idx = Member.mbr_idx WHERE tb_idx = #{tb_idx}
     </select>
 
     <select id="countBuyRow" resultType="Integer">
         select count(*) from Tradeboard where tb_state = "구매중"
     </select>
 
+    <select id="selectRow2" resultType="TradeboardReq" parameterType="Integer">
+        select * from Tradeboard join Member on Member.mbr_idx = Tradeboard.mbr_idx where tb_idx = #{tb_idx}
+    </select>
 
 
     <select id="SellAlllist" resultType="TradeboardDTO">

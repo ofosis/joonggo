@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout/layout :: head('home')}">
+</head>
+<body>
+<nav th:replace="~{layout/layout :: nav('home')}"></nav>
+<div class="container p-3">
+    <div class="row">
+        <div class="col">
+            <div class="mb-3">
+                <label class="form-label">제목</label>
+                <p class="border p-2 m-3" id="tbTitle"></p>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">내용</label>
+                <p class="border p-3 m-3" id="tbContent"></p>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">닉네임</label>
+                <p class="border p-2 m-3" id="tbNickname"></p>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">가격</label>
+                <p class="border p-2 m-3" id="tbPrice"></p>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">상태</label>
+                <p class="border p-2 m-3" id="tbState"></p>
+            </div>
+            <!-- 다른 필요한 정보들을 위와 같이 추가 -->
+
+        </div>
+    </div>
+</div>
+<script>
+    function handleImageClick(element) {
+        var tbIdx = [[${param.tb_idx}]];
+        fetch("/Trade/getTradeboardInfo?tb_idx=" + tbIdx)
+            .then(response => response.json())
+            .then(data => {
+                // 게시글 정보를 각 라벨에 표시
+                document.getElementById("tbTitle").innerText = data.tb_title || "";
+                document.getElementById("tbContent").innerText = data.tb_content || "";
+                document.getElementById("tbNickname").innerText = data.mbr_nick || "";
+                document.getElementById("tbPrice").innerText = data.tb_price || "";
+                document.getElementById("tbState").innerText = data.tb_state || "";
+                // 다른 필요한 정보들도 업데이트
+            })
+            .catch(error => console.error('Error fetching tradeboard info:', error));
+    }
+    handleImageClick();
+</script>
+</body>
+</html>

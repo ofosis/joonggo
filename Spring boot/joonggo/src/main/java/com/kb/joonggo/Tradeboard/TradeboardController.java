@@ -3,13 +3,12 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -20,6 +19,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("Trade")
+@CrossOrigin(origins = "http://localhost:8080") // 클라이언트의 주소에 맞게 수정
 public class TradeboardController {
 
     @Autowired
@@ -111,8 +111,8 @@ public class TradeboardController {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
         Date parsedDate;
         try {
-            parsedDate = dateFormat.parse(tradeboardReq.getDate());
-        } catch (ParseException e) {
+            parsedDate = tradeboardReq.getTb_date();
+        } catch (Exception e) {
             e.printStackTrace();
             return "redirect:/Freeboard/list";
         }
@@ -125,13 +125,13 @@ public class TradeboardController {
         // tradeboardReq 객체를 tradeboard 객체로 변환
         TradeboardDTO tradeboardDTO = TradeboardDTO.builder()
 //                .originalfilename(tradeboardReq.getOriginalfilename())
-                .tb_title(tradeboardReq.getTitle())
-                .tb_content(tradeboardReq.getContent())
+                .tb_title(tradeboardReq.getTb_title())
+                .tb_content(tradeboardReq.getTb_content())
                 .tb_date(parsedDate)
-                .tb_price(tradeboardReq.getPrice())
-                .tb_category(tradeboardReq.getCategory())
+                .tb_price(tradeboardReq.getTb_price())
+                .tb_category(tradeboardReq.getTb_category())
                 .tb_count(0)
-                .tb_state(tradeboardReq.getState())
+                .tb_state(tradeboardReq.getTb_state())
                 .mbr_idx(tradeboardReq.getMbr_idx())
                 .img_idx(tradeboardReq.getImg_idx())
                 .build();
@@ -144,5 +144,36 @@ public class TradeboardController {
 
         return "redirect:/";
     }
+
+    @GetMapping("productdetail")
+    private String detail(Model model, @RequestParam(name = "tb_idx", required = false) Integer tb_idx) {
+        if (tb_idx != null) {
+            TradeboardReq tradeboardReq = tradeboardRepository.selectRow2(tb_idx);
+            model.addAttribute("TradeboardReq",tradeboardReq);
+            return "Trade/productdetail";
+        } else {
+            System.out.println("idx가 없어요");
+            return "error"; // 또는 다른 에러 처리 로직
+        }
+    }
+
+    @GetMapping("getTradeboardInfo")
+    @ResponseBody
+    public ResponseEntity<TradeboardReq> getTradeboardInfo(@RequestParam(name = "tb_idx", required = true) Integer tb_idx) {
+        if (tb_idx != null) {
+            TradeboardReq tradeboardReq = tradeboardRepository.selectRow2(tb_idx);
+            System.out.println(tradeboardReq);
+            // Ensure that tb_date is not null
+            if (tradeboardReq.getTb_date() == null) {
+                tradeboardReq.setTb_date(new Date());
+                // You may want to initialize it with a default date or handle it differently based on your requirements
+            }
+
+            return new ResponseEntity<>(tradeboardReq, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
 
 }

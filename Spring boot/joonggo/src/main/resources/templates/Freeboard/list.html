@@ -35,21 +35,21 @@
         <h1 style="font-size: 18px;">총 행 개수 = [[ ${countRow} ]]</h1>
         <h1 style="font-size: 18px;">현재 페이지 [[${pageNum}]]</h1>
         <div class="col d-flex justify-content-center">
-            <nav aria-label="Page navigation example">
-                <ul class="pagination">
-                    <li class="page-item">
-                        <a class="page-link" th:href="@{/Freeboard/list(pageNum=${pageNum-1})}"
-                           th:classappend="${pageNum} == 1 ? 'disabled'"
-                        >Previous</a>
-                    </li>
-                    <li th:each="i:${#numbers.sequence(1,countPage)}" class="page-item">
-                        <a class="page-link" th:href="@{/Freeboard/list(pageNum=${i})}"
-                           th:classappend="${#strings.replace(param.pageNum,' ','')} == ${i} ? 'active' : ''"
-                        >[[ ${i} ]]</a>
-                    </li>
-                    <li class="page-item">
-                        <a class="page-link" th:href="@{/Freeboard/list(pageNum=${pageNum+1})}"
-                           th:classappend="${pageNum} == ${countPage} ? 'disabled'"
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination">
+                                <li class="page-item">
+                                    <a class="page-link" th:href="@{/Freeboard/list(pageNum=${pageNum-1})}"
+                                       th:classappend="${pageNum} == 1 ? 'disabled'"
+                                    >Previous</a>
+                                </li>
+                                <li th:each="i:${#numbers.sequence(1,countPage)}" class="page-item">
+                                    <a class="page-link" th:href="@{/Freeboard/list(pageNum=${i})}"
+                                       th:classappend="${#strings.replace(param.pageNum,' ','')} == ${i} ? 'active' : ''"
+                                    >[[ ${i} ]]</a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link" th:href="@{/Freeboard/list(pageNum=${pageNum+1})}"
+                                       th:classappend="${pageNum} == ${countPage} ? 'disabled'"
                         >Next</a>
                     </li>
                 </ul>

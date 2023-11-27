@@ -9,6 +9,7 @@ import java.util.Date;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 public class TradeboardDTO {
     private int tb_idx;
     private String tb_title;

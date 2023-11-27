@@ -4,6 +4,8 @@ import jakarta.annotation.Nullable;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Date;
 
 @Data
@@ -14,23 +16,26 @@ import java.util.Date;
 @NoArgsConstructor
 public class TradeboardReq {
     @Nullable
-    private int idx;
+    private int tb_idx;
     @NotEmpty
-    private String title;
+    private String tb_title;
     @NotEmpty
-    private String content;
+    private String tb_content;
     @NotNull
-    private String date;
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+    private Date tb_date;
     @NotNull
-    private int price;
+    private int tb_price;
     @NotEmpty
-    private String category;
+    private String tb_category;
     @Nullable
-    private int count;
+    private int tb_count;
     @NotEmpty
-    private String state;
+    private String tb_state;
     @NotNull
     private int mbr_idx;
     @Nullable
     private int img_idx;
+    @NotEmpty
+    private String mbr_nick;
 }
