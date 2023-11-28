@@ -5,6 +5,11 @@ import org.springframework.format.annotation.DateTimeFormat;
 import java.util.Date;
 @Data
 @Builder
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
 public class TradeboardDTO {
     private int tb_idx;
     private String tb_title;

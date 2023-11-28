@@ -4,37 +4,36 @@ import jakarta.annotation.Nullable;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.util.Date;
 
 @Data
-@Builder
+@AllArgsConstructor
 public class TradeboardReq {
-
     @Nullable
-    private int idx;
-
+    private int tb_idx;
     @NotEmpty
-    private String title;
+    private String tb_title;
     @NotEmpty
-    private String content;
+    private String tb_content;
     @NotNull
-    private String date;
-    @Nullable
-    private int price;
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+    private Date tb_date;
+    @NotNull
+    private int tb_price;
     @NotEmpty
-    private String category;
+    private String tb_category;
     @Nullable
-    private int count;
+    private int tb_count;
     @NotEmpty
-    private String state;
-    @Nullable
+    private String tb_state;
+    @NotNull
     private int mbr_idx;
-
     @Nullable
     private int img_idx;
-    @Nullable
-//    private MultipartFile img_name;
-    private String img_name;
-
-    private String img_path;
+    @NotEmpty
+    private String mbr_nick;
+    @NotEmpty
+    private String mbr_addr;
 }
