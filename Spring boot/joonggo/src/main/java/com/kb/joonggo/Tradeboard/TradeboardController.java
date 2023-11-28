@@ -163,10 +163,8 @@ public class TradeboardController {
         if (tb_idx != null) {
             TradeboardReq tradeboardReq = tradeboardRepository.selectRow2(tb_idx);
             System.out.println(tradeboardReq);
-            // Ensure that tb_date is not null
             if (tradeboardReq.getTb_date() == null) {
                 tradeboardReq.setTb_date(new Date());
-                // You may want to initialize it with a default date or handle it differently based on your requirements
             }
 
             return new ResponseEntity<>(tradeboardReq, HttpStatus.OK);
@@ -174,6 +172,4 @@ public class TradeboardController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
-
-
 }

@@ -9,11 +9,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import java.util.Date;
 
 @Data
-@Builder
-@Getter
-@Setter
 @AllArgsConstructor
-@NoArgsConstructor
 public class TradeboardReq {
     @Nullable
     private int tb_idx;
@@ -38,4 +34,6 @@ public class TradeboardReq {
     private int img_idx;
     @NotEmpty
     private String mbr_nick;
+    @NotEmpty
+    private String mbr_addr;
 }
