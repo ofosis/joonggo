@@ -1,4 +1,6 @@
 package com.kb.joonggo.Tradeboard;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -17,6 +19,21 @@ public interface TradeboardRepository {
     public TradeboardDTO selectSellRow(int idx);
 
 
+    public void saveImage(TradeboardReq tradeboardReq);
+
+
     public void insert(TradeboardDTO tradeboardDTO);
 
+    public int search_tb_idx(String tb_title,String tb_content,int tb_price,String tb_category,int tb_count,String tb_state);
+
+    public void img_idx_update(
+            int img_idx,
+            int tb_idx,
+            String tb_title,
+            String tb_content,
+            int tb_price,
+            String tb_category,
+            int tb_count,
+            String tb_state
+    );
 }

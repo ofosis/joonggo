@@ -4,24 +4,22 @@ import jakarta.annotation.Nullable;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
-import java.util.Date;
+import org.springframework.web.multipart.MultipartFile;
 
 @Data
 @Builder
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
 public class TradeboardReq {
+
     @Nullable
     private int idx;
+
     @NotEmpty
     private String title;
     @NotEmpty
     private String content;
     @NotNull
     private String date;
-    @NotNull
+    @Nullable
     private int price;
     @NotEmpty
     private String category;
@@ -29,8 +27,14 @@ public class TradeboardReq {
     private int count;
     @NotEmpty
     private String state;
-    @NotNull
+    @Nullable
     private int mbr_idx;
+
     @Nullable
     private int img_idx;
+    @Nullable
+//    private MultipartFile img_name;
+    private String img_name;
+
+    private String img_path;
 }
