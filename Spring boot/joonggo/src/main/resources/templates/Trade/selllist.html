@@ -13,11 +13,13 @@
         <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
             <!-- Thymeleaf로 순회하면서 각각의 제품을 표시 -->
             <div th:each="TradeboardReq : ${Selllist}" class="col mb-5">
+<!--            <div th:each="TradeboardReq : ${SellAlllist}" class="col mb-5">-->
                 <div class="card h-100">
                     <!-- 상품 이미지-->
                     <div class="col mb-5" th:data-tb-idx="${TradeboardReq.tb_idx}" onclick="handleImageClick(this)">
                         <div class="card h-100">
                             <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." th:idx="${TradeboardReq.tb_idx}"/>
+<!--                            <img class="card-img-top" th:src="'file:///D:/uploadpath/' + ${img_name}" alt="..." th:idx="${tradeboardReq.tb_idx}"/>-->
                             <div class="card-body p-4">
                                 <div class="text-center">
                                     <h5 class="fw-bolder" th:text="${TradeboardReq.tb_title}">상품명</h5>
