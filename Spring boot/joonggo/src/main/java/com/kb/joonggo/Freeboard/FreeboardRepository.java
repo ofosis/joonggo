@@ -1,21 +1,33 @@
 package com.kb.joonggo.Freeboard;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
 @Mapper
 public interface FreeboardRepository {
-    public void delete(List idxList);
 
-    //    public List<FreeBoard> list(int pageNum);
-    public List<FreeBoard> list(int pageNum);
+    static void update(FreeBoard freeboard) {
+    }
 
-    public void insert(FreeBoard freeBoard);
+    void delete(List idxList);
 
-    public int countRow();
+    List<FreeBoard> list(int pageNum);
 
-    public FreeboardReq selectRow(int fr_idx);
+    void insert(FreeBoard freeBoard);
 
-    public void update(FreeBoard freeBoard);
+    int countRow();
+
+    FreeboardReq selectRow(int fr_idx);
+
+    FreeboardReq findByIdx(int fr_idx);
+
+    void save(FreeboardReq freeboard);
+
+    @Modifying
+    @Query("UPDATE FreeBoard f SET f.view_count = f.view_count + 1 WHERE f.fr_idx = :frIdx")
+    void updateViewCount(@Param("frIdx") int frIdx);
 }

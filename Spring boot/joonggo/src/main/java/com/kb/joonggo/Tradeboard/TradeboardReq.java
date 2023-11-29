@@ -4,42 +4,33 @@ import jakarta.annotation.Nullable;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
-import org.springframework.format.annotation.DateTimeFormat;
-
 import java.util.Date;
 
 @Data
+@Builder
+@Getter
+@Setter
 @AllArgsConstructor
+@NoArgsConstructor
 public class TradeboardReq {
     @Nullable
-    private int tb_idx;
+    private int idx;
     @NotEmpty
-    private String tb_title;
+    private String title;
     @NotEmpty
-    private String tb_content;
+    private String content;
     @NotNull
-    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
-    private Date tb_date;
-    @Nullable
-    private int tb_price;
+    private Date date;
+    @NotNull
+    private int price;
     @NotEmpty
-    private String tb_category;
+    private String category;
     @Nullable
-    private int tb_count;
+    private int count;
     @NotEmpty
-    private String tb_state;
-
-    @Nullable
+    private String state;
+    @NotNull
     private int mbr_idx;
     @Nullable
-    private String mbr_nick;
-    @Nullable
-    private String mbr_addr;
-
-    @Nullable
     private int img_idx;
-    @Nullable
-    private String img_name;
-    @Nullable
-    private String img_path;
 }
