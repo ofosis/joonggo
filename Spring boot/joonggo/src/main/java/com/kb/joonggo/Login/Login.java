@@ -1,4 +1,4 @@
-package com.kb.joonggo.Join;
+package com.kb.joonggo.Login;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Join {
+public class Login {
     private int mbr_idx;
     private String mbr_nick;
     private String mbr_id;

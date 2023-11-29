@@ -22,7 +22,7 @@ public class FindController {
 
     @GetMapping("find_id")
     @ResponseBody
-    public String check_id(String mbr_contact, String mbr_email, String mbr_id) {
+    public String find_id(String mbr_contact, String mbr_email, String mbr_id) {
         System.out.println("find_id 컨트롤러들어옴");
         System.out.println("입력된 mbr_contact : "+mbr_contact);
         System.out.println("입력된 mbr_email : "+mbr_email);
@@ -35,17 +35,18 @@ public class FindController {
         Find DBFind = findRepository.find_id(mbr_contact, mbr_email);
 
         if(DBFind == null){
+            System.out.println("-----DB값 없을 때-----");
             return  "해당하는 사용자가 없습니다.";
         }
 
         mbr_id = DBFind.getMbr_id();
 
         if(DBFind != null) {
-            System.out.println("-----DB값 없을 때-----");
+            System.out.println("-----DB값 있을 때-----");
             System.out.println("mbr_contact : "+mbr_contact);
             System.out.println("mbr_email : "+mbr_email);
             System.out.println("DB에서 가져온 mbr_id : "+mbr_id);
-            return  "찾으시는 아이디 :"+mbr_id;
+            return "찾으시는 아이디: " + mbr_id + "\n확인을 누르시면 로그인 페이지로 이동합니다." ;
         }
         else {
             System.out.println("전화번호 : "+mbr_contact);
@@ -80,7 +81,7 @@ public class FindController {
             System.out.println("mbr_id : "+mbr_id);
             System.out.println("mbr_email2 : "+mbr_email);
             System.out.println("DB에서 가져온 mbr_pwd : "+mbr_pwd);
-            return  "찾으시는 비밀번호 :"+mbr_pwd;
+            return  "찾으시는 비밀번호 :"+mbr_pwd + "\n확인을 누르시면 로그인 페이지로 이동합니다.";
         }
         else {
             System.out.println("전화번호 : "+mbr_id);

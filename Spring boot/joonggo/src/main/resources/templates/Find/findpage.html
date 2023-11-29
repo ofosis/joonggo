@@ -94,11 +94,15 @@
             data: { mbr_contact:  $('#mbr_contact').val(),
                     mbr_email: $('#mbr_email').val() },
             success:function(res){
-                if(res =='suc')
+                if(res.includes('찾으')) {
                     onsub = true;
-                else
+                    alert(res);
+                    window.location.href = '/Login/loginpage';
+                }
+                else {
                     onsub = false;
-                 alert(res);
+                    alert(res);
+                }
             }
         } );
     }
@@ -109,11 +113,15 @@
             data: { mbr_id:  $('#mbr_id').val(),
                     mbr_email: $('#mbr_email2').val() },
             success:function(res){
-                if(res =='suc')
+               if(res.includes('찾으')) {
                     onsub = true;
-                else
+                    alert(res);
+                    window.location.href = '/Login/loginpage';
+               }
+               else {
                     onsub = false;
-                 alert(res);
+                    alert(res);
+               }
             }
         } );
     }
