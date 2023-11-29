@@ -15,8 +15,8 @@
             <div class="col-sm-1"> </div>
         </div>
 
-        <form id="JoinForm" action="/Join/joininsert" method="post" th:object="${JoinReq}" enctype="multipart/form-data" onsubmit="return validateForm()">
-            <!--닉네임 입력-->
+        <form id="JoinForm" action="/Join/joininsert" method="post" th:object="${JoinReq}" enctype="multipart/form-data" onsubmit="return validateForm()">>
+
             <div class="row" style="margin-bottom: 30px;">
                 <label for="mbr_nick" class="col-sm-2 form-label text-left mb-2 mb-sm-0" style="display: flex; align-items: center;">닉네임</label>
                 <div class="col-sm-7">
@@ -25,7 +25,6 @@
                 <div class="col-sm-3"> </div>
             </div>
 
-            <!--아이디 입력 및 중복 확인 버튼-->
             <div class="row" >
                 <label for="mbr_id" class="col-sm-2 form-label text-left mb-2 mb-sm-0" style="display: flex; align-items: center;">아이디</label>
                 <div class="col-sm-7 ">
@@ -37,14 +36,12 @@
                 </div>
             </div>
 
-            <!--아이디 중복 확인 확인 메세지-->
             <div class="row" style="text-align: center; margin-bottom: 15px; color:red;">
                 <div class="col-sm-2" style=" height: 15px; width: 16%;"> </div>
                 <div class="col-sm-7 " id="id_info" style="text-align: center; height: 15px; width: 58%;"></div>
                 <div class="col-sm-3"> </div>
             </div>
 
-            <!--비밀번호 입력-->
             <div class="row" style="margin-bottom: 30px;">
                 <label for="mbr_pwd" class="col-sm-2 form-label text-left mb-2 mb-sm-0" style="display: flex; align-items: center;">비밀번호</label>
                 <div class="col-sm-7 ">
@@ -53,7 +50,6 @@
                 <div class="col-sm-3 "> </div>
             </div>
 
-            <!--이름 입력-->
             <div class="row" style="margin-bottom: 30px;">
                 <label for="mbr_name" class="col-sm-2 form-label text-left mb-2 mb-sm-0" style="display: flex; align-items: center;">이름</label>
                 <div class="col-sm-7 ">
@@ -62,25 +58,22 @@
                 <div class="col-sm-3 "> </div>
             </div>
 
-            <!--휴대전화 입력-->
             <div class="row" style="margin-bottom: 30px;">
                 <label for="mbr_contact" class="col-sm-2 form-label text-left mb-2 mb-sm-0" style="display: flex; align-items: center;">휴대전화</label>
                 <div class="col-sm-7 ">
-                    <input type="tel" class="form-control" id="mbr_contact" name="mbr_contact" placeholder="휴대전화번호('-' 포함)" style="border-color: #80A6FF;" required>
+                    <input type="text" class="form-control" id="mbr_contact" name="mbr_contact" placeholder="휴대전화번호('-' 포함)" style="border-color: #80A6FF;" required>
                 </div>
                 <div class="col-sm-3"> </div>
             </div>
 
-            <!--이메일 입력-->
             <div class="row" style="margin-bottom: 30px;">
                 <label for="mbr_email" class="col-sm-2 form-label text-left mb-2 mb-sm-0" style="display: flex; align-items: center;">이메일</label>
                 <div class="col-sm-7 ">
-                    <input type="email" class="form-control" id="mbr_email" name="mbr_email" placeholder="ex) qwer@gmail.com" style="border-color: #80A6FF;" required>
+                    <input type="text" class="form-control" id="mbr_email" name="mbr_email" placeholder="ex) qwer@gmail.com" style="border-color: #80A6FF;" required>
                 </div>
                 <div class="col-sm-3"> </div>
             </div>
 
-            <!--주소 선택-->
             <div class="row " style="margin-bottom: 20px;">
                 <label for="mbr_addr" class="col-sm-2 form-label text-left mb-2 mb-sm-0" style="display: flex; align-items: center;">주소</label>
                 <div class="col-sm-7" style="position: relative;">
@@ -103,7 +96,6 @@
                 <div class="col-sm-3 "> </div>
             </div>
 
-            <!--안내 메세지-->
             <div class="row" style="margin-bottom: 10px;">
                 <label class="col-sm-2 form-label "></label>
                 <div class="col-sm-7 " style="text-align: center;">
@@ -112,11 +104,10 @@
                 <div class="col-sm-3 "> </div>
             </div>
 
-            <!--회원 가입 버튼-->
             <div class="row mt-3 " style="margin-bottom: 6px;">
                 <div class="col-sm-2 "> </div>
                 <div class="col-sm-7">
-                    <button type="submit" class="btn btn-primary form-control" >회원가입</button>
+                    <button type="submit" class="btn btn-primary form-control" disabled>회원가입</button>
                 </div>
                 <div class="col-sm-3 "> </div>
             </div>
@@ -129,7 +120,6 @@
 <script>
     var onsub = false;
 
-    <!--아이디 중복 확인 함수-->
     function id_check() {
         $.ajax({
             url: '/Join/check_id',
@@ -146,12 +136,23 @@
                     onsub = false;
                 }
                 id_info.text(res);
+
+                // 중복 확인 결과에 따라 회원가입 버튼 활성화/비활성화 조절
+                toggleSubmitButton();
             }
         });
     }
 
+    // 회원가입 버튼 상태를 중복 확인 결과에 따라 조절
+    function toggleSubmitButton() {
+        var submitButton = $('#JoinForm button[type="submit"]');
+        if (onsub) {
+            submitButton.prop('disabled', false);
+        } else {
+            submitButton.prop('disabled', true);
+        }
+    }
 
-    <!--joininset 넘어가기 전 공백 및 중복 확인 함수-->
     function validateForm() {
         var mbr_addr = document.getElementById('mbr_addr').value;
         var id_info = $('#id_info');

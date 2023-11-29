@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kb.joonggo.Join.JoinRepository">
+    <select id="insert" parameterType="Join">
+        INSERT INTO Member
+        (mbr_nick, mbr_id, mbr_pwd, mbr_name, mbr_contact, mbr_email, mbr_addr)
+        VALUES
+        ( #{mbr_nick}, #{mbr_id},#{mbr_pwd}, #{mbr_name}, #{mbr_contact},
+        #{mbr_email}, #{mbr_addr})
+    </select>
+
+    <select id="check_id" parameterType="java.lang.String" resultType="Join">
+        SELECT * FROM Member WHERE mbr_id = #{mbr_id}
+    </select>
+
+</mapper>
