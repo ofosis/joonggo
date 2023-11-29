@@ -269,12 +269,23 @@ public class TradeboardController {
         if (tb_idx != null) {
             TradeboardReq tradeboardReq = tradeboardRepository.selectRow2(tb_idx);
             model.addAttribute("TradeboardReq",tradeboardReq);
+
+
             return "Trade/productdetail";
         } else {
             System.out.println("idx가 없어요");
             return "error"; // 또는 다른 에러 처리 로직
         }
     }
+
+//    @GetMapping("productdetail")
+//    private String getsellinfo(Model model, @RequestParam(name = "category", required = false) String category) {
+//        List<TradeboardReq> Recoselllist = tradeboardRepository.Recoselllist(category);
+//        int countSellRow = tradeboardRepository.countSellRow();
+//
+//        model.addAttribute("Recoselllist", Recoselllist);
+//        return "Trade/productdetail";
+//    }
 
     @GetMapping("getTradeboardInfo")
     @ResponseBody

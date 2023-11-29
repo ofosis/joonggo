@@ -18,6 +18,7 @@ public interface TradeboardRepository {
     public int countSellRow();
     public TradeboardDTO selectSellRow(int idx);
 
+    public List<TradeboardReq> Recoselllist(String category);
     public TradeboardReq selectRow2(int idx);
 
     public void saveImage(TradeboardReq tradeboardReq);
