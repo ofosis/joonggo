@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout/layout :: head('home')}">
+</head>
+<body>
+<nav th:replace="~{layout/layout :: nav('home')}"></nav>
+<h1>고객사랑</h1>
+</body>
+</html>
+<script>
+    $(document).ready(function(){
+      $(".slider").bxSlider();
+    });
+</script>
