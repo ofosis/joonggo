@@ -39,6 +39,13 @@
         LIMIT #{pageNum}, 3;
     </select>
 
+    <select id="Recoselllist" resultType="TradeboardReq" parameterType="map">
+        SELECT * FROM Tradeboard t
+        JOIN Member m ON t.mbr_idx = m.mbr_idx
+        WHERE tb_category = #{category} AND m.mbr_idx != 123
+        ORDER BY tb_count DESC;
+    </select>
+
     <select id="selectSellRow" parameterType="Integer" resultType="TradeboardDTO">
         select * from Tradeboard where tb_idx = #{tb_idx}
     </select>
