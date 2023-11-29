@@ -56,8 +56,8 @@ public class TradeboardController {
             int countBuyPage = (countBuyRow / 3) + ((countBuyRow % 3 > 0) ? 1 : 0);
             model.addAttribute("countBuyPage", countBuyPage);
 
-            List<TradeboardReq> BuyAlllist = tradeboardRepository.BuyAlllist();
-            model.addAttribute("BuyAlllist", BuyAlllist);
+//            List<TradeboardReq> BuyAlllist = tradeboardRepository.BuyAlllist();
+//            model.addAttribute("BuyAlllist", BuyAlllist);
 
         }
         catch (Exception e){
@@ -83,8 +83,8 @@ public class TradeboardController {
             int countSellPage = (countSellRow / 3) + ((countSellRow % 3 > 0) ? 1 : 0);
             model.addAttribute("countSellPage", countSellPage);
 
-            List<TradeboardReq> SellAlllist = tradeboardRepository.SellAlllist();
-            model.addAttribute("SellAlllist", SellAlllist);
+//            List<TradeboardReq> SellAlllist = tradeboardRepository.SellAlllist();
+//            model.addAttribute("SellAlllist", SellAlllist);
 
         }
         catch (Exception e){
