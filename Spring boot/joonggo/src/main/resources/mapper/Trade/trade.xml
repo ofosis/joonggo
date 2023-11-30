@@ -15,6 +15,7 @@
         LIMIT #{pageNum}, 3;
     </select>
 
+
     <select id="selectBuyRow" parameterType="Integer" resultType="TradeboardDTO">
         SELECT * FROM Tradeboard JOIN Member ON Tradeboard.mbr_idx = Member.mbr_idx WHERE tb_idx = #{tb_idx}
     </select>
@@ -22,6 +23,13 @@
     <select id="countBuyRow" resultType="Integer">
         select count(*) from Tradeboard where tb_state = "구매중"
     </select>
+
+<!--    <select id="countBuyRow" resultType="Integer">-->
+<!--    select count(*)-->
+<!--    FROM Tradeboard-->
+<!--    JOIN Image ON Tradeboard.tb_idx = Image.tb_idx-->
+<!--    where tb_state = "구매중"-->
+<!--    </select>-->
 
     <select id="selectRow2" resultType="TradeboardReq" parameterType="Integer">
         select * from Tradeboard join Member on Member.mbr_idx = Tradeboard.mbr_idx where tb_idx = #{tb_idx}
@@ -39,6 +47,15 @@
         LIMIT #{pageNum}, 3;
     </select>
 
+<!--    <select id="Selllist" resultType="TradeboardReq" parameterType="Integer">-->
+<!--        SELECT t.*, i.img_name, i.img_path-->
+<!--        FROM Tradeboard t-->
+<!--        JOIN Image i ON t.img_idx = i.img_idx-->
+<!--        where tb_state = "판매중"-->
+<!--        ORDER BY tb_idx desc-->
+<!--        LIMIT #{pageNum}, 3;-->
+<!--    </select>-->
+
     <select id="Recoselllist" resultType="TradeboardReq" parameterType="map">
         SELECT * FROM Tradeboard t
         JOIN Member m ON t.mbr_idx = m.mbr_idx
@@ -53,6 +70,13 @@
     <select id="countSellRow" resultType="Integer">
         select count(*) from Tradeboard where tb_state = "판매중"
     </select>
+
+<!--    <select id="countSellRow" resultType="Integer">-->
+<!--    select count(*)-->
+<!--    FROM Tradeboard-->
+<!--    JOIN Image ON Tradeboard.tb_idx = Image.tb_idx-->
+<!--    where tb_state = "판매중"-->
+<!--    </select>-->
 
     <insert id="insert" parameterType="TradeboardDTO">
         insert into Tradeboard
