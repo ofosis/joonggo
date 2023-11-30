@@ -39,7 +39,7 @@
         LIMIT #{pageNum}, 3;
     </select>
 
-    <select id="Recoselllist" resultType="TradeboardReq" parameterType="map">
+    <select id="Recoselllist" resultType="TradeboardReq" parameterType="Integer">
         SELECT * FROM Tradeboard t
         JOIN Member m ON t.mbr_idx = m.mbr_idx
         WHERE tb_category = #{category} AND m.mbr_idx != 123
