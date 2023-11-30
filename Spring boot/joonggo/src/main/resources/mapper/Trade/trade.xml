@@ -40,9 +40,13 @@
         select * from Tradeboard join Member on Member.mbr_idx = Tradeboard.mbr_idx where tb_idx = #{tb_idx}
     </select>
 
-
-    <select id="SellAlllist" resultType="TradeboardDTO">
-        select * from Tradeboard where tb_state = "판매중"
+    <select id="SellAlllist" resultType="TradeboardReq" parameterType="Integer">
+        SELECT t.*, i.img_name, i.img_path
+        FROM Tradeboard t
+        JOIN Image i ON t.img_idx = i.img_idx
+        where tb_state = "판매중"
+        ORDER BY tb_idx desc
+        LIMIT #{pageNum}, 3;
     </select>
 
     <select id="Selllist" resultType="TradeboardDTO" parameterType="Integer">
@@ -51,15 +55,6 @@
         ORDER BY tb_idx desc
         LIMIT #{pageNum}, 3;
     </select>
-
-<!--    <select id="Selllist" resultType="TradeboardReq" parameterType="Integer">-->
-<!--        SELECT t.*, i.img_name, i.img_path-->
-<!--        FROM Tradeboard t-->
-<!--        JOIN Image i ON t.img_idx = i.img_idx-->
-<!--        where tb_state = "판매중"-->
-<!--        ORDER BY tb_idx desc-->
-<!--        LIMIT #{pageNum}, 3;-->
-<!--    </select>-->
 
     <select id="Recoselllist" resultType="TradeboardReq" parameterType="map">
         SELECT * FROM Tradeboard t

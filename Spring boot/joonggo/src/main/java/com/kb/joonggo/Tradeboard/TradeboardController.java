@@ -1,7 +1,6 @@
 package com.kb.joonggo.Tradeboard;
 import com.kb.joonggo.Image.ImageDTO;
 import com.kb.joonggo.Image.ImageRepository;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -16,7 +15,6 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -56,8 +54,8 @@ public class TradeboardController {
             int countBuyPage = (countBuyRow / 3) + ((countBuyRow % 3 > 0) ? 1 : 0);
             model.addAttribute("countBuyPage", countBuyPage);
 
-//            List<TradeboardReq> BuyAlllist = tradeboardRepository.BuyAlllist(BuypageNum);
-//            model.addAttribute("BuyAlllist", BuyAlllist);
+            List<TradeboardReq> BuyAlllist = tradeboardRepository.BuyAlllist(BuypageNum);
+            model.addAttribute("BuyAlllist", BuyAlllist);
 
         }
         catch (Exception e){
@@ -83,8 +81,8 @@ public class TradeboardController {
             int countSellPage = (countSellRow / 3) + ((countSellRow % 3 > 0) ? 1 : 0);
             model.addAttribute("countSellPage", countSellPage);
 
-//            List<TradeboardReq> SellAlllist = tradeboardRepository.SellAlllist();
-//            model.addAttribute("SellAlllist", SellAlllist);
+            List<TradeboardReq> SellAlllist = tradeboardRepository.SellAlllist(SellpageNum);
+            model.addAttribute("SellAlllist", SellAlllist);
 
         }
         catch (Exception e){
@@ -117,13 +115,12 @@ public class TradeboardController {
                 tradeboardReq.setImg_name(file.getOriginalFilename());
                 File dest = new File(uploadPath + "/" + tradeboardReq.getImg_name());
 
-
                 // 파일 경로 생성
-                Path filePath = Paths.get(uploadPath, tradeboardReq.getImg_name().replace("\\", "/"));
+                Path filePath = Paths.get(uploadPath, tradeboardReq.getImg_name());
                 System.out.println("Full File Path: " + filePath);
 
                 // 파일 경로 TB req에 설정
-                String img_path = filePath.toString();
+                String img_path = filePath.toString().replace(File.separator, "/");
                 tradeboardReq.setImg_path(img_path);
 
                 try{

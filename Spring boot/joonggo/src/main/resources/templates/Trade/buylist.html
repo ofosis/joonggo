@@ -8,8 +8,6 @@
 <!-- Header-->
 <header th:replace="~{layout/layout :: header('home')}"></header>
 <!-- Section-->
-[[${Buylist}]]
-[[${BuyAlllist}]]
 <section class="py-5">
     <div class="container px-4 px-lg-5 mt-5">
         <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
@@ -19,8 +17,7 @@
                     <!-- 상품 이미지-->
                     <div class="col mb-5" th:data-tb-idx="${TradeboardReq.tb_idx}" onclick="handleImageClick(this)">
                         <div class="card h-100">
-                            <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." th:idx="${TradeboardReq.tb_idx}"/>
-                            <div class="card-body p-4">
+                            <img class="card-img-top" th:src="@{'/images/' + ${TradeboardReq.img_name}}" alt="..." th:idx="${TradeboardReq.tb_idx}"/>
                                 <div class="text-center">
                                     <h5 class="fw-bolder" th:text="${TradeboardReq.tb_title}">상품명</h5>
                                     <span th:text="${TradeboardReq.tb_price}">$0.00</span>

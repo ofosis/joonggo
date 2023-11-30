@@ -13,7 +13,7 @@ public interface TradeboardRepository {
     public int countBuyRow();
     public TradeboardDTO selectBuyRow(int idx);
 
-    public List<TradeboardReq> SellAlllist();
+    public List<TradeboardReq> SellAlllist(int SellpageNum);
     public List<TradeboardDTO> Selllist(int pageNum);
     public int countSellRow();
     public TradeboardDTO selectSellRow(int idx);
