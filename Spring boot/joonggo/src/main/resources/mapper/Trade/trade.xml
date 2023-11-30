@@ -37,7 +37,10 @@
 <!--    </select>-->
 
     <select id="selectRow2" resultType="TradeboardReq" parameterType="Integer">
-        select * from Tradeboard join Member on Member.mbr_idx = Tradeboard.mbr_idx where tb_idx = #{tb_idx}
+        select tb.tb_idx, tb.tb_title, tb.tb_content, tb.tb_date, tb.tb_price, tb.tb_category, tb.tb_count,
+        tb.tb_state, tb.mbr_idx, tb.img_idx, mem.mbr_nick, mem.mbr_addr, tb.tb_state, tb.tb_count
+         from Tradeboard tb
+         join Member mem on mem.mbr_idx = tb.mbr_idx where tb_idx = #{tb_idx};
     </select>
 
     <select id="SellAlllist" resultType="TradeboardReq" parameterType="Integer">
