@@ -12,21 +12,18 @@
     <div class="container px-4 px-lg-5 mt-5">
         <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
             <!-- Thymeleaf로 순회하면서 각각의 제품을 표시 -->
-            <div th:each="TradeboardDTO : ${Selllist}" class="col mb-5">
+            <div th:each="TradeboardReq : ${Selllist}" class="col mb-5">
+<!--            <div th:each="TradeboardReq : ${SellAlllist}" class="col mb-5">-->
                 <div class="card h-100">
-                    <!-- Product image-->
-                    <div class="col mb-5" onclick="handleImageClick(/* pass necessary parameters here */)">
+                    <!-- 상품 이미지-->
+                    <div class="col mb-5" th:data-tb-idx="${TradeboardReq.tb_idx}" onclick="handleImageClick(this)">
                         <div class="card h-100">
-                            <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
+                            <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." th:idx="${TradeboardReq.tb_idx}"/>
+<!--                            <img class="card-img-top" th:src="'file:///D:/uploadpath/' + ${img_name}" alt="..." th:idx="${tradeboardReq.tb_idx}"/>-->
                             <div class="card-body p-4">
                                 <div class="text-center">
-                                    <h5 class="fw-bolder" th:text="${TradeboardDTO.tb_title}">Product Name</h5>
-                                    <span th:text="${TradeboardDTO.tb_price}">$0.00</span>
-                                </div>
-                            </div>
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center">
-                                    <a class="btn btn-outline-dark mt-auto" href="/">View options</a>
+                                    <h5 class="fw-bolder" th:text="${TradeboardReq.tb_title}">상품명</h5>
+                                    <span th:text="${TradeboardReq.tb_price}">$0.00</span>
                                 </div>
                             </div>
                         </div>
@@ -34,7 +31,17 @@
                 </div>
             </div>
         </div>
-    </div>
+        <script>
+            function handleImageClick(element) {
+             var tbIdx = element.getAttribute("data-tb-idx");
+             fetch("/Trade/getTradeboardInfo?tb_idx=" + tbIdx)
+             .then(response => response.json())
+               .then(data => {
+              window.location.href = "/Trade/productdetail?tb_idx=" + tbIdx;
+            })
+        .catch(error => console.error('Error fetching tradeboard info:', error));
+         }
+        </script>
     <div class="row">
         <h1>총 페이지 개수 = [[ ${countSellPage} ]]</h1>
         <h1>총 행 개수 = [[ ${countSellRow} ]]</h1>
@@ -62,6 +69,7 @@
                 </ul>
             </nav>
         </div>
+    </div>
     </div>
 </section>
 <!-- Footer-->

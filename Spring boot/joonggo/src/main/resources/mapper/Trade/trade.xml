@@ -16,13 +16,16 @@
     </select>
 
     <select id="selectBuyRow" parameterType="Integer" resultType="TradeboardDTO">
-        select * from Tradeboard where tb_idx = #{tb_idx}
+        SELECT * FROM Tradeboard JOIN Member ON Tradeboard.mbr_idx = Member.mbr_idx WHERE tb_idx = #{tb_idx}
     </select>
 
     <select id="countBuyRow" resultType="Integer">
         select count(*) from Tradeboard where tb_state = "구매중"
     </select>
 
+    <select id="selectRow2" resultType="TradeboardReq" parameterType="Integer">
+        select * from Tradeboard join Member on Member.mbr_idx = Tradeboard.mbr_idx where tb_idx = #{tb_idx}
+    </select>
 
 
     <select id="SellAlllist" resultType="TradeboardDTO">
@@ -36,6 +39,13 @@
         LIMIT #{pageNum}, 3;
     </select>
 
+    <select id="Recoselllist" resultType="TradeboardReq" parameterType="map">
+        SELECT * FROM Tradeboard t
+        JOIN Member m ON t.mbr_idx = m.mbr_idx
+        WHERE tb_category = #{category} AND m.mbr_idx != 123
+        ORDER BY tb_count DESC;
+    </select>
+
     <select id="selectSellRow" parameterType="Integer" resultType="TradeboardDTO">
         select * from Tradeboard where tb_idx = #{tb_idx}
     </select>
@@ -45,7 +55,7 @@
     </select>
 
     <insert id="insert" parameterType="TradeboardDTO">
-        insert into TradeboardDTO
+        insert into Tradeboard
         (tb_title, tb_content, tb_date, tb_price, tb_category, tb_count, tb_state, mbr_idx, img_idx)
         values
         (#{tb_title}, #{tb_content}, #{tb_date}, #{tb_price}, #{tb_category}, #{tb_count}, #{tb_state}, #{mbr_idx}, #{img_idx})
