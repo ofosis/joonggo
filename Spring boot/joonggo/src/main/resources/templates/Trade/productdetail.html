@@ -15,7 +15,7 @@
     <div class="container px-4 px-lg-5 my-5">
         <div class="row gx-4 gx-lg-5 align-items-center">
             <div class="col-md-6">
-                <img class="card-img-top mb-5 mb-md-0" width="100" height="500" />
+                <img class="card-img-top mb-5 mb-md-0" width="100" height="500" th:src="@{'/images/' + ${TradeboardReq.img_name}}" alt="..." th:idx="${TradeboardReq.tb_idx}"/>
             </div>
             <div class="col-md-6">
                 <div class="row">
