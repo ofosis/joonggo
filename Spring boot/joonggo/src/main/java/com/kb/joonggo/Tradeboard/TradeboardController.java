@@ -56,7 +56,7 @@ public class TradeboardController {
             int countBuyPage = (countBuyRow / 3) + ((countBuyRow % 3 > 0) ? 1 : 0);
             model.addAttribute("countBuyPage", countBuyPage);
 
-//            List<TradeboardReq> BuyAlllist = tradeboardRepository.BuyAlllist();
+//            List<TradeboardReq> BuyAlllist = tradeboardRepository.BuyAlllist(BuypageNum);
 //            model.addAttribute("BuyAlllist", BuyAlllist);
 
         }
@@ -119,7 +119,7 @@ public class TradeboardController {
 
 
                 // 파일 경로 생성
-                Path filePath = Paths.get(uploadPath, tradeboardReq.getImg_name());
+                Path filePath = Paths.get(uploadPath, tradeboardReq.getImg_name().replace("\\", "/"));
                 System.out.println("Full File Path: " + filePath);
 
                 // 파일 경로 TB req에 설정
@@ -153,7 +153,7 @@ public class TradeboardController {
                 ImageDTO image = ImageDTO.builder()
                         .img_name(tradeboardReq.getImg_name())
                         .img_path(tradeboardReq.getImg_path())
-                        .tb_idx(1) // 임시값
+                        .tb_idx(79) // 임시값(DB에 tb_idx 값이 있어야 합니다 --- 임시글 작성)
                         .build();
                 imageRepository.save(image);
                 System.out.println(image);
@@ -199,10 +199,13 @@ public class TradeboardController {
                 .tb_category(tradeboardReq.getTb_category())
                 .tb_count(0)
                 .tb_state(tradeboardReq.getTb_state())
+//                .mbr_idx()
+//                .img_idx()
                 .build();
 
         // db insert
         System.out.println("Trade DB 입력을 시작합니다.");
+        System.out.println(tradeboardDTO);
         tradeboardRepository.insert(tradeboardDTO);
         System.out.println("Trade DB 입력을 마칩니다.");
 
@@ -214,7 +217,7 @@ public class TradeboardController {
         int img_idx = imageRepository.search_img_idx(
                 tradeboardReq.getImg_name(),
                 tradeboardReq.getImg_path(),
-                1);
+                79); // 임시값(DB에 tb_idx 값이 있어야 합니다 --- 임시글 작성)
 
         // 지금 작업중인 tb_idx 찾기
         System.out.println(tradeboardDTO.getTb_title());
