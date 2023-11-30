@@ -20,7 +20,7 @@ public class TradeboardReq {
     @NotNull
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private Date tb_date;
-    @NotNull
+    @Nullable
     private int tb_price;
     @NotEmpty
     private String tb_category;
@@ -28,12 +28,18 @@ public class TradeboardReq {
     private int tb_count;
     @NotEmpty
     private String tb_state;
-    @NotNull
+
+    @Nullable
     private int mbr_idx;
     @Nullable
-    private int img_idx;
-    @NotEmpty
     private String mbr_nick;
-    @NotEmpty
+    @Nullable
     private String mbr_addr;
+
+    @Nullable
+    private int img_idx;
+    @Nullable
+    private String img_name;
+    @Nullable
+    private String img_path;
 }

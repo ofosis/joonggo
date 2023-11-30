@@ -7,68 +7,83 @@
 <nav th:replace="~{layout/layout :: nav('home')}"></nav>
 
     <div class="container p-3" style="width:600px;">
-        <div class="col-sm-11 mb-3">
-            <div class="container mb-3 " style="text-align: center; font-size: 35px;">
-                <label class="form-label">회원 가입</label>
+        <!--회원가입 타이틀-->
+        <div class="col-sm-11 mb-3" style="display: flex; align-items: center; justify-content: center;">
+            <div class="container" style="text-align: center; font-size: 35px; margin: auto;">
+                <label class="form-label" style="font-weight: bold;">회원 가입</label>
             </div>
-            <div class="col-sm-1 mb-3"> </div>
+            <div class="col-sm-1"> </div>
         </div>
 
-        <form id="JoinForm" action="/Join/joininsert" method="post" th:object="${JoinDto}" enctype="multipart/form-data" onsubmit="return validateForm()">
-
-            <div class="row">
-                <label for="mbr_nick" class="col-sm-2 form-label text-left d-flex align-items-center">닉네임</label>
-                <div class="col-sm-7 mb-3">
+        <form id="JoinForm" action="/Join/joininsert" method="post" th:object="${JoinReq}" enctype="multipart/form-data" onsubmit="return validateForm()">
+            <!--닉네임 입력-->
+            <div class="row" style="margin-bottom: 30px;">
+                <label for="mbr_nick" class="col-sm-2 form-label text-left mb-2 mb-sm-0" style="display: flex; align-items: center;">닉네임</label>
+                <div class="col-sm-7">
                     <input type="text" class="form-control" id="mbr_nick" name="mbr_nick" placeholder="2~8자 입력" style="border-color: #80A6FF" required>
                 </div>
-                <div class="col-sm-3 mb-3"> </div>
+                <div class="col-sm-3"> </div>
             </div>
 
-            <div class="row">
-                <label for="mbr_id" class="col-sm-2 form-label text-left d-flex align-items-center">아이디</label>
-                <div class="col-sm-7 mb-3">
-                    <input type="text" class="form-control" id="mbr_id" name="mbr_id" placeholder="4~16자 영문(소문자) 또는 숫자 입력" style="border-color: #80A6FF;" required>
+            <!--아이디 입력 및 중복 확인 버튼-->
+            <div class="row" >
+                <label for="mbr_id" class="col-sm-2 form-label text-left mb-2 mb-sm-0" style="display: flex; align-items: center;">아이디</label>
+                <div class="col-sm-7 ">
+                    <input type="text" class="form-control" id="mbr_id" name="mbr_id" placeholder="4~16자 영문(소문자) 또는 숫자 입력"
+                           style="border-color: #80A6FF;" required/>
                 </div>
-                <div class="col-sm-3 mb-3">
-                    <button type="button" name="check_id" class="btn btn-outline-primary " style="width:100px" onclick="checkDuplicate('/Join/check_id')">중복확인</button>
+                <div class="col-sm-3 ">
+                    <button type="button" name="check_id" class="btn btn-outline-primary " style="width:100px" onclick="id_check()">중복확인</button>
                 </div>
             </div>
 
-            <div class="row">
-                <label for="mbr_pwd" class="col-sm-2 form-label text-left d-flex align-items-center">비밀번호</label>
-                <div class="col-sm-7 mb-3">
+            <!--아이디 중복 확인 확인 메세지-->
+            <div class="row" style="text-align: center; margin-bottom: 15px; color:red;">
+                <div class="col-sm-2" style=" height: 15px; width: 16%;"> </div>
+                <div class="col-sm-7 " id="id_info" style="text-align: center; height: 15px; width: 58%;"></div>
+                <div class="col-sm-3"> </div>
+            </div>
+
+            <!--비밀번호 입력-->
+            <div class="row" style="margin-bottom: 30px;">
+                <label for="mbr_pwd" class="col-sm-2 form-label text-left mb-2 mb-sm-0" style="display: flex; align-items: center;">비밀번호</label>
+                <div class="col-sm-7 ">
                     <input type="password" class="form-control" id="mbr_pwd" name="mbr_pwd" placeholder="6~20자 입력" style="border-color: #80A6FF" required>
                 </div>
-                <div class="col-sm-3 mb-3"> </div>
+                <div class="col-sm-3 "> </div>
             </div>
 
-            <div class="row">
-                <label for="mbr_name" class="col-sm-2 form-label text-left d-flex align-items-center">이름</label>
-                <div class="col-sm-7 mb-3">
+            <!--이름 입력-->
+            <div class="row" style="margin-bottom: 30px;">
+                <label for="mbr_name" class="col-sm-2 form-label text-left mb-2 mb-sm-0" style="display: flex; align-items: center;">이름</label>
+                <div class="col-sm-7 ">
                     <input type="text" class="form-control" id="mbr_name" name="mbr_name" placeholder="이름 입력" style="border-color: #80A6FF;" required>
                 </div>
-                <div class="col-sm-3 mb-3"> </div>
+                <div class="col-sm-3 "> </div>
             </div>
 
-            <div class="row">
-                <label for="mbr_contact" class="col-sm-2 form-label text-left d-flex align-items-center">휴대전화</label>
-                <div class="col-sm-7 mb-3">
-                    <input type="text" class="form-control" id="mbr_contact" name="mbr_contact" placeholder="휴대전화번호('-' 포함)" style="border-color: #80A6FF;" required>
+            <!--휴대전화 입력-->
+            <div class="row" style="margin-bottom: 30px;">
+                <label for="mbr_contact" class="col-sm-2 form-label text-left mb-2 mb-sm-0" style="display: flex; align-items: center;">휴대전화</label>
+                <div class="col-sm-7 ">
+                    <input type="tel" class="form-control" id="mbr_contact" name="mbr_contact" placeholder="휴대전화번호('-' 포함)" style="border-color: #80A6FF;" required>
                 </div>
-                <div class="col-sm-3 mb-3"> </div>
+                <div class="col-sm-3"> </div>
             </div>
 
-            <div class="row">
-                <label for="mbr_email" class="col-sm-2 form-label text-left d-flex align-items-center">이메일</label>
-                <div class="col-sm-7 mb-3">
-                    <input type="text" class="form-control" id="mbr_email" name="mbr_email" placeholder="ex) qwer@gmail.com" style="border-color: #80A6FF;" required>
+            <!--이메일 입력-->
+            <div class="row" style="margin-bottom: 30px;">
+                <label for="mbr_email" class="col-sm-2 form-label text-left mb-2 mb-sm-0" style="display: flex; align-items: center;">이메일</label>
+                <div class="col-sm-7 ">
+                    <input type="email" class="form-control" id="mbr_email" name="mbr_email" placeholder="ex) qwer@gmail.com" style="border-color: #80A6FF;" required>
                 </div>
-                <div class="col-sm-3 mb-3"> </div>
+                <div class="col-sm-3"> </div>
             </div>
 
-            <div class="row">
-                <label for="mbr_addr" class="col-sm-2 form-label text-left d-flex align-items-center">주소</label>
-                <div class="col-sm-7 mb-3" style="position: relative;">
+            <!--주소 선택-->
+            <div class="row " style="margin-bottom: 20px;">
+                <label for="mbr_addr" class="col-sm-2 form-label text-left mb-2 mb-sm-0" style="display: flex; align-items: center;">주소</label>
+                <div class="col-sm-7" style="position: relative;">
                     <select class="form-control" id="mbr_addr"  name="mbr_addr" style="border-color: #80A6FF; padding-right: 25px; display: inline-block;">
                         <option value="00">대구광역시_구선택</option>
                         <option value="군위군">대구광역시_군위군</option>
@@ -85,23 +100,25 @@
                         ▼
                     </div>
                 </div>
-                <div class="col-sm-3 mb-3"> </div>
+                <div class="col-sm-3 "> </div>
             </div>
 
-            <div class="row">
+            <!--안내 메세지-->
+            <div class="row" style="margin-bottom: 10px;">
                 <label class="col-sm-2 form-label "></label>
-                <div class="col-sm-7 mb-3" style="text-align: center;">
+                <div class="col-sm-7 " style="text-align: center;">
                     <small class="form-text text-muted" >* 모든 정보는 필수 입력 항목입니다. *</small>
                 </div>
-                <div class="col-sm-3 mb-3"> </div>
+                <div class="col-sm-3 "> </div>
             </div>
 
-            <div class="row mt-3 mb-3">
-                <div class="col-sm-2 mb-3"> </div>
+            <!--회원 가입 버튼-->
+            <div class="row mt-3 " style="margin-bottom: 6px;">
+                <div class="col-sm-2 "> </div>
                 <div class="col-sm-7">
                     <button type="submit" class="btn btn-primary form-control" >회원가입</button>
                 </div>
-                <div class="col-sm-3 mb-3"> </div>
+                <div class="col-sm-3 "> </div>
             </div>
         </form>
     </div>
@@ -110,17 +127,49 @@
 </html>
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script>
-    function validateForm() {
-            var selectedValue = document.getElementById('mbr_addr').value;
-            if (selectedValue === "00") {
-                alert("주소를 선택해주세요.");
-                return false; // 폼 제출을 막음
-            }
-            return true; // 폼 제출을 허용
-        }
+    var onsub = false;
 
-     function checkDuplicate(url) {
-        window.location.href = url;
+    <!--아이디 중복 확인 함수-->
+    function id_check() {
+        $.ajax({
+            url: '/Join/check_id',
+            data: { mbr_id: $('#mbr_id').val() },
+            success: function (res) {
+                var id_info = $('#id_info');
+
+                if (res.includes('가능')) {
+                    id_info.css('color', 'blue');
+                    onsub = true;
+                }
+                else {
+                    id_info.css('color', 'red');
+                    onsub = false;
+                }
+                id_info.text(res);
+            }
+        });
     }
 
+
+    <!--joininset 넘어가기 전 공백 및 중복 확인 함수-->
+    function validateForm() {
+        var mbr_addr = document.getElementById('mbr_addr').value;
+        var id_info = $('#id_info');
+        console.log("validateForm들어옴");
+        console.log(id_info.css('color'));
+
+        if (mbr_addr === "00") {
+            alert("주소를 선택해주세요.");
+            console.log("폼 제출 막음 - 주소 미선택");
+            return false; // 폼 제출을 막음
+        } else if (id_info.css('color') !== 'rgb(0, 0, 255)') {
+            alert("ID 중복 확인이 필요함.");
+            console.log("폼 제출 막음 - ID 중복 확인 필요");
+            return false; // 폼 제출을 막음
+        } else {
+            // 다른 조건을 모두 통과하면 폼 제출을 허용
+            console.log("폼 제출 허용");
+            return true;
+        }
+    }
 </script>
