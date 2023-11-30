@@ -292,7 +292,6 @@ public class TradeboardController {
     public ResponseEntity<TradeboardReq> getTradeboardInfo(@RequestParam(name = "tb_idx", required = true) Integer tb_idx) {
         if (tb_idx != null) {
             TradeboardReq tradeboardReq = tradeboardRepository.selectRow2(tb_idx);
-            System.out.println(tradeboardReq);
             if (tradeboardReq.getTb_date() == null) {
                 tradeboardReq.setTb_date(new Date());
             }
