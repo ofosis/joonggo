@@ -59,9 +59,31 @@
 
     <insert id="insert" parameterType="TradeboardDTO">
         insert into Tradeboard
-        (tb_title, tb_content, tb_date, tb_price, tb_category, tb_count, tb_state, mbr_idx, img_idx)
+        (tb_title, tb_content, tb_date, tb_price, tb_category, tb_count, tb_state)
         values
-        (#{tb_title}, #{tb_content}, #{tb_date}, #{tb_price}, #{tb_category}, #{tb_count}, #{tb_state}, #{mbr_idx}, #{img_idx})
+        (#{tb_title}, #{tb_content}, #{tb_date}, #{tb_price}, #{tb_category}, #{tb_count}, #{tb_state})
     </insert>
+
+    <select id="search_tb_idx" parameterType="map" resultType="Integer">
+        select tb_idx from Tradeboard
+        where tb_title = #{tb_title}
+        AND tb_content = #{tb_content}
+        AND tb_price = #{tb_price}
+        AND tb_category = #{tb_category}
+        AND tb_count = #{tb_count}
+        AND tb_state = #{tb_state}
+    </select>
+
+    <update id="img_idx_update" parameterType="map">
+        update Tradeboard
+        set img_idx = #{img_idx}
+        where tb_idx = #{tb_idx}
+        AND tb_title = #{tb_title}
+        AND tb_content = #{tb_content}
+        AND tb_price = #{tb_price}
+        AND tb_category = #{tb_category}
+        AND tb_count = #{tb_count}
+        AND tb_state = #{tb_state}
+    </update>
 
 </mapper>

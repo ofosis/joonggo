@@ -35,7 +35,7 @@
                 <div class="fs-5 mb-5">
                     <span class="text" id="tbCo"></span>
                 </div>
-                <p class="lead mb-4" id="tbPr">가격: </p>
+                <p class="lead mb-4" id="tbPr"></p>
                 <div class="d-flex">
                     <button class="btn btn-outline-dark flex-shrink-0" type="button">
                         채팅하기
@@ -53,7 +53,7 @@
                 .then(data => {
                     document.getElementById("tbTi").innerText = data.tb_title;
                     document.getElementById("tbCo").innerText = data.tb_content;
-                    document.getElementById("tbPr").innerText = data.tb_price;
+                    document.getElementById("tbPr").innerText = data.tb_price+"원";;
                     document.getElementById("tbCa").innerText = data.tb_category;
                     document.getElementById("tbSt").innerText = data.tb_state;
                     document.getElementById("tbNi").innerText = data.mbr_nick;

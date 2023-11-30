@@ -13,45 +13,45 @@
             <form action="/Trade/writeproc" method="post" th:object="${tradeboardReq}" >
 
                 <div class="mb-3">
-                    <label for="title" class="form-label">Title</label>
-                    <input type="text" name="title" id="title" placeholder="title"
-                           th:field="*{title}"
-                           th:class="${#fields.hasErrors('title')}? 'form-control is-invalid':'form-control' "
+                    <label for="tb_title" class="form-label">Title</label>
+                    <input type="text" name="tb_title" id="tb_title" placeholder="title"
+                           th:field="*{tb_title}"
+                           th:class="${#fields.hasErrors('tb_title')}? 'form-control is-invalid':'form-control' "
                            th:classappend="${first != 'true'} ? 'is-valid'" />
-                    <p th:if="${#fields.hasErrors('title')}" th:errors="*{title}" class="invalid-feedback"></p>
+                    <p th:if="${#fields.hasErrors('tb_title')}" th:errors="*{tb_title}" class="invalid-feedback"></p>
                 </div>
 
                 <div class="mb-3">
-                    <label for="content" class="form-label">Content</label>
-                    <textarea name="content" class="form-control fieldError" id="content" rows="3"
-                              th:field="*{content}"
-                              th:class="${#fields.hasErrors('content')}? 'form-control is-invalid':'form-control' "
+                    <label for="tb_content" class="form-label">Content</label>
+                    <textarea name="tb_content" class="form-control fieldError" id="tb_content" rows="3"
+                              th:field="*{tb_content}"
+                              th:class="${#fields.hasErrors('tb_content')}? 'form-control is-invalid':'form-control' "
                               th:classappend="${first != 'true'} ? 'is-valid'" ></textarea>
-                    <p th:if="${#fields.hasErrors('content')}" th:errors="*{content}" class="invalid-feedback"></p>
+                    <p th:if="${#fields.hasErrors('tb_content')}" th:errors="*{tb_content}" class="invalid-feedback"></p>
                 </div>
 
                 <div class="mb-3">
-                    <label for="date" class="form-label">Date</label>
-                    <input name="date" type="datetime-local" class="form-control" id="date" placeholder="date"
-                           th:field="*{date}"
-                           th:class="${#fields.hasErrors('date')}? 'form-control is-invalid':'form-control' "
+                    <label for="tb_date" class="form-label">Date</label>
+                    <input name="tb_date" type="datetime-local" class="form-control" id="tb_date" placeholder="date"
+                           th:field="*{tb_date}"
+                           th:class="${#fields.hasErrors('tb_date')}? 'form-control is-invalid':'form-control' "
                            th:classappend="${first != 'true'} ? 'is-valid'" />
-                    <p th:if="${#fields.hasErrors('date')}" th:errors="*{date}" class="invalid-feedback"></p>
+                    <p th:if="${#fields.hasErrors('tb_date')}" th:errors="*{tb_date}" class="invalid-feedback"></p>
                 </div>
 
                 <div class="mb-3">
-                    <label for="price" class="form-label">Price</label>
-                    <input name="price" type="text" class="form-control" id="price" placeholder="price"
-                           th:field="*{price}"
-                           th:class="${#fields.hasErrors('price')}? 'form-control is-invalid':'form-control' "
+                    <label for="tb_price" class="form-label">Price</label>
+                    <input name="tb_price" type="text" class="form-control" id="tb_price" placeholder="price"
+                           th:field="*{tb_price}"
+                           th:class="${#fields.hasErrors('tb_price')}? 'form-control is-invalid':'form-control' "
                            th:classappend="${first != 'true'} ? 'is-valid'" />
-                    <p th:if="${#fields.hasErrors('price')}" th:errors="*{price}" class="invalid-feedback"></p>
+                    <p th:if="${#fields.hasErrors('tb_price')}" th:errors="*{tb_price}" class="invalid-feedback"></p>
                 </div>
 
                 <div class="mb-3">
-                    <label for="category" class="form-label">Category</label>
-                    <select name="category" class="form-select" id="category" th:field="*{category}"
-                            th:class="${#fields.hasErrors('category')} ? 'form-select is-invalid' : 'form-select'"
+                    <label for="tb_category" class="form-label">Category</label>
+                    <select name="tb_category" class="form-select" id="tb_category" th:field="*{tb_category}"
+                            th:class="${#fields.hasErrors('tb_category')} ? 'form-select is-invalid' : 'form-select'"
                             th:classappend="${first != 'true'} ? 'is-valid'" >
                         <!-- 옵션들을 추가 -->
                         <option value="option1">가전/TV</option>
@@ -60,44 +60,44 @@
                         <option value="option2">패션/잡화</option>
                         <!-- 추가적인 옵션들을 필요에 따라 계속해서 추가 -->
                     </select>
-                    <p th:if="${#fields.hasErrors('category')}" th:errors="*{category}" class="invalid-feedback"></p>
+                    <p th:if="${#fields.hasErrors('tb_category')}" th:errors="*{tb_category}" class="invalid-feedback"></p>
                 </div>
 
                 <div class="mb-3">
-                    <label for="state" class="form-label">State</label>
-                    <select name="state" class="form-select" id="state" th:field="*{state}"
-                            th:class="${#fields.hasErrors('state')} ? 'form-select is-invalid' : 'form-select'"
+                    <label for="tb_state" class="form-label">State</label>
+                    <select name="tb_state" class="form-select" id="tb_state" th:field="*{tb_state}"
+                            th:class="${#fields.hasErrors('tb_state')} ? 'form-select is-invalid' : 'form-select'"
                             th:classappend="${first != 'true'} ? 'is-valid'" >
                         <!-- 옵션들을 추가 -->
                         <option value="판매중">판매중</option>
                         <option value="구매중">구매중</option>
                         <!-- 추가적인 옵션들을 필요에 따라 계속해서 추가 -->
                     </select>
-                    <p th:if="${#fields.hasErrors('category')}" th:errors="*{state}" class="invalid-feedback"></p>
-                </div>
-
-                <div class="mb-3">
-                    <label for="mbr_idx" class="form-label">Mbr_idx</label>
-                    <input name="mbr_idx" type="text" class="form-control" id="mbr_idx" placeholder="mbr_idx"
-                           th:field="*{mbr_idx}"
-                           th:class="${#fields.hasErrors('mbr_idx')}? 'form-control is-invalid':'form-control' "
-                           th:classappend="${first != 'true'} ? 'is-valid'" />
-                    <p th:if="${#fields.hasErrors('mbr_idx')}" th:errors="*{mbr_idx}" class="invalid-feedback"></p>
-                </div>
-
-                <div class="mb-3">
-                    <label for="img_idx" class="form-label">Img_idx</label>
-                    <input name="img_idx" type="text" class="form-control" id="img_idx" placeholder="img_idx"
-                           th:field="*{img_idx}"
-                           th:class="${#fields.hasErrors('img_idx')}? 'form-control is-invalid':'form-control' "
-                           th:classappend="${first != 'true'} ? 'is-valid'" />
-                    <p th:if="${#fields.hasErrors('img_idx')}" th:errors="*{img_idx}" class="invalid-feedback"></p>
+                    <p th:if="${#fields.hasErrors('tb_state')}" th:errors="*{tb_state}" class="invalid-feedback"></p>
                 </div>
 
 <!--                <div class="mb-3">-->
-<!--                    <label for="file" class="form-label">file</label>-->
-<!--                    <input name="file" type="file" class="form-control" id="file" placeholder="file"/>-->
+<!--                    <label for="mbr_idx" class="form-label">Mbr_idx</label>-->
+<!--                    <input name="mbr_idx" type="text" class="form-control" id="mbr_idx" placeholder="mbr_idx"-->
+<!--                           th:field="*{mbr_idx}"-->
+<!--                           th:class="${#fields.hasErrors('mbr_idx')}? 'form-control is-invalid':'form-control' "-->
+<!--                           th:classappend="${first != 'true'} ? 'is-valid'" />-->
+<!--                    <p th:if="${#fields.hasErrors('mbr_idx')}" th:errors="*{mbr_idx}" class="invalid-feedback"></p>-->
 <!--                </div>-->
+
+<!--                <div class="mb-3">-->
+<!--                    <label for="img_idx" class="form-label">Img_idx</label>-->
+<!--                    <input name="img_idx" type="text" class="form-control" id="img_idx" placeholder="img_idx"-->
+<!--                           th:field="*{img_idx}"-->
+<!--                           th:class="${#fields.hasErrors('img_idx')}? 'form-control is-invalid':'form-control' "-->
+<!--                           th:classappend="${first != 'true'} ? 'is-valid'" />-->
+<!--                    <p th:if="${#fields.hasErrors('img_idx')}" th:errors="*{img_idx}" class="invalid-feedback"></p>-->
+<!--                </div>-->
+
+                <div class="mb-3">
+                    <label for="file" class="form-label">file</label>
+                    <input name="file" type="file" class="form-control" id="file" placeholder="file"/>
+                </div>
 
                 <div class="mb-3 row justify-content-between">
                     <div class="col-3">

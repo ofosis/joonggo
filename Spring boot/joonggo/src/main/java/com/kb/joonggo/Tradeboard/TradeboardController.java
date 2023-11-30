@@ -214,7 +214,7 @@ public class TradeboardController {
         int img_idx = imageRepository.search_img_idx(
                 tradeboardReq.getImg_name(),
                 tradeboardReq.getImg_path(),
-                1);
+                79);
 
         // 지금 작업중인 tb_idx 찾기
         System.out.println(tradeboardDTO.getTb_title());
