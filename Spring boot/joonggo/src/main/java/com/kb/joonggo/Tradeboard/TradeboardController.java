@@ -296,7 +296,6 @@ public class TradeboardController {
             if (tradeboardReq.getTb_date() == null) {
                 tradeboardReq.setTb_date(new Date());
             }
-
             return new ResponseEntity<>(tradeboardReq, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
