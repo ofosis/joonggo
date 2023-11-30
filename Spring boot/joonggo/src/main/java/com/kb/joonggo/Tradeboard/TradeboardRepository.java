@@ -23,6 +23,7 @@ public interface TradeboardRepository {
 
     public void saveImage(TradeboardReq tradeboardReq);
 
+//    public List<TradeboardReq> showRecommend(String tb_category, int tb_idx);
 
     public void insert(TradeboardDTO tradeboardDTO);
 
