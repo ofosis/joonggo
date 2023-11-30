@@ -1,14 +1,13 @@
 package com.kb.joonggo.Join;
 
-import lombok.AllArgsConstructor;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
 import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
 @Builder
-@NoArgsConstructor
-@AllArgsConstructor
 public class Join {
     private int mbr_idx;
     private String mbr_nick;
@@ -18,5 +17,5 @@ public class Join {
     private String mbr_contact;
     private String mbr_email;
     private String mbr_addr;
-    private int mbr_credit;
+    private Double mbr_credit;
 }

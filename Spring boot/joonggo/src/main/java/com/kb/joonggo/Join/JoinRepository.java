@@ -8,5 +8,5 @@ public interface JoinRepository {
 
     public void insert(Join join);
 
-    public Join check_id(String mbr_id);
+    public Join check_id(String id);
 }

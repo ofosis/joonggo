@@ -37,7 +37,7 @@ public class JoinReq {
 
     @NotEmpty
     @Email
-    @Size(min = 4, max = 30,message = "이메일 입력이 잘못되었습니다.")
+    @Size(min = 4, max = 16,message = "제목을 2글자 이상 입력하세요.")
     private String mbr_email;
 
     @NotEmpty

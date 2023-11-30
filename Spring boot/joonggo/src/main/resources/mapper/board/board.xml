@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kb.joonggo.Freeboard.FreeboardRepository">
+
+    <select id="list" resultType="FreeBoardReq" parameterType="Integer">
+        SELECT * FROM Freeboard
+        JOIN Member ON Freeboard.mbr_idx = Member.mbr_idx
+        ORDER BY fr_idx DESC
+        LIMIT #{pageNum}, 5;
+    </select>
+
+    <select id="selectRow" parameterType="Integer" resultType="FreeBoardReq">
+        SELECT * FROM Freeboard
+        JOIN Member ON Freeboard.mbr_idx = Member.mbr_idx
+        where fr_idx = #{fr_idx}
+    </select>
+
+    <!--    <select id="list" resultType="FreeBoard" parameterType="Integer">-->
+    <!--        SELECT * FROM board-->
+    <!--        ORDER BY idx desc-->
+    <!--        LIMIT #{pageNum},5;-->
+    <!--    </select>-->
+
+    <select id="countRow" resultType="Integer">
+        SELECT count(*) FROM Freeboard
+        JOIN Member ON Freeboard.mbr_idx = Member.mbr_idx
+    </select>
+
+    <!--        <insert id="insert" parameterType="Freeboard">-->
+    <!--            insert into Freeboard-->
+    <!--            (fr_title, fr_content)-->
+    <!--            values-->
+    <!--            (#{fr_title}, #{fr_content} )-->
+    <!--        </insert>-->
+
+    <insert id="insert" parameterType="Freeboard">
+        insert into Freeboard
+        (fr_title, fr_content, created_at)
+        values
+        (#{fr_title}, #{fr_content}, #{created_at})
+    </insert>
+
+    <resultMap id="FreeBoardReqResultMap" type="FreeBoardReq">
+        <!-- your existing result mapping here -->
+        <!-- add mapping for the "created_at" column -->
+        <result property="created_at" column="created_at"/>
+    </resultMap>
+
+    <update id="update" parameterType="FreeBoard">
+        UPDATE freeboard
+        SET fr_title = #{fr_title},
+        fr_content = #{fr_content}
+        WHERE idx = #{fr_idx}
+    </update>
+    <update id="updateViewCount" parameterType="int">
+        UPDATE Freeboard SET view_count = view_count + 1 WHERE fr_idx = #{frIdx}
+    </update>
+
+    <!--    <delete id="delete" parameterType="java.util.List">-->
+    <!--        delete from board-->
+    <!--        WHERE idx in-->
+    <!--        <foreach item="idx" collection="idxList" open="(" separator="," close=")">-->
+    <!--            #{idx}-->
+    <!--        </foreach>-->
+    <!--    </delete>&ndash;&gt;-->
+
+</mapper>
