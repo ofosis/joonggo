@@ -1,7 +1,6 @@
 package com.kb.joonggo.Tradeboard;
 import com.kb.joonggo.Image.ImageDTO;
 import com.kb.joonggo.Image.ImageRepository;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -16,7 +15,6 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -56,8 +54,8 @@ public class TradeboardController {
             int countBuyPage = (countBuyRow / 3) + ((countBuyRow % 3 > 0) ? 1 : 0);
             model.addAttribute("countBuyPage", countBuyPage);
 
-//            List<TradeboardReq> BuyAlllist = tradeboardRepository.BuyAlllist();
-//            model.addAttribute("BuyAlllist", BuyAlllist);
+            List<TradeboardReq> BuyAlllist = tradeboardRepository.BuyAlllist(BuypageNum);
+            model.addAttribute("BuyAlllist", BuyAlllist);
 
         }
         catch (Exception e){
@@ -83,8 +81,8 @@ public class TradeboardController {
             int countSellPage = (countSellRow / 3) + ((countSellRow % 3 > 0) ? 1 : 0);
             model.addAttribute("countSellPage", countSellPage);
 
-//            List<TradeboardReq> SellAlllist = tradeboardRepository.SellAlllist();
-//            model.addAttribute("SellAlllist", SellAlllist);
+            List<TradeboardReq> SellAlllist = tradeboardRepository.SellAlllist(SellpageNum);
+            model.addAttribute("SellAlllist", SellAlllist);
 
         }
         catch (Exception e){
@@ -117,13 +115,12 @@ public class TradeboardController {
                 tradeboardReq.setImg_name(file.getOriginalFilename());
                 File dest = new File(uploadPath + "/" + tradeboardReq.getImg_name());
 
-
                 // 파일 경로 생성
                 Path filePath = Paths.get(uploadPath, tradeboardReq.getImg_name());
                 System.out.println("Full File Path: " + filePath);
 
                 // 파일 경로 TB req에 설정
-                String img_path = filePath.toString();
+                String img_path = filePath.toString().replace(File.separator, "/");
                 tradeboardReq.setImg_path(img_path);
 
                 try{
@@ -153,7 +150,7 @@ public class TradeboardController {
                 ImageDTO image = ImageDTO.builder()
                         .img_name(tradeboardReq.getImg_name())
                         .img_path(tradeboardReq.getImg_path())
-                        .tb_idx(1) // 임시값
+                        .tb_idx(79) // 임시값(DB에 tb_idx 값이 있어야 합니다 --- 임시글 작성)
                         .build();
                 imageRepository.save(image);
                 System.out.println(image);
@@ -199,10 +196,13 @@ public class TradeboardController {
                 .tb_category(tradeboardReq.getTb_category())
                 .tb_count(0)
                 .tb_state(tradeboardReq.getTb_state())
+//                .mbr_idx()
+//                .img_idx()
                 .build();
 
         // db insert
         System.out.println("Trade DB 입력을 시작합니다.");
+        System.out.println(tradeboardDTO);
         tradeboardRepository.insert(tradeboardDTO);
         System.out.println("Trade DB 입력을 마칩니다.");
 
@@ -214,7 +214,7 @@ public class TradeboardController {
         int img_idx = imageRepository.search_img_idx(
                 tradeboardReq.getImg_name(),
                 tradeboardReq.getImg_path(),
-                79);
+                79); // 임시값(DB에 tb_idx 값이 있어야 합니다 --- 임시글 작성)
 
         // 지금 작업중인 tb_idx 찾기
         System.out.println(tradeboardDTO.getTb_title());

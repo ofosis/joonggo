@@ -8,10 +8,11 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
+
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @ToString
 public class TradeboardReq {
     @Nullable
