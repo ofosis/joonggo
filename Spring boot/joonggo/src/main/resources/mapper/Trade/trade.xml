@@ -46,13 +46,13 @@
         where tb.tb_idx = #{tb_idx}
     </select>
 
-    <select id="ExceptselectRow" resultType="TradeboardReq" parameterType="Integer">
-        select tb.tb_idx, tb.tb_title, tb.tb_content, tb.tb_date, tb.tb_price, tb.tb_category, tb.tb_count,
-        tb.tb_state, tb.mbr_idx, tb.img_idx, mem.mbr_nick, mem.mbr_addr, tb.tb_state, tb.tb_count, im.img_name, im.img_path
-        from Tradeboard tb
-        JOIN Image im ON im.tb_idx = tb.tb_idx
-        JOIN Member mem ON mem.mbr_idx = tb.mbr_idx
-        where tb.tb_idx = #{tb_idx}
+    <select id="selectallproduct" resultType="TradeboardReq" parameterType="Integer">
+    select tb.tb_idx, tb.tb_title, tb.tb_content, tb.tb_date, tb.tb_price, tb.tb_category, tb.tb_count,
+    tb.tb_state, tb.mbr_idx, tb.img_idx, mem.mbr_nick, mem.mbr_addr, tb.tb_state, tb.tb_count, im.img_name, im.img_path
+    from Tradeboard tb
+    JOIN Image im ON im.tb_idx = tb.tb_idx
+    JOIN Member mem ON mem.mbr_idx = tb.mbr_idx
+    where mem.mbr_idx = #{mbr_idx}
     </select>
 
     <select id="SellAlllist" resultType="TradeboardReq" parameterType="Integer">
@@ -86,6 +86,7 @@
         JOIN Member mem ON mem.mbr_idx = tb.mbr_idx
         JOIN Image img ON img.img_idx = tb.img_idx
         WHERE tb_category = #{tb_category}
+        and tb_state = "판매중"
         AND tb.tb_idx != #{tb_idx}
         ORDER BY tb_count DESC
         LIMIT 4;

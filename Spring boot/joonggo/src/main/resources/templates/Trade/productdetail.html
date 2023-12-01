@@ -20,22 +20,22 @@
             <div class="col-md-6">
                 <div class="row">
                     <div class="col-6 col-md-2 mx-1">
-                        <div class="small mb-1 blur-text" id="tbSt"></div>
+                        <div class="small mb-1 blur-text" th:text="${TradeboardReq.tb_state}"></div>
                     </div>
                     <div class="col-6 col-md-2">
-                        <div class="small mb-1 blur-text ml-1" id="tbCa"></div>
+                        <div class="small mb-1 blur-text ml-1" th:text="${TradeboardReq.tb_category}"></div>
                     </div>
                     <div class="col-6 col-md-2">
-                        <button type="button" class="btn btn-light text-dark" id="tbNi" onclick="goToMypage()">
+                        <button type="button" class="btn btn-light text-dark" th:text="${TradeboardReq.mbr_nick}" onclick="sellbuylist('${TradeboardReq.mbr_idx}')">
                         </button>
-                        <span id="tbAr"></span>
+                        <span th:text="${TradeboardReq.mbr_addr}"></span>
                     </div>
                 </div>
-                <h1 class="display-6 fw-bolder small mb-6" id="tbTi">Shop item template</h1>
+                <h1 class="display-6 fw-bolder small mb-6" th:text="${TradeboardReq.tb_title}">Shop item template</h1>
                 <div class="fs-5 mb-5">
-                    <span class="text" id="tbCo"></span>
+                    <span class="text" th:text="${TradeboardReq.tb_content}"></span>
                 </div>
-                <p class="lead mb-4" id="tbPr">가격: </p>
+                <p class="lead mb-4" th:text="${TradeboardReq.tb_price}">가격: </p>
                 <div class="d-flex">
                     <button class="btn btn-outline-dark flex-shrink-0" type="button">
                         채팅하기
@@ -45,23 +45,15 @@
         </div>
     </div>
     <script>
-        function handleImageClick(element)
-        {
-            var tbIdx = [[${param.tb_idx}]];
-            fetch("/Trade/getTradeboardInfo?tb_idx=" + tbIdx)
-                .then(response => response.json())
-                .then(data => {
-                    document.getElementById("tbTi").innerText = data.tb_title;
-                    document.getElementById("tbCo").innerText = data.tb_content;
-                    document.getElementById("tbPr").innerText = data.tb_price+"원";
-                    document.getElementById("tbCa").innerText = data.tb_category;
-                    document.getElementById("tbSt").innerText = data.tb_state;
-                    document.getElementById("tbNi").innerText = data.mbr_nick;
-                    document.getElementById("tbAr").innerText = data.mbr_addr;
-                })
-                .catch(error => console.error('Error fetching tradeboard info:', error));
-            }
-            handleImageClick();
+        function handleImageClick(mbrIdx) {
+         var tbIdx = element.getAttribute("data-mbr-idx");
+         fetch("/Trade/sellbuylist?mbrIdx=" + mbrIdx)
+         .then(response => response.json())
+           .then(data => {
+          window.location.href = '/sellbuylist?mbrIdx=' + mbrIdx;
+        })
+    .catch(error => console.error('Error fetching tradeboard info:', error));
+     }
     </script>
 </section>
 <!-- 추천 상품-->

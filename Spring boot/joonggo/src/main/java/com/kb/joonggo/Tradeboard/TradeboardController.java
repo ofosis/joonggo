@@ -292,4 +292,10 @@ public class TradeboardController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
+
+    @GetMapping("sellbuylist")
+    public String productList()
+    {
+        return "Trade/sellbuylist";
+    }
 }
