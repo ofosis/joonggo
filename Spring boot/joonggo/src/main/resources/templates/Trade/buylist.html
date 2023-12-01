@@ -20,7 +20,7 @@
                             <img class="card-img-top" th:src="@{'/images/' + ${TradeboardReq.img_name}}" alt="..." th:idx="${TradeboardReq.tb_idx}"/>
                             <div class="text-center">
                                 <h5 class="fw-bolder" th:text="${TradeboardReq.tb_title}">상품명</h5>
-                                <span th:text="${TradeboardReq.tb_price}">$0.00</span>
+                                <span th:text="${TradeboardReq.tb_price}+원">$0.00</span>
                             </div>
                         </div>
                     </div>

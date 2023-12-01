@@ -53,7 +53,7 @@
                 .then(data => {
                     document.getElementById("tbTi").innerText = data.tb_title;
                     document.getElementById("tbCo").innerText = data.tb_content;
-                    document.getElementById("tbPr").innerText = data.tb_price;
+                    document.getElementById("tbPr").innerText = data.tb_price+"원";
                     document.getElementById("tbCa").innerText = data.tb_category;
                     document.getElementById("tbSt").innerText = data.tb_state;
                     document.getElementById("tbNi").innerText = data.mbr_nick;
@@ -64,25 +64,20 @@
             handleImageClick();
     </script>
 </section>
-[[${TradeboardReq}]]
 <!-- 추천 상품-->
 <section class="py-5 bg-light">
     <div class="container px-4 px-lg-5 mt-5">
         <h2 class="fw-bolder mb-4">이런 상품도 있어요 !!</h2>
         <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-            <div class="col mb-5">
-                <div th:each="item : ${TradeboardReq}" class="col mb-5">
-                    <div class="card h-100">
-                        <!-- 상품 이미지-->
-                        <div class="col mb-5" th:data-tb-idx="${item.tb_idx}" onclick="handleImageClick(this)">
-                            <div class="card h-100">
-                                <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." th:idx="${item.tb_idx}"/>
-                                <div class="card-body p-4">
-                                    <div class="text-center">
-                                        <h5 class="fw-bolder" th:text="${item.tb_title}">상품명</h5>
-                                        <span th:text="${item.tb_price}">$0.00</span>
-                                    </div>
-                                </div>
+            <!-- Thymeleaf로 순회하면서 각각의 제품을 표시 -->
+            <div th:each="item : ${showRecommend}" class="col mb-4">
+                <div class="card h-100">
+                    <div class="col" th:data-tb-idx="${item.tb_idx}" onclick="handleImageClick(this)">
+                        <div class="card h-100">
+                            <img class="card-img-top" th:src="@{'/images/' + ${item.img_name}}" alt="..." th:idx="${item.tb_idx}"/>
+                            <div class="text-center">
+                                <h5 class="fw-bolder" th:text="${item.tb_title}">상품명</h5>
+                                <span th:text="${item.tb_price}">$0.00</span>
                             </div>
                         </div>
                     </div>
@@ -90,17 +85,17 @@
             </div>
         </div>
     </div>
-<!--    <script>-->
-<!--        function handleImageClick(element) {-->
-<!--         var tbIdx = element.getAttribute("data-tb-idx");-->
-<!--         fetch("/Trade/getTradeboardInfo?tb_idx=" + tbIdx)-->
-<!--         .then(response => response.json())-->
-<!--           .then(data => {-->
-<!--          window.location.href = "/Trade/productdetail?tb_idx=" + tbIdx;-->
-<!--        })-->
-<!--    .catch(error => console.error('Error fetching tradeboard info:', error));-->
-<!--     }-->
-<!--    </script>-->
+    <script>
+        function handleImageClick(element) {
+         var tbIdx = element.getAttribute("data-tb-idx");
+         fetch("/Trade/getTradeboardInfo?tb_idx=" + tbIdx)
+         .then(response => response.json())
+           .then(data => {
+          window.location.href = "/Trade/productdetail?tb_idx=" + tbIdx;
+        })
+    .catch(error => console.error('Error fetching tradeboard info:', error));
+     }
+    </script>
 </section>
 <!-- Footer-->
 <footer class="py-5 bg-dark">

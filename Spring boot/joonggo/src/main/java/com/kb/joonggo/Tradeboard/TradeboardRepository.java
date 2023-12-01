@@ -1,7 +1,10 @@
 package com.kb.joonggo.Tradeboard;
+import jakarta.annotation.Nullable;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Null;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -18,12 +21,11 @@ public interface TradeboardRepository {
     public int countSellRow();
     public TradeboardDTO selectSellRow(int idx);
 
-    public List<TradeboardReq> Recoselllist(String category);
     public TradeboardReq selectRow2(int idx);
 
     public void saveImage(TradeboardReq tradeboardReq);
 
-//    public List<TradeboardReq> showRecommend(String tb_category, int tb_idx);
+    List<TradeboardReq> showRecommend(@Param("tb_category") String tb_category, @Param("tb_idx") int tb_idx);
 
     public void insert(TradeboardDTO tradeboardDTO);
 

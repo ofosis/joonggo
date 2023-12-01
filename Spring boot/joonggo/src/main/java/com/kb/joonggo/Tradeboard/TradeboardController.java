@@ -16,6 +16,7 @@ import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -264,37 +265,27 @@ public class TradeboardController {
         return "redirect:/";
     }
 
-    @GetMapping("productdetail")
+    @GetMapping(value = "productdetail", params = "tb_idx")
     private String detail(Model model, @RequestParam(name = "tb_idx", required = false) Integer tb_idx) {
         if (tb_idx != null) {
             TradeboardReq tradeboardReq = tradeboardRepository.selectRow2(tb_idx);
-            model.addAttribute("TradeboardReq",tradeboardReq);
-
-
+            model.addAttribute("TradeboardReq", tradeboardReq);
+            List<TradeboardReq> showRecommend = tradeboardRepository.showRecommend(tradeboardReq.getTb_category(), tb_idx);
+            model.addAttribute("showRecommend", showRecommend);
             return "Trade/productdetail";
-        } else {
+        }
+        else {
             System.out.println("idx가 없어요");
-            return "error"; // 또는 다른 에러 처리 로직
+            return "error";
         }
     }
-
-//    @GetMapping("productdetail")
-//    private String getsellinfo(Model model, @RequestParam(name = "category", required = false) String category) {
-//        List<TradeboardReq> Recoselllist = tradeboardRepository.Recoselllist(category);
-//        int countSellRow = tradeboardRepository.countSellRow();
-//
-//        model.addAttribute("Recoselllist", Recoselllist);
-//        return "Trade/productdetail";
-//    }
 
     @GetMapping("getTradeboardInfo")
     @ResponseBody
     public ResponseEntity<TradeboardReq> getTradeboardInfo(@RequestParam(name = "tb_idx", required = true) Integer tb_idx) {
         if (tb_idx != null) {
             TradeboardReq tradeboardReq = tradeboardRepository.selectRow2(tb_idx);
-            System.out.println(tradeboardReq);
-            if (tradeboardReq.getTb_date() == null) {
-                tradeboardReq.setTb_date(new Date());
+            if (tradeboardReq == null) {
             }
             return new ResponseEntity<>(tradeboardReq, HttpStatus.OK);
         } else {

@@ -25,6 +25,7 @@
         SELECT * FROM Tradeboard JOIN Member ON Tradeboard.mbr_idx = Member.mbr_idx WHERE tb_idx = #{tb_idx}
     </select>
 
+
     <select id="countBuyRow" resultType="Integer">
         select count(*) from Tradeboard where tb_state = "구매중"
     </select>
@@ -40,6 +41,15 @@
         select tb.tb_idx, tb.tb_title, tb.tb_content, tb.tb_date, tb.tb_price, tb.tb_category, tb.tb_count,
         tb.tb_state, tb.mbr_idx, tb.img_idx, mem.mbr_nick, mem.mbr_addr, tb.tb_state, tb.tb_count, im.img_name, im.img_path
          from Tradeboard tb
+        JOIN Image im ON im.tb_idx = tb.tb_idx
+        JOIN Member mem ON mem.mbr_idx = tb.mbr_idx
+        where tb.tb_idx = #{tb_idx}
+    </select>
+
+    <select id="ExceptselectRow" resultType="TradeboardReq" parameterType="Integer">
+        select tb.tb_idx, tb.tb_title, tb.tb_content, tb.tb_date, tb.tb_price, tb.tb_category, tb.tb_count,
+        tb.tb_state, tb.mbr_idx, tb.img_idx, mem.mbr_nick, mem.mbr_addr, tb.tb_state, tb.tb_count, im.img_name, im.img_path
+        from Tradeboard tb
         JOIN Image im ON im.tb_idx = tb.tb_idx
         JOIN Member mem ON mem.mbr_idx = tb.mbr_idx
         where tb.tb_idx = #{tb_idx}
@@ -61,13 +71,6 @@
         LIMIT #{pageNum}, 3;
     </select>
 
-    <select id="Recoselllist" resultType="TradeboardReq" parameterType="map">
-        SELECT * FROM Tradeboard t
-        JOIN Member m ON t.mbr_idx = m.mbr_idx
-        WHERE tb_category = #{category} AND m.mbr_idx != 123
-        ORDER BY tb_count DESC;
-    </select>
-
     <select id="selectSellRow" parameterType="Integer" resultType="TradeboardDTO">
         select * from Tradeboard where tb_idx = #{tb_idx}
     </select>
@@ -76,16 +79,17 @@
         select count(*) from Tradeboard where tb_state = "판매중"
     </select>
 
-    <!--    <select id="showRecommend" resultType="showRecommend" parameterType="map">-->
-    <!--        SELECT tb.tb_idx, tb.tb_title, tb.tb_content, tb.tb_date, tb.tb_price, tb.tb_category, tb.tb_count,-->
-    <!--        tb.tb_state, tb.mbr_idx, mem.mbr_nick, mem.mbr_addr, tb.img_idx, img.img_name, img.img_path  FROM Tradeboard tb-->
-    <!--        JOIN Member mem On mem.mbr_idx = tb.mbr_idx-->
-    <!--        JOIN Image img ON img.img_idx = tb.img_idx-->
-    <!--        WHERE tb_category = #{tb_category}-->
-    <!--        AND tb.tb_idx != #{tb_idx}-->
-    <!--        ORDER BY tb_count DESC-->
-    <!--        LIMIT 4;-->
-    <!--    </select>-->
+    <select id="showRecommend" resultType="TradeboardReq" parameterType="map">
+        SELECT tb.tb_idx, tb.tb_title, tb.tb_content, tb.tb_date, tb.tb_price, tb.tb_category, tb.tb_count,
+        tb.tb_state, tb.mbr_idx, mem.mbr_nick, mem.mbr_addr, tb.img_idx, img.img_name, img.img_path
+        FROM Tradeboard tb
+        JOIN Member mem ON mem.mbr_idx = tb.mbr_idx
+        JOIN Image img ON img.img_idx = tb.img_idx
+        WHERE tb_category = #{tb_category}
+        AND tb.tb_idx != #{tb_idx}
+        ORDER BY tb_count DESC
+        LIMIT 4;
+    </select>
 
 <!--    <select id="countSellRow" resultType="Integer">-->
 <!--    select count(*)-->
