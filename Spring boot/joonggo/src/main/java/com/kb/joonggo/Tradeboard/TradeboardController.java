@@ -19,6 +19,8 @@ import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Filter;
+import java.util.stream.Collectors;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -298,25 +300,34 @@ public class TradeboardController {
     {
         if (mbr_idx != null) {
             List<TradeboardReq> selectallproduct = tradeboardRepository.selectallproduct(mbr_idx);
-            model.addAttribute("selectallproduct", selectallproduct);
+            List<TradeboardReq> saleSection = selectallproduct.stream()
+                    .filter(product -> "판매중".equals(product.getTb_state()))
+                    .collect(Collectors.toList());
+
+            List<TradeboardReq> purchaseSection = selectallproduct.stream()
+                    .filter(product -> "구매중".equals(product.getTb_state()))
+                    .collect(Collectors.toList());
+
+            model.addAttribute("saleSection", saleSection);
+            model.addAttribute("purchaseSection", purchaseSection);
             return "Trade/sellbuylist";
-            }
+        }
         else{
             System.out.println("idx가 없어요");
             return "error";
-            }
+        }
     }
 
     @GetMapping("getsellbuylist")
-        @ResponseBody
-        public ResponseEntity<List<TradeboardReq>> getsellbuylist(@RequestParam(name = "mbr_idx", required = true) Integer mbr_idx) {
-            if (mbr_idx != null) {
-                List<TradeboardReq> selectallproduct = tradeboardRepository.selectallproduct(mbr_idx);
-                if (selectallproduct == null) {
-                }
-                return new ResponseEntity<>(selectallproduct, HttpStatus.OK);
-            } else {
-                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    @ResponseBody
+    public ResponseEntity<List<TradeboardReq>> getsellbuylist(@RequestParam(name = "mbr_idx", required = true) Integer mbr_idx) {
+        if (mbr_idx != null) {
+            List<TradeboardReq> selectallproduct = tradeboardRepository.selectallproduct(mbr_idx);
+            if (selectallproduct == null) {
             }
+            return new ResponseEntity<>(selectallproduct, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
+    }
 }

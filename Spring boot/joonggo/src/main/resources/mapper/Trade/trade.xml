@@ -30,29 +30,29 @@
         select count(*) from Tradeboard where tb_state = "구매중"
     </select>
 
-<!--    <select id="countBuyRow" resultType="Integer">-->
-<!--    select count(*)-->
-<!--    FROM Tradeboard-->
-<!--    JOIN Image ON Tradeboard.tb_idx = Image.tb_idx-->
-<!--    where tb_state = "구매중"-->
-<!--    </select>-->
+    <!--    <select id="countBuyRow" resultType="Integer">-->
+    <!--    select count(*)-->
+    <!--    FROM Tradeboard-->
+    <!--    JOIN Image ON Tradeboard.tb_idx = Image.tb_idx-->
+    <!--    where tb_state = "구매중"-->
+    <!--    </select>-->
 
     <select id="selectRow2" resultType="TradeboardReq" parameterType="Integer">
         select tb.tb_idx, tb.tb_title, tb.tb_content, tb.tb_date, tb.tb_price, tb.tb_category, tb.tb_count,
         tb.tb_state, tb.mbr_idx, tb.img_idx, mem.mbr_nick, mem.mbr_addr, tb.tb_state, tb.tb_count, im.img_name, im.img_path
-         from Tradeboard tb
+        from Tradeboard tb
         JOIN Image im ON im.tb_idx = tb.tb_idx
         JOIN Member mem ON mem.mbr_idx = tb.mbr_idx
         where tb.tb_idx = #{tb_idx}
     </select>
 
     <select id="selectallproduct" resultType="TradeboardReq" parameterType="Integer">
-    select tb.tb_idx, tb.tb_title, tb.tb_content, tb.tb_date, tb.tb_price, tb.tb_category, tb.tb_count,
-    tb.tb_state, tb.mbr_idx, tb.img_idx, mem.mbr_nick, mem.mbr_addr, tb.tb_state, tb.tb_count, im.img_name, im.img_path
-    from Tradeboard tb
-    JOIN Image im ON im.tb_idx = tb.tb_idx
-    JOIN Member mem ON mem.mbr_idx = tb.mbr_idx
-    where mem.mbr_idx = #{mbr_idx}
+        select tb.tb_idx, tb.tb_title, tb.tb_content, tb.tb_date, tb.tb_price, tb.tb_category, tb.tb_count,
+        tb.tb_state, tb.mbr_idx, tb.img_idx, mem.mbr_nick, mem.mbr_addr, tb.tb_state, tb.tb_count, im.img_name, im.img_path
+        from Tradeboard tb
+        JOIN Image im ON im.tb_idx = tb.tb_idx
+        JOIN Member mem ON mem.mbr_idx = tb.mbr_idx
+        where mem.mbr_idx = #{mbr_idx}
     </select>
 
     <select id="SellAlllist" resultType="TradeboardReq" parameterType="Integer">
@@ -92,20 +92,20 @@
         LIMIT 4;
     </select>
 
-<!--    <select id="countSellRow" resultType="Integer">-->
-<!--    select count(*)-->
-<!--    FROM Tradeboard-->
-<!--    JOIN Image ON Tradeboard.tb_idx = Image.tb_idx-->
-<!--    where tb_state = "판매중"-->
-<!--    </select>-->
+    <!--    <select id="countSellRow" resultType="Integer">-->
+    <!--    select count(*)-->
+    <!--    FROM Tradeboard-->
+    <!--    JOIN Image ON Tradeboard.tb_idx = Image.tb_idx-->
+    <!--    where tb_state = "판매중"-->
+    <!--    </select>-->
 
     <insert id="insert" parameterType="TradeboardDTO">
         insert into Tradeboard
         (tb_title, tb_content, tb_date, tb_price, tb_category, tb_count, tb_state)
-<!--        mbr_idx, img_idx 제거함-->
+        <!--        mbr_idx, img_idx 제거함-->
         values
         (#{tb_title}, #{tb_content}, #{tb_date}, #{tb_price}, #{tb_category}, #{tb_count}, #{tb_state})
-<!--        #{mbr_idx}, #{img_idx} 제거함-->
+        <!--        #{mbr_idx}, #{img_idx} 제거함-->
     </insert>
 
     <select id="search_tb_idx" parameterType="map" resultType="Integer">

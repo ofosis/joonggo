@@ -4,50 +4,113 @@
 </head>
 <body>
 <style>
-        .blur-text {
-            color: #808080;
-            text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
-            font-weight: 600;
-        }
-    </style>
-<!--[[${selectallproduct}]]-->
-    <nav th:replace="~{layout/layout :: nav('home')}"></nav>
-                <div class="container text-center my-5 pt-5 pb-4 mb-0">
-                    <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb justify-content-center text-uppercase">
-                            <li class="breadcrumb-item"><a href="#" class="blur-text">판 매 중</a></li>
-                            <li class="breadcrumb-item"><a href="#" class="blur-text">구 매 중</a></li>
-                            <li class="breadcrumb-item"><a href="#" class="blur-text">거 래 완 료</a></li>
-                        </ol>
-                    </nav>
-                </div>
-<section class="py-5">
+    .blur-text {
+        color: #808080;
+        text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+        font-weight: 600;
+    }
+
+    .btn-container {
+        display: flex;
+        justify-content: center;
+        gap: 10px; /* 간격 조절 */
+    }
+
+    .btn-container button {
+        border: 1px solid #808080; /* 테두리 색상 조절 */
+        padding: 5px 10px;
+        background-color: transparent;
+        color: #808080;
+        cursor: pointer;
+    }
+
+    .btn-container button.active {
+        border-color: #000; /* 선택된 버튼 테두리 색상 조절 */
+        color: #000;
+        font-weight: bold;
+    }
+
+    .btn-container button:focus {
+        outline: none; /* 클릭 시 버튼 주위의 파란색 테두리 제거 */
+    }
+</style>
+<nav th:replace="~{layout/layout :: nav('home')}"></nav>
+<div class="container text-center my-5 pt-5 pb-4 mb-0">
+    <div class="btn-container">
+        <button class="blur-text" onclick="showSection('saleSection')">판 매 중</button>
+        <button class="blur-text" th:if="${purchaseSection}" onclick="showSection('purchaseSection')">구 매 중</button>
+    </div>
+</div>
+<section id="saleSection" class="py-5">
     <div class="container px-4 px-lg-5 mt-0">
         <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-            <div th:each="item : ${selectallproduct}" class="col-lg-3 col-md-6 mb-4">
+            <div th:each="item : ${saleSection}" class="col-lg-3 col-md-6 mb-4">
                 <div class="team-item text-center rounded overflow-hidden">
                     <div class="col" th:data-tb-idx="${item.tb_idx}" onclick="handleImageClick(this)">
-                    <div class="rounded-circle overflow-hidden m-4">
-                        <img class="img-fluid" th:src="@{'/images/' + ${item.img_name}}" alt="..." th:idx="${item.tb_idx}" onclick="handleImageClick(this)">
-                    </div>
-                    <h5 class="mb-0" th:text="${item.tb_title}">상품명</h5>
-                    <small th:text="${item.tb_price}+원">$0.00</small>
+                        <div class="rounded-circle overflow-hidden m-4">
+                            <img class="img-fluid" th:src="@{'/images/' + ${item.img_name}}" alt="..." th:idx="${item.tb_idx}"/>
+                        </div>
+                        <h5 class="mb-0" th:text="${item.tb_title}">상품명</h5>
+                        <small th:text="${item.tb_price}+원">$0.00</small>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-        <script>
-            function handleImageClick(element) {
-             var tbIdx = element.getAttribute("data-tb-idx");
-             fetch("/Trade/getTradeboardInfo?tb_idx=" + tbIdx)
-             .then(response => response.json())
-               .then(data => {
-              window.location.href = "/Trade/productdetail?tb_idx=" + tbIdx;
-            })
-        .catch(error => console.error('Error fetching tradeboard info:', error));
-         }
-        </script>
 </section>
+<section id="purchaseSection" class="py-5" th:if="${purchaseSection}">
+    <div class="container px-4 px-lg-5 mt-0">
+        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+            <div th:each="item : ${purchaseSection}" class="col-lg-3 col-md-6 mb-4">
+                <div class="team-item text-center rounded overflow-hidden">
+                    <div class="col" th:data-tb-idx="${item.tb_idx}" onclick="handleImageClick(this)">
+                        <div class="rounded-circle overflow-hidden m-4">
+                            <img class="img-fluid" th:src="@{'/images/' + ${item.img_name}}" alt="..." th:idx="${item.tb_idx}"/>
+                        </div>
+                        <h5 class="mb-0" th:text="${item.tb_title}">상품명</h5>
+                        <small th:text="${item.tb_price}+원">$0.00</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        showSection('saleSection');
+    });
+
+    function handleImageClick(element) {
+        var tbIdx = element.getAttribute("data-tb-idx");
+        fetch("/Trade/getTradeboardInfo?tb_idx=" + tbIdx)
+        .then(response => response.json())
+        .then(data => {
+            window.location.href = "/Trade/productdetail?tb_idx=" + tbIdx;
+        })
+        .catch(error => console.error('Error fetching tradeboard info:', error));
+    }
+
+    function showSection(sectionId) {
+        var saleSection = document.getElementById('saleSection');
+        var purchaseSection = document.getElementById('purchaseSection');
+
+        var saleButton = document.querySelector('.btn-container button:nth-child(1)');
+        var purchaseButton = document.querySelector('.btn-container button:nth-child(2)');
+
+        if (sectionId === 'saleSection') {
+            saleSection.style.display = 'block';
+            purchaseSection.style.display = 'none';
+
+            saleButton.classList.add('active');
+            purchaseButton.classList.remove('active');
+        } else if (sectionId === 'purchaseSection') {
+            saleSection.style.display = 'none';
+            purchaseSection.style.display = 'block';
+
+            saleButton.classList.remove('active');
+            purchaseButton.classList.add('active');
+        }
+    }
+</script>
 </body>
 </html>
