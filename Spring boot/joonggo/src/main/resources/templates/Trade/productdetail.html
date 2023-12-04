@@ -11,7 +11,6 @@
             text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
         }
     </style>
-    </style>
     <div class="container px-4 px-lg-5 my-5">
         <div class="row gx-4 gx-lg-5 align-items-center">
             <div class="col-md-6">
@@ -26,7 +25,7 @@
                         <div class="small mb-1 blur-text ml-1" th:text="${TradeboardReq.tb_category}"></div>
                     </div>
                     <div class="col-6 col-md-2">
-                        <button type="button" class="btn btn-light text-dark" th:text="${TradeboardReq.mbr_nick}" onclick="sellbuylist('${TradeboardReq.mbr_idx}')">
+                        <button type="button" class="btn btn-light text-dark" th:data-tb-idx="${TradeboardReq.mbr_idx}" th:text="${TradeboardReq.mbr_nick}" onclick="goonclick(this)">
                         </button>
                         <span th:text="${TradeboardReq.mbr_addr}"></span>
                     </div>
@@ -45,15 +44,15 @@
         </div>
     </div>
     <script>
-        function handleImageClick(mbrIdx) {
-         var tbIdx = element.getAttribute("data-mbr-idx");
-         fetch("/Trade/sellbuylist?mbrIdx=" + mbrIdx)
-         .then(response => response.json())
-           .then(data => {
-          window.location.href = '/sellbuylist?mbrIdx=' + mbrIdx;
-        })
-    .catch(error => console.error('Error fetching tradeboard info:', error));
-     }
+        function goonclick(element) {
+            var mbr_idx = element.getAttribute("data-tb-idx");
+            fetch("/Trade/getsellbuylist?mbr_idx=" + mbr_idx)
+                .then(response => response.json())
+                .then(data => {
+                    window.location.href = '/Trade/sellbuylist?mbr_idx=' + mbr_idx;
+                })
+                .catch(error => console.error('거래 정보를 가져오는 중 오류 발생:', error));
+        }
     </script>
 </section>
 <!-- 추천 상품-->

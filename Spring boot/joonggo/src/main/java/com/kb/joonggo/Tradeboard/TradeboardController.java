@@ -293,9 +293,30 @@ public class TradeboardController {
         }
     }
 
-    @GetMapping("sellbuylist")
-    public String productList()
+    @GetMapping(value = "sellbuylist", params = "mbr_idx")
+    public String productList(Model model, @RequestParam(name = "mbr_idx", required = false) Integer mbr_idx)
     {
-        return "Trade/sellbuylist";
+        if (mbr_idx != null) {
+            List<TradeboardReq> selectallproduct = tradeboardRepository.selectallproduct(mbr_idx);
+            model.addAttribute("selectallproduct", selectallproduct);
+            return "Trade/sellbuylist";
+            }
+        else{
+            System.out.println("idx가 없어요");
+            return "error";
+            }
     }
+
+    @GetMapping("getsellbuylist")
+        @ResponseBody
+        public ResponseEntity<List<TradeboardReq>> getsellbuylist(@RequestParam(name = "mbr_idx", required = true) Integer mbr_idx) {
+            if (mbr_idx != null) {
+                List<TradeboardReq> selectallproduct = tradeboardRepository.selectallproduct(mbr_idx);
+                if (selectallproduct == null) {
+                }
+                return new ResponseEntity<>(selectallproduct, HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            }
+        }
 }

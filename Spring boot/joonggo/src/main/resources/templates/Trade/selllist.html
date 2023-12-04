@@ -9,19 +9,16 @@
 <header th:replace="~{layout/layout :: header('home')}"></header>
 <!-- Section-->
 <section class="py-5">
-    <div class="container px-4 px-lg-5 mt-5">
-        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-            <!-- Thymeleaf로 순회하면서 각각의 제품을 표시 -->
-            <div th:each="TradeboardReq : ${SellAlllist}" class="col mb-4"> <!-- 여기서 mb-4를 사용하여 하단 여백을 조절 -->
-                <div class="card h-100">
-                    <!-- 상품 이미지-->
+    <div class="container px-4 px-lg-5 mt-0">
+            <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+            <div th:each="TradeboardReq : ${SellAlllist}"class="col-lg-3 col-md-6 mb-4">
+                <div class="team-item text-center rounded overflow-hidden">
                     <div class="col" th:data-tb-idx="${TradeboardReq.tb_idx}" onclick="handleImageClick(this)">
-                        <div class="card h-100">
+                        <div class="rounded-circle overflow-hidden m-4">
                             <img class="card-img-top" th:src="@{'/images/' + ${TradeboardReq.img_name}}" alt="..." th:idx="${TradeboardReq.tb_idx}"/>
-                            <div class="text-center">
-                                <h5 class="fw-bolder" th:text="${TradeboardReq.tb_title}">상품명</h5>
-                                <span th:text="${TradeboardReq.tb_price}+원">$0.00</span>
-                            </div>
+                        </div>
+                        <h5 class="mb-0" th:text="${TradeboardReq.tb_title}">상품명</h5>
+                        <small th:text="${TradeboardReq.tb_price}+원">$0.00</small>
                         </div>
                     </div>
                 </div>
