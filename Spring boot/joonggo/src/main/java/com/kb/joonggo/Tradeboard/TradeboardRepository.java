@@ -27,6 +27,8 @@ public interface TradeboardRepository {
 
     List<TradeboardReq> showRecommend(@Param("tb_category") String tb_category, @Param("tb_idx") int tb_idx);
 
+    List<TradeboardReq> showRecommend2(@Param("tb_idx") int tb_idx);
+
     List<TradeboardReq> selectallproduct(int mbr_idx);
     public void insert(TradeboardDTO tradeboardDTO);
 

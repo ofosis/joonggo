@@ -262,6 +262,18 @@ public class TradeboardController {
         );
 
         System.out.println("tb 테이블 img_idx 업데이트 완료");
+
+        System.out.println("팝니다/삽니다 페이징 시작");
+
+        if(tradeboardReq.getTb_state().equals("판매중")){
+            return "/Trade/selllist?SellpageNum=1";
+        }
+        else if(tradeboardReq.getTb_state().equals("구매중")) {
+            return "redirect:/Trade/buylist?BuypageNum=1";
+        }
+
+        System.out.println("판매중/구매중 아님");
+
         return "redirect:/";
     }
 
@@ -271,7 +283,19 @@ public class TradeboardController {
             TradeboardReq tradeboardReq = tradeboardRepository.selectRow2(tb_idx);
             model.addAttribute("TradeboardReq", tradeboardReq);
             List<TradeboardReq> showRecommend = tradeboardRepository.showRecommend(tradeboardReq.getTb_category(), tb_idx);
-            model.addAttribute("showRecommend", showRecommend);
+//            model.addAttribute("showRecommend", showRecommend);
+
+            // 아예 등록된 상품이 없다는 가정은 배제.
+            if(showRecommend.isEmpty()){
+                // showRecommend가 비어있음, 카테고리 무관 + 조회수 높은 4개까지 추천
+                // showRecommend가 비어있음, 카테고리 별로 한개씩 + 조회수 높은 4개까지 추천
+                List<TradeboardReq> showRecommend2 = tradeboardRepository.showRecommend2(tb_idx);
+                model.addAttribute("showRecommend", showRecommend2);
+            }
+            else {
+                // showRecommend가 비어있지 않음, 카테고리 동일 + 조회수 높은 4개까지 추천
+                model.addAttribute("showRecommend", showRecommend);
+            }
             return "Trade/productdetail";
         }
         else {

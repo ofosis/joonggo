@@ -38,7 +38,7 @@
                     <a th:classappend="${menu} == 'Buyer'? 'active text-success' " class="nav-link" th:href="@{/Trade/buylist?BuypageNum=1}">삽니다</a>
                 </li>
                 <li class="nav-item">
-                    <a th:classappend="${menu} == 'Freeboard'? 'active text-success' " class="nav-link" th:href="@{/Freeboard/list}">자유게시판</a>
+                    <a th:classappend="${menu} == 'Freeboard'? 'active text-success' " class="nav-link" th:href="@{/Freeboard/list?pageNum=1}">자유게시판</a>
                 </li>
                 <li class="nav-item">
                     <a th:classappend="${menu} == 'WriteForm'? 'active text-success' " class="nav-link" th:href="@{/Trade/writeForm}">임시글작성</a>
