@@ -11,9 +11,10 @@ import java.util.List;
 public interface FreeboardRepository {
 
     static void update(FreeBoard freeboard) {
+
     }
 
-    void delete(List idxList);
+    void delete(List<Integer> idxList);
 
     List<FreeBoard> list(int pageNum);
 
@@ -25,9 +26,14 @@ public interface FreeboardRepository {
 
     FreeboardReq findByIdx(int fr_idx);
 
+    @Query("SELECT f FROM FreeBoard f WHERE f.fr_title LIKE %:query% OR f.fr_content LIKE %:query%")
+    List<FreeBoard> searchByTitleOrContent(@Param("query") String query);
+
+
     void save(FreeboardReq freeboard);
 
     @Modifying
     @Query("UPDATE FreeBoard f SET f.view_count = f.view_count + 1 WHERE f.fr_idx = :frIdx")
     void updateViewCount(@Param("frIdx") int frIdx);
+
 }

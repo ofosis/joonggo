@@ -17,6 +17,7 @@ import java.util.List;
 public class FreeboardController {
 
     private final FreeboardService freeboardService;
+
     @Autowired
     public FreeboardController(FreeboardService freeboardService) {
         this.freeboardService = freeboardService;
@@ -29,25 +30,23 @@ public class FreeboardController {
     private String uploadPath;
 
     @GetMapping("list")
-    public String list(Model model, @RequestParam(required = false, defaultValue = "1") int pageNum) {
-//    public String list(Model model) {
-        model.addAttribute("pageNum", pageNum);
+    public String list(Model model, @RequestParam(required = false) Integer pageNum) {
+        pageNum = (pageNum != null && pageNum > 0) ? pageNum : 1;
 
-        pageNum = (pageNum - 1) * 5;
-        List<FreeBoard> list = freeboardRepository.list(pageNum);
+        int offset = (pageNum - 1) * 5;
+        List<FreeBoard> list = freeboardRepository.list(offset);
         int countRow = freeboardRepository.countRow();
 
-        model.addAttribute("list", list);
-
-        model.addAttribute("countRow", countRow);
-
         int countPage = (countRow / 5) + ((countRow % 5 > 0) ? 1 : 0);
+
+        model.addAttribute("pageNum", pageNum);
+        model.addAttribute("list", list);
+        model.addAttribute("countRow", countRow);
         model.addAttribute("countPage", countPage);
-        // List<FreeBoard> list = freeboardRepository.list();
-        //   model.addAttribute("list",list);
 
         return "Freeboard/list";
     }
+
 
     @GetMapping("view")
     public String view(Model model, int fr_idx) {
@@ -115,6 +114,13 @@ public class FreeboardController {
         model.addAttribute("freeboardReq", freeboardReq);
 
         return "Freeboard/updateform";
+    }
+
+    @GetMapping("/search")
+    public String search(@RequestParam String query, Model model) {
+        List<FreeBoard> searchResults = freeboardService.searchByTitleOrContent(query);
+        model.addAttribute("list", searchResults);
+        return "Freeboard/list";
     }
 
     @PostMapping("updateproc")

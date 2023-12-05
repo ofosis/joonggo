@@ -2,21 +2,23 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{layout/layout :: head('Freeboard')}"></head>
 <body>
-    <nav th:replace="~{layout/layout :: nav('Freeboard')}"></nav>
-    <div class="container p-3">
-        <header th:fragment="header(menu)" class="bg-dark py-5" style="background-size: auto 50%;">
-            <div class="container px-4 px-lg-5 my-5">
-                <div class="text-center text-white">
-                    <h1 class="display-4 fw-bolder">예쓰!</h1>
-                    <p class="lead fw-normal text-white-50 mb-0">이게 나야 편성진 보고있나?</p>
-                </div>
+<nav th:replace="~{layout/layout :: nav('Freeboard')}"></nav>
+<div class="container p-3">
+    <header th:fragment="header(menu)" class="bg-dark py-5" style="background-size: auto 50%;">
+        <div class="container px-4 px-lg-5 my-5">
+            <div class="text-center text-white">
+                <h1 class="display-4 fw-bolder">예쓰!</h1>
+                <p class="lead fw-normal text-white-50 mb-0">이게 나야 편성진 보고있나?</p>
             </div>
-        </header>
+        </div>
+    </header>
 
-        <div class="row">
-            <div class="col">
-                <table class="table table-striped">
-                    <thead>
+    <div class="row">
+        <div class="col">
+            <div class="row">
+                <div class="col">
+                    <table class="table table-striped">
+                        <thead>
                         <tr>
                             <th></th>
                             <th>No.</th>
@@ -25,60 +27,82 @@
                             <th>등록일</th>
                             <th>조회</th>
                         </tr>
-                    </thead>
-                    <tbody>
+                        </thead>
+                        <tbody>
                         <tr th:each="FreeboardReq, rowStat : ${list}">
                             <td class="text-center">
-                                <input type="checkbox" name="fr_idx" id="" th:value="${FreeboardReq.fr_idx}" class="form-check-input" onclick="addIdx(this);">
+                                <input type="checkbox" name="fr_idx" id="" th:value="${FreeboardReq.fr_idx}"
+                                       class="form-check-input" onclick="addIdx(this);">
                             </td>
                             <td th:text="${FreeboardReq.fr_idx}"></td>
                             <td>
-                                <a th:href="@{/Freeboard/view(fr_idx=${FreeboardReq.fr_idx})}" th:text="${FreeboardReq.fr_title}"></a>
+                                <a th:href="@{/Freeboard/view(fr_idx=${FreeboardReq.fr_idx})}"
+                                   th:text="${FreeboardReq.fr_title}"></a>
                             </td>
                             <td th:text="${FreeboardReq.mbr_nick}"></td>
                             <td th:text="${#temporals.format(FreeboardReq.created_at, 'yyyy-MM-dd HH:mm:ss')}"></td>
                             <td th:text="${FreeboardReq.view_count}"></td>
                         </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
+                        </tbody>
+                    </table>
+                </div>
 
-        <div class="row">
-            <h1 style="font-size: 18px;">총 페이지 개수 = [[ ${countPage} ]]</h1>
-            <h1 style="font-size: 18px;">총 행 개수 = [[ ${countRow} ]]</h1>
-            <h1 style="font-size: 18px;">현재 페이지 [[${pageNum}]]</h1>
-            <div class="col d-flex justify-content-center">
-                <nav aria-label="Page navigation example">
-                    <ul class="pagination">
-                        <li class="page-item">
-                            <a class="page-link" th:href="@{/Freeboard/list(pageNum=${pageNum})}" th:classappend="${pageNum} == 1 ? 'disabled'">Previous</a>
-                        </li>
-                        <li th:each="i:${#numbers.sequence(1,countPage)}" class="page-item">
-                            <a class="page-link" th:href="@{/Freeboard/list(pageNum=${i})}" th:classappend="${#strings.replace(param.pageNum,' ','')} == ${i} ? 'active' : ''">[[ ${i} ]]</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" th:href="@{/Freeboard/list(pageNum=${pageNum+1})}" th:classappend="${pageNum} == ${countPage} ? 'disabled'">Next</a>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
-        </div>
+                <!-- 검색 폼을 게시물 아래 오른쪽에 이동 -->
+                <div class="col-md-4 offset-md-8">
+                    <form action="/Freeboard/search" method="get">
+                        <div class="input-group">
+                            <input type="text" name="query" class="form-control" placeholder="제목 또는 내용을 입력하세요"/>
+                            <button type="submit" class="btn btn-dark">검색</button>
+                        </div>
+                    </form>
+                </div>
 
-        <div class="row">
-            <div class="col">
-                <a th:href="@{/Freeboard/writeform}" class="btn btn-dark">글쓰기</a>
-                <button onclick="doDelete()" class="btn btn-dark">삭제</button>
+
+                <div class="row">
+                    <h1 style="font-size: 18px;">총 페이지 개수 = [[ ${countPage} ]]</h1>
+                    <h1 style="font-size: 18px;">총 행 개수 = [[ ${countRow} ]]</h1>
+                    <h1 style="font-size: 18px;">현재 페이지 [[${pageNum}]]</h1>
+                    <div class="col d-flex justify-content-center">
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination">
+                                <li class="page-item">
+                                    <a class="page-link"
+                                       th:href="@{/Freeboard/list(pageNum=${pageNum != null ? pageNum + 1 : 1})}"
+                                       th:classappend="${pageNum == 1 || pageNum == null ? 'disabled' : ''}">Next</a>
+                                </li>
+
+                                <li th:each="i:${#numbers.sequence(1, countPage != null ? countPage : 1)}"
+                                    class="page-item">
+                                    <a class="page-link" th:href="@{/Freeboard/list(pageNum=${i})}"
+                                       th:classappend="${#strings.replace(param.pageNum,' ','')} == ${i} ? 'active' : ''">[[
+                                        ${i} ]]</a>
+                                </li>
+
+                                <li class="page-item" th:if="${pageNum != null && pageNum < countPage}">
+                                    <a class="page-link" th:href="@{/Freeboard/list(pageNum=${pageNum + 1})}">Next</a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        <a th:href="@{/Freeboard/writeform}" class="btn btn-dark">글쓰기</a>
+                        <button th:onclick="doDelete()" class="btn btn-dark">삭제</button>
+
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </body>
 </html>
 
+
 <!--<script th:inline="javascript">-->
 <!--    /*<![CDATA[*/-->
 <!--    let idx = [];-->
-
 <!--    function addIdx(obj) {-->
 <!--        let temp = $(obj).val();-->
 <!--        if (idx.indexOf(temp) !== -1) {-->
@@ -90,7 +114,6 @@
 <!--            idx.push(temp);-->
 <!--        }-->
 <!--    }-->
-
 <!--    function doDelete() {-->
 <!--        const aa = {-->
 <!--            url: '/Freeboard/delete',-->
@@ -108,4 +131,4 @@
 <!--        $.ajax(aa);-->
 <!--    }-->
 <!--    /*]]>*/-->
-<!--</script>>-->
+<!--</script>-->

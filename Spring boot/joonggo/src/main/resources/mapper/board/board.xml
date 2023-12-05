@@ -16,6 +16,13 @@
         where fr_idx = #{fr_idx}
     </select>
 
+    <select id="searchByTitleOrContent" resultType="FreeBoardReq" parameterType="String">
+        SELECT * FROM Freeboard
+        JOIN Member ON Freeboard.mbr_idx = Member.mbr_idx
+        WHERE fr_title LIKE CONCAT('%', #{query}, '%') OR fr_content LIKE CONCAT('%', #{query}, '%')
+        ORDER BY fr_idx DESC;
+    </select>
+
     <!--    <select id="list" resultType="FreeBoard" parameterType="Integer">-->
     <!--        SELECT * FROM board-->
     <!--        ORDER BY idx desc-->

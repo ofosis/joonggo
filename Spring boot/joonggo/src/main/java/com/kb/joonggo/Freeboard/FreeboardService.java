@@ -1,10 +1,10 @@
 package com.kb.joonggo.Freeboard;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-@Transactional
+import java.util.List;
+
 @Service
 public class FreeboardService {
 
@@ -16,15 +16,15 @@ public class FreeboardService {
     }
 
     public FreeboardReq getFreeboardByIdx(int fr_idx) {
-        FreeboardReq freeboard = freeboardRepository.findByIdx(fr_idx);
-        if (freeboard != null) {
-            increaseViewCount(fr_idx);
-        }
-        return freeboard;
+        return freeboardRepository.findByIdx(fr_idx);
     }
 
     @Transactional
     public void increaseViewCount(int fr_idx) {
         freeboardRepository.updateViewCount(fr_idx);
+    }
+
+    public List<FreeBoard> searchByTitleOrContent(String query) {
+        return freeboardRepository.searchByTitleOrContent(query);
     }
 }
