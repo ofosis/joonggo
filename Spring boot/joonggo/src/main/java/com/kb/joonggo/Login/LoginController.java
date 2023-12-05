@@ -47,21 +47,6 @@ public class LoginController {
         mbr_nick = DBLogin.getMbr_nick();
         mbr_id = DBLogin.getMbr_id();
         mbr_pwd = DBLogin.getMbr_pwd();
-        // 세션에 사용자 정보 저장
-        session.setAttribute("loggedInUser", DBLogin);
-
-        // 모델에 사용자 정보 담기
-        model.addAttribute("userinfo", DBLogin);
-
-        if (DBLogin == null) {
-            System.out.println("-----DB값 없을 때-----");
-            return "아이디 또는 비밀번호를 다시 확인해주세요.";
-        }
-
-        System.out.println("---DB불러왔음---");
-        mbr_nick = DBLogin.getMbr_nick();
-        mbr_id = DBLogin.getMbr_id();
-        mbr_pwd = DBLogin.getMbr_pwd();
 
         // 세션에 사용자 정보 저장
         session.setAttribute("loggedInUser", DBLogin);

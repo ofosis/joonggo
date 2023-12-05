@@ -34,8 +34,13 @@
 <nav th:fragment="nav(menu)" class="navbar navbar-expand-lg navbar-light bg-light">
     <script>
         var mbr_idx = sessionStorage.getItem('mbr_idx');
-            var mbr_idx = sessionStorage.getItem('mbr_idx');
-          console.log('현재 로그인한 사용자의 mbr_idx:', mbr_idx);
+        console.log('현재 로그인한 사용자의 mbr_idx:', mbr_idx);
+
+        function logout() {
+            sessionStorage.setItem('mbr_idx', null);
+            sessionStorage.getItem('mbr_idx');
+            window.location.reload();
+        }
     </script>
     <div class="container px-4 px-lg-5">
         <a class="navbar-brand display-1" th:classappend="${menu} == 'home'? 'active text-success' " th:href="@{/}">중고좋다</a>
@@ -82,12 +87,9 @@
                     로그인
                 </button>
                 <ul class="dropdown-menu">
-                    <!-- 로그인, 회원가입 표시 -->
-                    <li th:if="${mbr_idx == null}"> <a class="dropdown-item" th:href="@{/Login/loginpage}">로그인</a> </li>
-                    <li th:if="${mbr_idx == null}"> <a class="dropdown-item" th:href="@{/Join/joinpage}">회원가입</a> </li>
-
-                    <!-- 로그아웃 표시 -->
-                    <li th:unless="${mbr_idx != null}"> <a class="dropdown-item" th:href="@{/Login/logout}">로그아웃</a> </li>
+                    <li> <a class="dropdown-item" th:href="@{/Login/loginpage}">로그인</a> </li>
+                    <li> <a class="dropdown-item" th:href="@{/Join/joinpage}">회원가입</a> </li>
+                    <li> <a class="dropdown-item" onclick="logout()" th:href="@{/}">로그아웃</a></li>
                 </ul>
             </div>
 
