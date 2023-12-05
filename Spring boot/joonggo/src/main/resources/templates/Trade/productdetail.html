@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head th:replace="~{layout/layout :: head('home')}">
+</head>
+<body>
+<nav th:replace="~{layout/layout :: nav('home')}"></nav>
+<section class="py-5">
+    <style>
+        .blur-text {
+            color: #808080;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+        }
+    </style>
+    <div class="container px-4 px-lg-5 my-5">
+        <div class="row gx-4 gx-lg-5 align-items-center">
+            <div class="col-md-6">
+                <img class="card-img-top mb-5 mb-md-0" width="100" height="500" th:src="@{'/images/' + ${TradeboardReq.img_name}}" alt="..." th:idx="${TradeboardReq.tb_idx}"/>
+            </div>
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-6 col-md-2 mx-1">
+                        <div class="small mb-1 blur-text" th:text="${TradeboardReq.tb_state}"></div>
+                    </div>
+                    <div class="col-6 col-md-2">
+                        <div class="small mb-1 blur-text ml-1" th:text="${TradeboardReq.tb_category}"></div>
+                    </div>
+                    <div class="col-6 col-md-2">
+                        <button type="button" class="btn btn-light text-dark" th:data-tb-idx="${TradeboardReq.mbr_idx}" th:text="${TradeboardReq.mbr_nick}" onclick="goonclick(this)">
+                        </button>
+                        <span th:text="${TradeboardReq.mbr_addr}"></span>
+                    </div>
+                </div>
+                <h1 class="display-6 fw-bolder small mb-6" th:text="${TradeboardReq.tb_title}">Shop item template</h1>
+                <div class="fs-5 mb-5">
+                    <span class="text" th:text="${TradeboardReq.tb_content}"></span>
+                </div>
+                <p class="lead mb-4" th:text="${TradeboardReq.tb_price}">가격: </p>
+                <div class="d-flex">
+                    <button class="btn btn-outline-dark flex-shrink-0" type="button">
+                        채팅하기
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function goonclick(element) {
+            var mbr_idx = element.getAttribute("data-tb-idx");
+            fetch("/Trade/getsellbuylist?mbr_idx=" + mbr_idx)
+                .then(response => response.json())
+                .then(data => {
+                    window.location.href = '/Trade/sellbuylist?mbr_idx=' + mbr_idx;
+                })
+                .catch(error => console.error('거래 정보를 가져오는 중 오류 발생:', error));
+        }
+    </script>
+</section>
+<!-- 추천 상품-->
+<section class="py-5 bg-light">
+    <div class="container px-4 px-lg-5 mt-5">
+        <h2 class="fw-bolder mb-4">이런 상품도 있어요 !!</h2>
+        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+            <!-- Thymeleaf로 순회하면서 각각의 제품을 표시 -->
+            <div th:each="item : ${showRecommend}" class="col mb-4">
+                <div class="card h-100">
+                    <div class="col" th:data-tb-idx="${item.tb_idx}" onclick="handleImageClick(this)">
+                        <div class="card h-100">
+                            <img class="card-img-top" th:src="@{'/images/' + ${item.img_name}}" alt="..." th:idx="${item.tb_idx}"/>
+                            <div class="text-center">
+                                <h5 class="fw-bolder" th:text="${item.tb_title}">상품명</h5>
+                                <span th:text="${item.tb_price}">$0.00</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function handleImageClick(element) {
+         var tbIdx = element.getAttribute("data-tb-idx");
+         fetch("/Trade/getTradeboardInfo?tb_idx=" + tbIdx)
+         .then(response => response.json())
+           .then(data => {
+          window.location.href = "/Trade/productdetail?tb_idx=" + tbIdx;
+        })
+    .catch(error => console.error('Error fetching tradeboard info:', error));
+     }
+    </script>
+</section>
+<!-- Footer-->
+<footer class="py-5 bg-dark">
+    <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2023</p></div>
+</footer>
+
+</body>
+</html>

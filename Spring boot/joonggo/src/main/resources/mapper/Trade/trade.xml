@@ -4,8 +4,13 @@
 
 <mapper namespace="com.kb.joonggo.Tradeboard.TradeboardRepository">
 
-    <select id="BuyAlllist" resultType="TradeboardDTO">
-        select * from Tradeboard where tb_state = "구매중"
+    <select id="BuyAlllist" resultType="TradeboardReq" parameterType="Integer">
+        SELECT t.*, i.img_name, i.img_path
+        FROM Tradeboard t
+        JOIN Image i ON t.img_idx = i.img_idx
+        where tb_state = "구매중"
+        ORDER BY tb_idx desc
+        LIMIT #{pageNum}, 3;
     </select>
 
     <select id="Buylist" resultType="TradeboardDTO" parameterType="Integer">
@@ -15,18 +20,48 @@
         LIMIT #{pageNum}, 3;
     </select>
 
+
     <select id="selectBuyRow" parameterType="Integer" resultType="TradeboardDTO">
-        select * from Tradeboard where tb_idx = #{tb_idx}
+        SELECT * FROM Tradeboard JOIN Member ON Tradeboard.mbr_idx = Member.mbr_idx WHERE tb_idx = #{tb_idx}
     </select>
+
 
     <select id="countBuyRow" resultType="Integer">
         select count(*) from Tradeboard where tb_state = "구매중"
     </select>
 
+    <!--    <select id="countBuyRow" resultType="Integer">-->
+    <!--    select count(*)-->
+    <!--    FROM Tradeboard-->
+    <!--    JOIN Image ON Tradeboard.tb_idx = Image.tb_idx-->
+    <!--    where tb_state = "구매중"-->
+    <!--    </select>-->
 
+    <select id="selectRow2" resultType="TradeboardReq" parameterType="Integer">
+        select tb.tb_idx, tb.tb_title, tb.tb_content, tb.tb_date, tb.tb_price, tb.tb_category, tb.tb_count,
+        tb.tb_state, tb.mbr_idx, tb.img_idx, mem.mbr_nick, mem.mbr_addr, tb.tb_state, tb.tb_count, im.img_name, im.img_path
+        from Tradeboard tb
+        JOIN Image im ON im.tb_idx = tb.tb_idx
+        JOIN Member mem ON mem.mbr_idx = tb.mbr_idx
+        where tb.tb_idx = #{tb_idx}
+    </select>
 
-    <select id="SellAlllist" resultType="TradeboardDTO">
-        select * from Tradeboard where tb_state = "판매중"
+    <select id="selectallproduct" resultType="TradeboardReq" parameterType="Integer">
+        select tb.tb_idx, tb.tb_title, tb.tb_content, tb.tb_date, tb.tb_price, tb.tb_category, tb.tb_count,
+        tb.tb_state, tb.mbr_idx, tb.img_idx, mem.mbr_nick, mem.mbr_addr, tb.tb_state, tb.tb_count, im.img_name, im.img_path
+        from Tradeboard tb
+        JOIN Image im ON im.tb_idx = tb.tb_idx
+        JOIN Member mem ON mem.mbr_idx = tb.mbr_idx
+        where mem.mbr_idx = #{mbr_idx}
+    </select>
+
+    <select id="SellAlllist" resultType="TradeboardReq" parameterType="Integer">
+        SELECT t.*, i.img_name, i.img_path
+        FROM Tradeboard t
+        JOIN Image i ON t.img_idx = i.img_idx
+        where tb_state = "판매중"
+        ORDER BY tb_idx desc
+        LIMIT #{pageNum}, 3;
     </select>
 
     <select id="Selllist" resultType="TradeboardDTO" parameterType="Integer">
@@ -44,11 +79,55 @@
         select count(*) from Tradeboard where tb_state = "판매중"
     </select>
 
+    <select id="showRecommend" resultType="TradeboardReq" parameterType="map">
+        SELECT tb.tb_idx, tb.tb_title, tb.tb_content, tb.tb_date, tb.tb_price, tb.tb_category, tb.tb_count,
+        tb.tb_state, tb.mbr_idx, mem.mbr_nick, mem.mbr_addr, tb.img_idx, img.img_name, img.img_path
+        FROM Tradeboard tb
+        JOIN Member mem ON mem.mbr_idx = tb.mbr_idx
+        JOIN Image img ON img.img_idx = tb.img_idx
+        WHERE tb_category = #{tb_category}
+        and tb_state = "판매중"
+        AND tb.tb_idx != #{tb_idx}
+        ORDER BY tb_count DESC
+        LIMIT 4;
+    </select>
+
+    <!--    <select id="countSellRow" resultType="Integer">-->
+    <!--    select count(*)-->
+    <!--    FROM Tradeboard-->
+    <!--    JOIN Image ON Tradeboard.tb_idx = Image.tb_idx-->
+    <!--    where tb_state = "판매중"-->
+    <!--    </select>-->
+
     <insert id="insert" parameterType="TradeboardDTO">
-        insert into TradeboardDTO
-        (tb_title, tb_content, tb_date, tb_price, tb_category, tb_count, tb_state, mbr_idx, img_idx)
+        insert into Tradeboard
+        (tb_title, tb_content, tb_date, tb_price, tb_category, tb_count, tb_state)
+        <!--        mbr_idx, img_idx 제거함-->
         values
-        (#{tb_title}, #{tb_content}, #{tb_date}, #{tb_price}, #{tb_category}, #{tb_count}, #{tb_state}, #{mbr_idx}, #{img_idx})
+        (#{tb_title}, #{tb_content}, #{tb_date}, #{tb_price}, #{tb_category}, #{tb_count}, #{tb_state})
+        <!--        #{mbr_idx}, #{img_idx} 제거함-->
     </insert>
+
+    <select id="search_tb_idx" parameterType="map" resultType="Integer">
+        select tb_idx from Tradeboard
+        where tb_title = #{tb_title}
+        AND tb_content = #{tb_content}
+        AND tb_price = #{tb_price}
+        AND tb_category = #{tb_category}
+        AND tb_count = #{tb_count}
+        AND tb_state = #{tb_state}
+    </select>
+
+    <update id="img_idx_update" parameterType="map">
+        update Tradeboard
+        set img_idx = #{img_idx}
+        where tb_idx = #{tb_idx}
+        AND tb_title = #{tb_title}
+        AND tb_content = #{tb_content}
+        AND tb_price = #{tb_price}
+        AND tb_category = #{tb_category}
+        AND tb_count = #{tb_count}
+        AND tb_state = #{tb_state}
+    </update>
 
 </mapper>
