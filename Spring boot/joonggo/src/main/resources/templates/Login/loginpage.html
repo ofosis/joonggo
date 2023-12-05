@@ -67,29 +67,33 @@
 
 <script>
     var onsub = false;
-    function login(){
-    var login_info = $('#login_info');
-        $.ajax( {
-            url:'/Login/loginnig',
-            data: { mbr_id:  $('#mbr_id').val(),
-                    mbr_pwd: $('#mbr_pwd').val() },
-            success:function(res){
-                if(res.includes('환영')) {
+
+    function login() {
+        var login_info = $('#login_info');
+        $.ajax({
+            url: '/Login/loginnig',
+            data: {
+                mbr_id: $('#mbr_id').val(),
+                mbr_pwd: $('#mbr_pwd').val()
+            },
+            success: function (res) {
+                if (res.includes('로그인 실패')) {
+                    // 로그인 실패 시 처리
+                    onsub = false;
+                    alert('로그인 실패: ' + res);
+                    window.location.href = '/Login/loginpage';
+                } else {
+                    // 로그인 성공 시 처리
                     login_info.text(null);
+                    var userInfo = JSON.parse(res);
+                    sessionStorage.setItem('mbr_idx', userInfo.mbr_idx);
                     onsub = true;
-                    alert(res);
+                    console.log('로그인 정보:', userInfo);
                     window.location.href = '/';
                 }
-                else {
-                    onsub = false;
-                    login_info.text(res);
-                }
-
             }
-        } );
+        });
     }
 </script>
-
-
 </body>
 </html>

@@ -32,6 +32,11 @@
 <body>
 <!-- Navigation-->
 <nav th:fragment="nav(menu)" class="navbar navbar-expand-lg navbar-light bg-light">
+    <script>
+        var mbr_idx = sessionStorage.getItem('mbr_idx');
+            var mbr_idx = sessionStorage.getItem('mbr_idx');
+          console.log('현재 로그인한 사용자의 mbr_idx:', mbr_idx);
+    </script>
     <div class="container px-4 px-lg-5">
         <a class="navbar-brand display-1" th:classappend="${menu} == 'home'? 'active text-success' " th:href="@{/}">중고좋다</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -77,8 +82,12 @@
                     로그인
                 </button>
                 <ul class="dropdown-menu">
-                    <li> <a class="dropdown-item" href="/Login/loginpage">로그인</a>  </li>
-                    <li> <a class="dropdown-item" href="/Join/joinpage">회원가입</a> </li>
+                    <!-- 로그인, 회원가입 표시 -->
+                    <li th:if="${mbr_idx == null}"> <a class="dropdown-item" th:href="@{/Login/loginpage}">로그인</a> </li>
+                    <li th:if="${mbr_idx == null}"> <a class="dropdown-item" th:href="@{/Join/joinpage}">회원가입</a> </li>
+
+                    <!-- 로그아웃 표시 -->
+                    <li th:unless="${mbr_idx != null}"> <a class="dropdown-item" th:href="@{/Login/logout}">로그아웃</a> </li>
                 </ul>
             </div>
 
@@ -120,7 +129,6 @@
         </div>
     </div>
 </section>
-<
 <!-- Footer-->
 <footer class="py-5 bg-dark">
     <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2023</p></div>
