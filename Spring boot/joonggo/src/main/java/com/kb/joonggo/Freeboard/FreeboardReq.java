@@ -1,5 +1,6 @@
 package com.kb.joonggo.Freeboard;
 
+import jakarta.annotation.Nullable;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
@@ -22,14 +23,14 @@ public class FreeboardReq {
     @NotEmpty
     private String fr_content;
 
-    @NotEmpty
+    @Nullable
     private String mbr_nick;
 
     private int mbr_idx;
 
     private int view_count;  // 조회수 필드 추가
 
-    @NotNull
+    @Nullable
     private LocalDateTime created_at; // 작성 시간 필드 추가
 
     public LocalDateTime getCreated_at() {

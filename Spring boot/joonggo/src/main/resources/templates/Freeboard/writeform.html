@@ -36,6 +36,17 @@
                               th:classappend="${first != 'true'} ? 'is-valid'"></textarea>
                     <p th:if="${#fields.hasErrors('fr_content')}" th:errors="*{content}" class="invalid-feedback"></p>
                 </div>
+
+                <div class="mb-3">
+                    <label for="mbr_idx" class="form-label">Mbr_idx</label>
+                    <input name="mbr_idx" type="text" class="form-control" id="mbr_idx" placeholder="mbr_idx"
+                           th:field="*{mbr_idx}" readonly
+                           th:class="${#fields.hasErrors('mbr_idx')}? 'form-control is-invalid':'form-control' "
+                           th:classappend="${first != 'true'} ? 'is-valid'" />
+                    <p th:if="${#fields.hasErrors('mbr_idx')}" th:errors="*{mbr_idx}" class="invalid-feedback"></p>
+                </div>
+
+
                 <!--                <div class="mb-3">-->
                 <!--                    <label for="mbr_nick" class="form-label">name</label>-->
                 <!--                    <input name="mbr_nick" type="text" class="form-control" id="mbr_nick" placeholder="mbr_nick"-->
@@ -44,6 +55,7 @@
                 <!--                           th:classappend="${first != 'true'} ? 'is-valid'"/>-->
                 <!--                    <p th:if="${#fields.hasErrors('mbr_nick')}" th:errors="*{mbr_nick}" class="invalid-feedback"></p>-->
                 <!--                </div>-->
+
                 <div class="mb-3 row justify-content-between">
                     <div class="col-3">
                         <input type="submit" class="btn btn-dark" value="저장"/>
@@ -56,5 +68,14 @@
         </div>
     </div>
 </div>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // 세션 스토리지에서 mbr_idx 가져오기
+        var mbr_idx = sessionStorage.getItem('mbr_idx');
+
+        // 가져온 mbr_idx를 해당하는 input 필드에 할당
+        document.getElementById('mbr_idx').value = mbr_idx;
+    });
+</script>
 </body>
 </html>

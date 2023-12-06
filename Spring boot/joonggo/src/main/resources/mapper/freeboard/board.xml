@@ -43,9 +43,9 @@
 
     <insert id="insert" parameterType="Freeboard">
         insert into Freeboard
-        (fr_title, fr_content, created_at)
+        (fr_title, fr_content, mbr_idx, created_at)
         values
-        (#{fr_title}, #{fr_content}, #{created_at})
+        (#{fr_title}, #{fr_content}, #{mbr_idx}, #{created_at})
     </insert>
 
     <resultMap id="FreeBoardReqResultMap" type="FreeBoardReq">

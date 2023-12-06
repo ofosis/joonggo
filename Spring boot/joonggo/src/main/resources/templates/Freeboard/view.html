@@ -1,43 +1,113 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{layout/layout :: head(${FreeboardReq.fr_title})}">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <!-- Custom styles -->
+    <style>
+        body {
+            font-family: 'Nanum Gothic', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+        }
+
+        .container {
+            margin-top: 40px;
+        }
+
+        .post-card {
+            border: 1px solid #dee2e6;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .post-title-date {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #007bff;
+        }
+
+        .post-info {
+            font-style: italic;
+            color: #6c757d;
+            margin-bottom: 15px;
+        }
+
+        .post-nickname-views {
+            font-weight: bold;
+            color: #007bff;
+            margin-bottom: 15px;
+        }
+
+        .post-content {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .back-button {
+            margin-top: 20px;
+        }
+
+        .table th, .table td {
+            text-align: center;
+            vertical-align: middle;
+        }
+    </style>
 </head>
 <body>
 <nav th:replace="~{layout/layout :: nav('Freeboard')}"></nav>
-<div class="container p-3">
-    <h1>FreeBoard > view</h1>
-    <div class="row">
-        <div class="col">
-            <div class="mb-3">
-                <label class="form-label">제목</label>
-                <p class="border p-2 m-3" th:text="${FreeboardReq.fr_title}"></p>
-            </div>
-            <div class="mb-3">
-                <label class="form-label">내용</label>
-                <p class="border p-3 m-3" th:text="${FreeboardReq.fr_content}"></p>
-            </div>
-            <div class="mb-3">
-                <label class="form-label">닉네임</label>
-                <p class="border p-2 m-3" th:text="${FreeboardReq.mbr_nick}"></p>
-            </div>
-            <div class="mb-3" th:if="${FreeboardReq.created_at != null}">
-                <label class="form-label">작성 시간</label>
-                <p class="border p-2 m-3"
-                   th:text="${#temporals.format(FreeboardReq.created_at, 'yyyy-MM-dd HH:mm:ss')}"></p>
-            </div>
+<div class="container">
+    <div class="post-card">
+        <table class="table">
+            <tbody>
+                <tr>
+                    <th scope="row" style="width: 20%;">제목</th>
+                    <td class="post-title-date" colspan="2">
+                        <span th:text="${FreeboardReq.fr_title}"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">등록일</th>
+                    <td class="post-title-date" colspan="2">
+                        <span class="post-info" th:if="${FreeboardReq.created_at != null}">
+                            작성일: <span th:text="${#temporals.format(FreeboardReq.created_at, 'yyyy-MM-dd HH:mm:ss')}"></span>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">작성자</th>
+                    <td class="post-nickname-views" colspan="2">
+                        <span th:text="${FreeboardReq.mbr_nick}"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">조회수</th>
+                    <td class="post-nickname-views" colspan="2">
+                        <span class="post-info">조회수: <span th:text="${FreeboardReq.view_count}"></span></span>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">내용</th>
+                    <td class="post-content" colspan="2" th:text="${FreeboardReq.fr_content}"></td>
+                </tr>
+            </tbody>
+        </table>
 
-
-            <div class="mb-3 row justify-content-between">
-                <!--                <div class="col-3 d-flex">-->
-                <!--                    <a th:href="@{/Freeboard/updateform(fr_idx=${Freeboard.fr_idx})}" class="btn btn-dark">수정</a>-->
-                <!--                </div>-->
-                <div class="col-3 d-flex justify-content-end">
-                    <a th:href="@{/Freeboard/list(pageNum=1)}" class="btn btn-dark">목록</a>
-                </div>
+        <div class="row justify-content-end back-button">
+            <div class="col-3 d-flex justify-content-end">
+                <a th:href="@{/Freeboard/list(pageNum=1)}" class="btn btn-primary">목록으로</a>
             </div>
         </div>
     </div>
 </div>
+<!-- Bootstrap JS (optional) -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
 <!-- 뒤로가기 감지를 위한 스크립트 -->
 <script th:inline="javascript">
     /*<![CDATA[*/

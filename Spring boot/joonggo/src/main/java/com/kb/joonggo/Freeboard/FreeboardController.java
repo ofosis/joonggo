@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -78,7 +79,12 @@ public class FreeboardController {
                             BindingResult result) {
 
         if (result.hasErrors()) {
+            System.out.println("Binding Result has errors:");
+            for (ObjectError error : result.getAllErrors()) {
+                System.out.println(error);
+            }
             model.addAttribute("FreeboardReq", freeboardReq);
+            System.out.println(freeboardReq);
             return "Freeboard/writeform";
         }
 
@@ -89,6 +95,7 @@ public class FreeboardController {
         FreeBoard freeboard = FreeBoard.builder()
                 .fr_content(freeboardReq.getFr_content())
                 .fr_title(freeboardReq.getFr_title())
+                .mbr_idx(freeboardReq.getMbr_idx())
                 .created_at(freeboardReq.getCreated_at())  // 작성 시간 추가
                 .build();
 
