@@ -43,11 +43,16 @@
                     </div>
 
                     <!--이메일 입력-->
-                    <div class="row mt-3" style="margin-bottom: 25px;">
+                    <div class="row mt-3" style="margin-bottom: 5px;">
                         <label for="mbr_email" class="col-sm-3 form-label text-left mb-2 mb-sm-0" style="display: flex; align-items: center;">이메일</label>
                         <div class="col-sm-9">
                             <input type="text" class="form-control" id="mbr_email" name="mbr_email" placeholder="ex) qwer@gmail.com" style="border-color: #80A6FF;" required>
                         </div>
+                    </div>
+
+                    <!--미입력 안내문-->
+                    <div class="row" style="text-align: center; color:red;">
+                        <div class="d-flex justify-content-center" id="findid_info" style="text-align: center; height: 10px;margin-bottom: 4px;"></div>
                     </div>
 
                     <!--찾기 버튼-->
@@ -72,11 +77,16 @@
                     </div>
 
                     <!--이메일 입력-->
-                    <div class="row mt-3 " style="margin-bottom: 25px;">
+                    <div class="row mt-3 " style="margin-bottom: 5px;">
                         <label for="mbr_email2" class="col-sm-3 mb-3 form-label text-left mb-2 mb-sm-0" style="display: flex; align-items: center;">이메일</label>
                         <div class="col-sm-9">
                             <input type="text" class="form-control" id="mbr_email2" name="mbr_email2" placeholder="ex) qwer@gmail.com" style="border-color: #80A6FF;" required>
                         </div>
+                    </div>
+
+                    <!--미입력 안내문-->
+                    <div class="row" style="text-align: center; color:red;">
+                        <div class="d-flex justify-content-center" id="findpwd_info" style="text-align: center; height: 10px;margin-bottom: 4px;"></div>
                     </div>
 
                     <!--찾기 버튼-->
@@ -101,6 +111,8 @@
 </script>
 <script>
     var onsub = false;
+    var findid_info = $('#findid_info');
+    var findpwd_info = $('#findpwd_info');
     function Find_id(){
         $.ajax( {
             url:'/Find/find_id',
@@ -114,7 +126,7 @@
                 }
                 else {
                     onsub = false;
-                    alert(res);
+                    findid_info.text(res);
                 }
             }
         } );
@@ -133,7 +145,7 @@
                }
                else {
                     onsub = false;
-                    alert(res);
+                    findpwd_info.text(res);
                }
             }
         } );

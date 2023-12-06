@@ -27,10 +27,16 @@ public class FindController {
         System.out.println("입력된 mbr_contact : "+mbr_contact);
         System.out.println("입력된 mbr_email : "+mbr_email);
 
-        if(mbr_contact.equals(""))
+
+        if (mbr_contact.equals("") && mbr_email.equals("")) {
+            return "휴대전화 및 email을 입력해주세요.";
+        }
+        else if(mbr_contact.equals("")){
             return  "휴대전화를 입력해주세요.";
-        else if (mbr_email.equals(""))
-            return  "email을 입력해주세요.";
+        }
+        else if (mbr_email.equals("")) {
+            return "email을 입력해주세요.";
+        }
 
         Find DBFind = findRepository.find_id(mbr_contact, mbr_email);
 
@@ -63,10 +69,15 @@ public class FindController {
         System.out.println("입력된 mbr_id : "+mbr_id);
         System.out.println("입력된 mbr_email : "+mbr_email);
 
-        if(mbr_id.equals(""))
-            return  "아이디를 입력해주세요.";
-        else if (mbr_email.equals(""))
-            return  "email을 입력해주세요.";
+        if (mbr_id.equals("") && mbr_email.equals("")) {
+            return "아이디 및 email을 입력해주세요.";
+        }
+        else if(mbr_id.equals("")) {
+            return "아이디를 입력해주세요.";
+        }
+        else if (mbr_email.equals("")) {
+            return "email을 입력해주세요.";
+        }
 
         Find DBFind = findRepository.find_pwd(mbr_id, mbr_email);
 

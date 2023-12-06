@@ -12,7 +12,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Nunito:wght@600;700;800&family=Pacifico&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Favicon-->
-    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico" />
+    <link rel="icon" href="/images/leave.ico" type="image/x-icon" />
     <!-- Bootstrap icons-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
     <!-- Core theme CSS (includes Bootstrap)-->
@@ -29,7 +29,7 @@
     <script src="/js/scripts.js"></script>
 
 </head>
-<body>
+<body style="background-color: #C3DEB7;">
 <!-- Navigation-->
 <nav th:fragment="nav(menu)" class="navbar navbar-expand-lg navbar-light bg-light">
     <script>
@@ -40,11 +40,16 @@
         function checkLoginStatus() {
             var mbr_idx = sessionStorage.getItem('mbr_idx');
             var mbr_nick = sessionStorage.getItem('mbr_nick');
-            console.log(mbr_idx+'입니다');
-            console.log(mbr_nick+'입니다');
+            var my_info = $('#my_info');
+            console.log('mbr_idx : '+ mbr_idx+'입니다');
+            console.log('mbr_nick : '+ mbr_nick+'입니다');
             if (mbr_idx == null) {
+                my_info.text('내 정보');
+                console.log(mbr_nick+'님 로그아웃 성공');
                 showLoginAndJoin();
             } else {
+                my_info.text(mbr_nick+' 님');
+                console.log(mbr_nick+'님 로그인 성공');
                 showLogout();
             }
         }
@@ -127,19 +132,20 @@
             <div style="width:10px"></div>
 
             <!--내 정보 : 회원 로그인 버튼-->
-            <div class="dropdown">
-                <button class="btn btn-outline-dark dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="padding: 6px 7px; font-weight: bold;" >
+            <div class="dropdown" style="width:114px;">
+                <!--내 정보 아이콘-->
+                <div  class="btn btn-outline-dark dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="padding: 6px 7px; font-weight: bold;" >
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
                         <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
                     </svg>
-                    내 정보
-                </button>
+                    <label id="my_info" style="width:54px; fit-content;" data-toggle="tooltip">내 정보</label>
+
+                </div>
+                <!--로그인 상태일 때 / 아닐 때 드롭 다운-->
                 <ul class="dropdown-menu">
                     <li id="loginMenuItem"> <a class="dropdown-item" th:href="@{/Login/loginpage}">로그인</a> </li>
                     <li id="joinMenuItem"> <a class="dropdown-item" th:href="@{/Join/joinpage}">회원가입</a> </li>
-                    <li id="logoutMenuItem" style="display: none;">
-                        <a class="dropdown-item" onclick="logout()" th:href="@{/}">로그아웃</a>
-                    </li>
+                    <li id="logoutMenuItem" style="display: none;"> <a class="dropdown-item" onclick="logout()" th:href="@{/}">로그아웃</a>  </li>
                 </ul>
             </div>
 
@@ -147,11 +153,25 @@
     </div>
 </nav>
 <!-- Header-->
-<header th:fragment="header(menu)" class="bg-dark py-5">
+<header th:fragment="header(menu)" class="bg-success py-5">
     <div class="container px-4 px-lg-5 my-5">
         <div class="text-center text-white">
-            <h1 class="display-4 fw-bolder">예쓰!</h1>
-            <p class="lead fw-normal text-white-50 mb-0">이게 나야 장성진 보고있나?</p>
+            <div class="mb-3" style="display: flex; align-items: center; justify-content: center;">
+                <div class="display-4 fw-bolder"> 중고조아 </div>
+                    <div style="display: flex; align-items: center; margin-left: 10px;">
+                        <svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" width="40" height="40" viewBox="0 0 48 48"><defs>
+                                <style>.cls-1{fill:#e79165;}.cls-2{fill:#9fd367;}.cls-3{fill:#84b749;}.cls-4{fill:#d37b54;}</style></defs>
+                                <path class="cls-1" d="M38.77,38.77h-.49a6.38,6.38,0,0,0-10.75-1.72h0A8.73,8.73,0,0,0,23,35.82,8.83,8.83,0,0,0,17.21,38a6.27,6.27,0,0,0-1.58-.2,6.36,6.36,0,0,0-3.92,1.34,8.55,8.55,0,0,0-2.48-.36A8.87,8.87,0,0,0,.36,47.64H47.64A8.87,8.87,0,0,0,38.77,38.77Z"/>
+                                <path class="cls-2" d="M2.33.36h0A21.67,21.67,0,0,1,24,22v0a0,0,0,0,1,0,0h0A21.67,21.67,0,0,1,2.33.36v0A0,0,0,0,1,2.33.36Z" transform="translate(26.33 22.39) rotate(-180)"/>
+                                <path class="cls-3" d="M6.27,6.27l1.66.83a25.58,25.58,0,0,1,10.3,9.4A25.51,25.51,0,0,1,22,29.91H26a23.84,23.84,0,0,0-4.71-14.22A23.75,23.75,0,0,0,9,7.08Z"/>
+                                <path class="cls-2" d="M45.67,6.27h0a0,0,0,0,1,0,0v0A21.67,21.67,0,0,1,24,27.94h0a0,0,0,0,1,0,0v0A21.67,21.67,0,0,1,45.67,6.27Z"/>
+                                <path class="cls-3" d="M41.73,12.18,40.07,13A25.42,25.42,0,0,0,26,35.82H22A23.85,23.85,0,0,1,39,13Z"/>
+                                <rect class="cls-3" x="22.03" y="29.91" width="3.94" height="12.8"/>
+                                <path class="cls-4" d="M.36,47.64a7.58,7.58,0,0,1,7.31-4.93A8.16,8.16,0,0,1,9.79,43l1.07.29.88-.61a5.21,5.21,0,0,1,3-.93,4.88,4.88,0,0,1,1.17.13l1.13.29.89-.71a8,8,0,0,1,5-1.68,8.15,8.15,0,0,1,3.86,1l.52.28h1.59l.67-.68a5.07,5.07,0,0,1,3.7-1.55,4.92,4.92,0,0,1,4.53,2.74l.56,1.21h2a7.58,7.58,0,0,1,7.31,4.93Z"/>
+                            </svg>
+                    </div>
+            </div>
+            <p class="lead fw-normal text-white-50 mb-0">거래 하고 싶은 상품을 찾아 보세요!</p>
         </div>
     </div>
 </header>

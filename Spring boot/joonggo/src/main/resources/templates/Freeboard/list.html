@@ -3,16 +3,9 @@
 <head th:replace="~{layout/layout :: head('자유게시판')}"></head>
 <body>
 <nav th:replace="~{layout/layout :: nav('Freeboard')}"></nav>
+<!-- Header-->
+<header th:replace="~{layout/layout :: header('home')}"></header>
 <div class="container p-3">
-    <header th:fragment="header(menu)" class="bg-dark py-5" style="background-size: auto 50%;">
-        <div class="container px-4 px-lg-5 my-5">
-            <div class="text-center text-white">
-                <h1 class="display-4 fw-bolder">예쓰!</h1>
-                <p class="lead fw-normal text-white-50 mb-0">이게 나야 편성진 보고있나?</p>
-            </div>
-        </div>
-    </header>
-
     <div class="row">
         <div class="col">
             <div class="row">
@@ -65,19 +58,22 @@
                     <div class="col d-flex justify-content-center">
                         <nav aria-label="Page navigation example">
                             <ul class="pagination">
+                                <!-- Previous 버튼 -->
                                 <li class="page-item">
                                     <a class="page-link"
-                                       th:href="@{/Freeboard/list(pageNum=${pageNum != null ? pageNum + 1 : 1})}"
-                                       th:classappend="${pageNum == 1 || pageNum == null ? 'disabled' : ''}">Next</a>
+                                       th:href="@{/Freeboard/list(pageNum=${pageNum != null ? pageNum - 1 : 1})}"
+                                       th:classappend="${pageNum == 1 || pageNum == null ? 'disabled' : ''}">Previous</a>
                                 </li>
 
+                                <!-- 페이지 번호들 -->
                                 <li th:each="i:${#numbers.sequence(1, countPage != null ? countPage : 1)}"
                                     class="page-item">
-                                    <a class="page-link" th:href="@{/Freeboard/list(pageNum=${i})}"
-                                       th:classappend="${#strings.replace(param.pageNum,' ','')} == ${i} ? 'active' : ''">[[
-                                        ${i} ]]</a>
+                                    <a class="page-link"
+                                       th:href="@{/Freeboard/list(pageNum=${i})}"
+                                       th:classappend="${pageNum == i ? 'active' : ''}">[[ ${i} ]]</a>
                                 </li>
 
+                                <!-- Next 버튼 -->
                                 <li class="page-item" th:if="${pageNum != null && pageNum < countPage}">
                                     <a class="page-link" th:href="@{/Freeboard/list(pageNum=${pageNum + 1})}">Next</a>
                                 </li>

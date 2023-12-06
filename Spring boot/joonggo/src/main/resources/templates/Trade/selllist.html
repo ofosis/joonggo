@@ -14,8 +14,8 @@
             <div th:each="TradeboardReq : ${SellAlllist}"class="col-lg-3 col-md-6 mb-4">
                 <div class="team-item text-center rounded overflow-hidden">
                     <div class="col" th:data-tb-idx="${TradeboardReq.tb_idx}" onclick="handleImageClick(this)">
-                        <div class="rounded-circle overflow-hidden m-4">
-                            <img class="card-img-top" th:src="@{'/images/' + ${TradeboardReq.img_name}}" alt="..." th:idx="${TradeboardReq.tb_idx}"/>
+                        <div class="rounded-circle overflow-hidden m-2">
+                            <img class="card-img-top" th:src="@{'/images/' + ${TradeboardReq.img_name}}" alt="..." th:idx="${TradeboardReq.tb_idx}" style="width: 160px; height: 160px; object-fit: cover;"/>
                         </div>
                         <h5 class="mb-0" th:text="${TradeboardReq.tb_title}">상품명</h5>
                         <small th:text="${TradeboardReq.tb_price}+원">$0.00</small>
@@ -24,6 +24,9 @@
             </div>
         </div>
     </div>
+
+    <div class="d-flex justify-content-end mb-3 mt-3" style="width:837px">
+        <a th:href="@{/Trade/writeForm}" class="btn btn-primary">글 작성</a>
     </div>
     <script>
         function handleImageClick(element) {
@@ -57,9 +60,6 @@
                             <span aria-hidden="true">&raquo;</span>
                         </a>
                     </li>
-                    <div class="col-6 d-flex justify-content-end">
-                        <a th:href="@{/Trade/writeForm}" class="btn btn-primary">글 작성</a>
-                    </div>
                 </ul>
             </nav>
         </div>

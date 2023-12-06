@@ -130,4 +130,23 @@
         AND tb_state = #{tb_state}
     </update>
 
+    <select id="showRecommend2" resultType="TradeboardReq" parameterType="Integer">
+        SELECT tb.tb_idx, tb.tb_title, tb.tb_content, tb.tb_date, tb.tb_price, tb.tb_category, tb.tb_count,
+        tb.tb_state, tb.mbr_idx, mem.mbr_nick, mem.mbr_addr, tb.img_idx, img.img_name, img.img_path
+        FROM Tradeboard tb
+        JOIN Member mem ON mem.mbr_idx = tb.mbr_idx
+        JOIN Image img ON img.img_idx = tb.img_idx
+        WHERE tb_state = '판매중'
+        AND tb.tb_idx != #{tb_idx}
+        AND (tb.tb_category, tb.tb_count) IN (
+        SELECT tb_category, MAX(tb_count) AS max_count
+        FROM Tradeboard tb
+        WHERE tb_state = '판매중' AND tb.tb_idx != #{tb_idx}
+        GROUP BY tb_category
+        )
+        ORDER BY tb_count DESC
+        LIMIT 4;
+    </select>
+
+
 </mapper>
