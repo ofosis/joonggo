@@ -1,16 +1,19 @@
 package com.kb.joonggo.Freeboard;
 
-import jakarta.annotation.Nullable;
 import jakarta.validation.constraints.NotEmpty;
-import lombok.Builder;
-import lombok.Data;
+import jakarta.validation.constraints.NotNull;
+import lombok.*;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Data
 @Builder
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+
 public class FreeboardReq {
-    @Nullable
     private int fr_idx;
 
     @NotEmpty
@@ -19,15 +22,21 @@ public class FreeboardReq {
     @NotEmpty
     private String fr_content;
 
-    @Nullable
-    private Date fr_time;
-
-    @Nullable
-    private String originalfilename;
-
     @NotEmpty
     private String mbr_nick;
 
-    @Nullable
     private int mbr_idx;
+
+    private int view_count;  // 조회수 필드 추가
+
+    @NotNull
+    private LocalDateTime created_at; // 작성 시간 필드 추가
+
+    public LocalDateTime getCreated_at() {
+        return created_at;
+    }
+
+    public void setCreated_at(LocalDateTime created_at) {
+        this.created_at = created_at;
+    }
 }

@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{layout/layout :: head('Freeboard')}">
-</head><body>
+<head th:replace="~{layout/layout :: head(${FreeboardReq.fr_title})}">
+</head>
+<body>
 <nav th:replace="~{layout/layout :: nav('Freeboard')}"></nav>
 <div class="container p-3">
     <h1>FreeBoard > view</h1>
@@ -19,14 +20,17 @@
                 <label class="form-label">닉네임</label>
                 <p class="border p-2 m-3" th:text="${FreeboardReq.mbr_nick}"></p>
             </div>
-<!--            <div class="mb-3">-->
-<!--                <label class="form-label">file</label>-->
-<!--                <a th:href="@{'/Freeboard/attach/'+${Freeboard.originalfilename}}" th:text="${FreeboardReq.originalfilename}"></a>-->
-<!--            </div>-->
+            <div class="mb-3" th:if="${FreeboardReq.created_at != null}">
+                <label class="form-label">작성 시간</label>
+                <p class="border p-2 m-3"
+                   th:text="${#temporals.format(FreeboardReq.created_at, 'yyyy-MM-dd HH:mm:ss')}"></p>
+            </div>
+
+
             <div class="mb-3 row justify-content-between">
-<!--                <div class="col-3 d-flex">-->
-<!--                    <a th:href="@{/Freeboard/updateform(fr_idx=${Freeboard.fr_idx})}" class="btn btn-dark">수정</a>-->
-<!--                </div>-->
+                <!--                <div class="col-3 d-flex">-->
+                <!--                    <a th:href="@{/Freeboard/updateform(fr_idx=${Freeboard.fr_idx})}" class="btn btn-dark">수정</a>-->
+                <!--                </div>-->
                 <div class="col-3 d-flex justify-content-end">
                     <a th:href="@{/Freeboard/list(pageNum=1)}" class="btn btn-dark">목록</a>
                 </div>
@@ -34,5 +38,58 @@
         </div>
     </div>
 </div>
+<!-- 뒤로가기 감지를 위한 스크립트 -->
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    $(document).ready(function () {
+        // 뒤로가기 이벤트 감지
+        window.addEventListener('popstate', function () {
+            // 현재 URL에서 fr_idx 파라미터 값을 가져옴
+            var fr_idx = getParameterByName('fr_idx');
+
+            // fr_idx가 존재하면 서버에 조회수 증가 요청
+            if (fr_idx) {
+                increaseViewCount(fr_idx);
+            }
+        });
+
+        // 페이지 로드 시 조회수 증가 요청
+        var fr_idx = getParameterByName('fr_idx');
+        if (fr_idx) {
+            increaseViewCount(fr_idx);
+        }
+
+        // URL에서 파라미터 값을 가져오는 함수
+        function getParameterByName(name, url) {
+            if (!url) url = window.location.href;
+            name = name.replace(/[\[\]]/g, '\\$&');
+            var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+                results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, ' '));
+        }
+
+        // 조회수 증가 요청을 서버에 보내는 함수
+        function increaseViewCount(fr_idx) {
+            // Ajax를 이용한 서버 통신
+            $.ajax({
+                url: '/Freeboard/increaseViewCount',
+                type: 'post',
+                contentType: 'application/json',
+                dataType: 'json',
+                data: JSON.stringify({ fr_idx: fr_idx }),
+                success: function (res) {
+                    // 성공적으로 처리된 경우에는 적절한 로직을 추가
+                },
+                error: function (e) {
+                    console.log(e);
+                }
+            });
+        }
+    });
+    /*]]>*/
+</script>
+
 </body>
 </html>

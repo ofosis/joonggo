@@ -1,43 +1,49 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{layout/layout :: head('Freeboard')}">
+<head th:replace="~{layout/layout :: head('자유게시판::글쓰기')}">
 </head>
 <body>
 <nav th:replace="~{layout/layout :: nav('Freeboard')}"></nav>
 <div class="container p-3">
-    <h1>Board > list</h1>
+    <h1>글쓰기</h1>
     <div class="row">
         <div class="col">
-            <form action="/Freeboard/writeproc" method="post" th:object="${FreeboardReq}" enctype="multipart/form-data">
+            <form action="/Freeboard/writeproc" method="post" th:object="${FreeboardReq}">
+                <!--                <div class="mb-3">-->
+                <!--                    <label for="title" class="form-label">Title</label>-->
+                <!--                    <input type="text" name="title" id="title" placeholder="title"-->
+                <!--                           th:field="*{fr_title}"-->
+                <!--                           th:class="${#fields.hasErrors('fr_title')}? 'form-control is-invalid':'form-control' "-->
+                <!--                           th:classappend="${first != 'true'} ? 'is-valid'"-->
+                <!--                    />-->
+                <!--                    <p th:if="${#fields.hasErrors('fr_title')}" th:errors="*{title}" class="invalid-feedback"></p>-->
+                <!--                </div>-->
                 <div class="mb-3">
                     <label for="title" class="form-label">Title</label>
                     <input type="text" name="title" id="title" placeholder="title"
                            th:field="*{fr_title}"
-                           th:class="${#fields.hasErrors('title')}? 'form-control is-invalid':'form-control' "
-                           th:classappend="${first != 'true'} ? 'is-valid'"
-                           />
-                    <p th:if="${#fields.hasErrors('title')}" th:errors="*{title}" class="invalid-feedback"></p>
+                           th:class="${#fields.hasErrors('fr_title')} ? 'form-control is-invalid' : 'form-control'"
+                           th:classappend="${first != 'true'} ? ' is-valid' : ''"
+                    />
+                    <p th:if="${#fields.hasErrors('fr_title')}" th:errors="*{fr_title}" class="invalid-feedback"></p>
                 </div>
+
                 <div class="mb-3">
-                    <label for="fr_content" class="form-label">Content</label>
-                    <textarea name="content" class="form-control fieldError" id="fr_content" rows="3"
-                              th:field="*{content}"
-                              th:class="${#fields.hasErrors('content')}? 'form-control is-invalid':'form-control' "
-                              th:classappend="${first != 'true'} ? 'is-valid'" ></textarea>
-                    <p th:if="${#fields.hasErrors('content')}" th:errors="*{content}" class="invalid-feedback"></p>
+                    <label for="content" class="form-label">Content</label>
+                    <textarea name="content" class="form-control fieldError" id="content" rows="3"
+                              th:field="*{fr_content}"
+                              th:class="${#fields.hasErrors('fr_content')}? 'form-control is-invalid':'form-control' "
+                              th:classappend="${first != 'true'} ? 'is-valid'"></textarea>
+                    <p th:if="${#fields.hasErrors('fr_content')}" th:errors="*{content}" class="invalid-feedback"></p>
                 </div>
-                <div class="mb-3">
-                    <label for="name" class="form-label">name</label>
-                    <input name="name" type="text" class="form-control" id="name" placeholder="name"
-                           th:field="*{name}"
-                           th:class="${#fields.hasErrors('name')}? 'form-control is-invalid':'form-control' "
-                           th:classappend="${first != 'true'} ? 'is-valid'" />
-                    <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="invalid-feedback"></p>
-                </div>
-                <div class="mb-3">
-                    <label for="file" class="form-label">file</label>
-                    <input name="file" type="file" class="form-control" id="file" placeholder="file"/>
-                </div>
+                <!--                <div class="mb-3">-->
+                <!--                    <label for="mbr_nick" class="form-label">name</label>-->
+                <!--                    <input name="mbr_nick" type="text" class="form-control" id="mbr_nick" placeholder="mbr_nick"-->
+                <!--                           th:field="*{mbr_nick}"-->
+                <!--                           th:class="${#fields.hasErrors('mbr_nick')}? 'form-control is-invalid':'form-control' "-->
+                <!--                           th:classappend="${first != 'true'} ? 'is-valid'"/>-->
+                <!--                    <p th:if="${#fields.hasErrors('mbr_nick')}" th:errors="*{mbr_nick}" class="invalid-feedback"></p>-->
+                <!--                </div>-->
                 <div class="mb-3 row justify-content-between">
                     <div class="col-3">
                         <input type="submit" class="btn btn-dark" value="저장"/>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout/layout :: head('Freeboard')}"></head>
+<body>
+<nav th:replace="~{layout/layout :: nav('Freeboard')}"></nav>
+<div class="container p-3">
+    <!-- 검색 폼 -->
+    <form action="/Freeboard/search" method="get">
+        <input type="text" name="query" placeholder="제목 또는 내용을 입력하세요"/>
+        <button type="submit">검색</button>
+    </form>
+
+    <div class="row">
+        <div class="col">
+            <h1>검색 결과</h1>
+
+            <!-- 검색 결과가 비어 있을 경우 메시지 표시 -->
+            <th:block th:if="${#lists.isEmpty(list)}">
+                <p>검색 결과가 없습니다.</p>
+            </th:block>
+
+            <!-- 검색 결과를 표시할 부분 -->
+            <table class="table table-striped" th:if="${not #lists.isEmpty(list)}">
+                <thead>
+                <tr>
+                    <th>No.</th>
+                    <th>제목</th>
+                    <th>글쓴이</th>
+                    <th>등록일</th>
+                    <th>조회</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="FreeboardReq, rowStat : ${list}">
+                    <!-- 검색 결과 항목 표시 -->
+                    <td th:text="${FreeboardReq.fr_idx}"></td>
+                    <td>
+                        <a th:href="@{/Freeboard/view(fr_idx=${FreeboardReq.fr_idx})}" th:text="${FreeboardReq.fr_title}"></a>
+                    </td>
+                    <td th:text="${FreeboardReq.mbr_nick}"></td>
+                    <td th:text="${#temporals.format(FreeboardReq.created_at, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                    <td th:text="${FreeboardReq.view_count}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>

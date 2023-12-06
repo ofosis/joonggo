@@ -6,8 +6,8 @@
     <select id="list" resultType="FreeBoardReq" parameterType="Integer">
         SELECT * FROM Freeboard
         JOIN Member ON Freeboard.mbr_idx = Member.mbr_idx
-        ORDER BY fr_idx desc
-        LIMIT #{pageNum},5;
+        ORDER BY fr_idx DESC
+        LIMIT #{pageNum}, 5;
     </select>
 
     <select id="selectRow" parameterType="Integer" resultType="FreeBoardReq">
@@ -16,32 +16,53 @@
         where fr_idx = #{fr_idx}
     </select>
 
+    <select id="searchByTitleOrContent" resultType="FreeBoardReq" parameterType="String">
+        SELECT * FROM Freeboard
+        JOIN Member ON Freeboard.mbr_idx = Member.mbr_idx
+        WHERE fr_title LIKE CONCAT('%', #{query}, '%') OR fr_content LIKE CONCAT('%', #{query}, '%')
+        ORDER BY fr_idx DESC;
+    </select>
+
     <!--    <select id="list" resultType="FreeBoard" parameterType="Integer">-->
     <!--        SELECT * FROM board-->
     <!--        ORDER BY idx desc-->
     <!--        LIMIT #{pageNum},5;-->
     <!--    </select>-->
 
-        <select id="countRow" resultType="Integer">
-            SELECT count(*) FROM Freeboard
-            JOIN Member ON Freeboard.mbr_idx = Member.mbr_idx
-        </select>
+    <select id="countRow" resultType="Integer">
+        SELECT count(*) FROM Freeboard
+        JOIN Member ON Freeboard.mbr_idx = Member.mbr_idx
+    </select>
 
-    <!--    <insert id="insert" parameterType="Board">-->
-    <!--        insert into board-->
-    <!--        (title, content, name, originalfilename)-->
-    <!--        values-->
-    <!--        ( #{title}, #{content}, #{name}, #{originalfilename} )-->
-    <!--    </insert>-->
+    <!--        <insert id="insert" parameterType="Freeboard">-->
+    <!--            insert into Freeboard-->
+    <!--            (fr_title, fr_content)-->
+    <!--            values-->
+    <!--            (#{fr_title}, #{fr_content} )-->
+    <!--        </insert>-->
 
-    <!--    <update id="update" parameterType="Board">-->
-    <!--        UPDATE board-->
-    <!--            SET name = #{name},-->
-    <!--                title = #{title},-->
-    <!--                content = #{content},-->
-    <!--                originalfilename = #{originalfilename}-->
-    <!--        WHERE idx = #{idx}-->
-    <!--    </update>-->
+    <insert id="insert" parameterType="Freeboard">
+        insert into Freeboard
+        (fr_title, fr_content, created_at)
+        values
+        (#{fr_title}, #{fr_content}, #{created_at})
+    </insert>
+
+    <resultMap id="FreeBoardReqResultMap" type="FreeBoardReq">
+        <!-- your existing result mapping here -->
+        <!-- add mapping for the "created_at" column -->
+        <result property="created_at" column="created_at"/>
+    </resultMap>
+
+    <update id="update" parameterType="FreeBoard">
+        UPDATE freeboard
+        SET fr_title = #{fr_title},
+        fr_content = #{fr_content}
+        WHERE idx = #{fr_idx}
+    </update>
+    <update id="updateViewCount" parameterType="int">
+        UPDATE Freeboard SET view_count = view_count + 1 WHERE fr_idx = #{frIdx}
+    </update>
 
     <!--    <delete id="delete" parameterType="java.util.List">-->
     <!--        delete from board-->

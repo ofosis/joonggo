@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{layout/layout :: head('home')}">
+<head th:replace="~{layout/layout :: head('글작성')}">
 </head>
 <body>
 <nav th:replace="~{layout/layout :: nav('home')}"></nav>
 <div class="container p-3">
     <div class="container mb-3 " style="text-align: center; font-size: 35px;">
-        <label class="form-label" onclick="checkLogin()">글쓰기</label>
+        <label class="form-label" onclick="checkLogin()">내 물건 팔기</label>
     </div>
-    <div class="row">
-        <div class="col">
+    <div class="row" >
+        <div class="col" style="width:1000px; display: flex; align-items: center; justify-content: center;">
             <form action="/Trade/writeproc" method="post" th:object="${tradeboardReq}" enctype="multipart/form-data" >
 
                 <div class="mb-3">

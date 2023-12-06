@@ -31,16 +31,19 @@ public class LoginController {
         System.out.println("입력된 mbr_id : " + mbr_id);
         System.out.println("입력된 mbr_pwd : " + mbr_pwd);
 
-        if (mbr_id.equals(""))
+        if (mbr_id.equals("") && mbr_pwd.equals("")) {
+            return "아이디 및 비밀번호를 입력해주세요.";
+        } else if (mbr_id.equals("")) {
             return "아이디를 입력해주세요.";
-        else if (mbr_pwd.equals(""))
-            return "비밀번호을 입력해주세요.";
+        } else if (mbr_pwd.equals("")) {
+            return "비밀번호를 입력해주세요.";
+        }
 
         Login DBLogin = loginRepository.login(mbr_id, mbr_pwd);
 
         if (DBLogin == null) {
             System.out.println("-----DB값 없을 때-----");
-            return "아이디 또는 비밀번호를 다시 확인해주세요.";
+            return "로그인 실패";
         }
 
         System.out.println("---DB불러왔음---");
@@ -65,6 +68,7 @@ public class LoginController {
             ObjectMapper mapper = new ObjectMapper();
             try {
                 String jsonDBLogin = mapper.writeValueAsString(DBLogin);
+                System.out.println("jsonDBLogin : " + jsonDBLogin);
                 return jsonDBLogin;
             } catch (JsonProcessingException e) {
                 e.printStackTrace();
