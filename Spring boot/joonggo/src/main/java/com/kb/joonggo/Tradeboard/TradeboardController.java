@@ -1,6 +1,7 @@
 package com.kb.joonggo.Tradeboard;
 import com.kb.joonggo.Image.ImageDTO;
 import com.kb.joonggo.Image.ImageRepository;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -103,8 +104,12 @@ public class TradeboardController {
     @PostMapping("writeproc")
     public String writeproc(Model model,
                             MultipartFile file,
+                            @RequestParam(name = "mbr_idx", required = false) String mbr_idx,
                             @Valid TradeboardReq tradeboardReq,
                             BindingResult result) {
+//        @RequestParam(name = "tb_idx", required = false) Integer tb_idx
+        System.out.println("mbr_idx는 "+mbr_idx);
+
 
         // 1. image 테이블 insert
 
@@ -183,7 +188,7 @@ public class TradeboardController {
                 .tb_category(tradeboardReq.getTb_category())
                 .tb_count(0)
                 .tb_state(tradeboardReq.getTb_state())
-//                .mbr_idx()
+                .mbr_idx(tradeboardReq.getMbr_idx())
 //                .img_idx()
                 .build();
 

@@ -101,11 +101,11 @@
 
     <insert id="insert" parameterType="TradeboardDTO">
         insert into Tradeboard
-        (tb_title, tb_content, tb_date, tb_price, tb_category, tb_count, tb_state)
-        <!--        mbr_idx, img_idx 제거함-->
+        (tb_title, tb_content, tb_date, tb_price, tb_category, tb_count, tb_state, mbr_idx)
+        <!--        img_idx 제거함-->
         values
-        (#{tb_title}, #{tb_content}, #{tb_date}, #{tb_price}, #{tb_category}, #{tb_count}, #{tb_state})
-        <!--        #{mbr_idx}, #{img_idx} 제거함-->
+        (#{tb_title}, #{tb_content}, #{tb_date}, #{tb_price}, #{tb_category}, #{tb_count}, #{tb_state}, #{mbr_idx})
+        <!--       #{img_idx} 제거함-->
     </insert>
 
     <select id="search_tb_idx" parameterType="map" resultType="Integer">
