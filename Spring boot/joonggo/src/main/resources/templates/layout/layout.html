@@ -29,9 +29,9 @@
     <script src="/js/scripts.js"></script>
 
 </head>
-<body style="background-color: #C3DEB7;">
+<body>
 <!-- Navigation-->
-<nav th:fragment="nav(menu)" class="navbar navbar-expand-lg navbar-light bg-light">
+<nav th:fragment="nav(menu)" class="navbar navbar-expand-lg navbar-light" style="background-color: E5C184;">
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             checkLoginStatus();
@@ -45,11 +45,11 @@
             console.log('mbr_nick : '+ mbr_nick+'입니다');
             if (mbr_idx == null) {
                 my_info.text('내 정보');
-                console.log(mbr_nick+'님 로그아웃 성공');
+                console.log(mbr_nick);
                 showLoginAndJoin();
             } else {
                 my_info.text(mbr_nick+' 님');
-                console.log(mbr_nick+'님 로그인 성공');
+                console.log(mbr_nick+'님 로그인 중');
                 showLogout();
             }
         }
@@ -120,7 +120,7 @@
                 </li>
             </ul>
             <!--장 바구니 버튼-->
-            <form class="d-flex">
+            <form class="d-flex" >
                 <button class="btn btn-outline-dark" type="submit" style="font-weight: bold;">
                     <i class="bi-cart-fill me-1"></i>
                     Cart
@@ -132,22 +132,28 @@
             <div style="width:10px"></div>
 
             <!--내 정보 : 회원 로그인 버튼-->
-            <div class="dropdown" style="width:114px;">
-                <!--내 정보 아이콘-->
-                <div  class="btn btn-outline-dark dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="padding: 6px 7px; font-weight: bold;" >
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
-                        <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
-                    </svg>
-                    <label id="my_info" style="width:54px; fit-content;" data-toggle="tooltip">내 정보</label>
-
+            <div class="dropdown" style="width: 115px; height: 38px;">
+                <!-- 내 정보 아이콘 -->
+                <div class="btn btn-outline-dark dropdown-toggle d-flex align-items-center justify-content-center" type="button"
+                     data-bs-toggle="dropdown" aria-expanded="false" style="width: 100%; height: 100%; font-weight: bold; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">
+                    <div class="d-flex align-items-center justify-content-center" style="width: 20px; height: 20px; flex-shrink: 0;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
+                            <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
+                        </svg>
+                    </div>
+                    <div style="width:1px"></div>
+                    <label id="my_info" style="max-width: 100%; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;" data-toggle="tooltip">내 정보</label>
                 </div>
-                <!--로그인 상태일 때 / 아닐 때 드롭 다운-->
+
+                <!-- 로그인 상태일 때 / 아닐 때 드롭 다운 -->
                 <ul class="dropdown-menu">
                     <li id="loginMenuItem"> <a class="dropdown-item" th:href="@{/Login/loginpage}">로그인</a> </li>
                     <li id="joinMenuItem"> <a class="dropdown-item" th:href="@{/Join/joinpage}">회원가입</a> </li>
                     <li id="logoutMenuItem" style="display: none;"> <a class="dropdown-item" onclick="logout()" th:href="@{/}">로그아웃</a>  </li>
                 </ul>
             </div>
+
+
 
         </div>
     </div>

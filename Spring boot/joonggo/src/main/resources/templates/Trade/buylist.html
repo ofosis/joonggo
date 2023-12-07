@@ -14,54 +14,56 @@
             <div th:each="TradeboardReq : ${BuyAlllist}"class="col-lg-3 col-md-6 mb-4">
                 <div class="team-item text-center rounded overflow-hidden">
                     <div class="col" th:data-tb-idx="${TradeboardReq.tb_idx}" onclick="handleImageClick(this)">
-                        <div class="rounded-circle overflow-hidden m-2">
-                            <img class="card-img-top" th:src="@{'/images/' + ${TradeboardReq.img_name}}" alt="..."
-                                 th:idx="${TradeboardReq.tb_idx}" style="width: 160px; height: 160px; object-fit: cover;"/>
+                        <div class="rounded-circle overflow-hidden m-2" style="width: 100%; height: 100%; display: flex; justify-content: center; align-items: center;">
+                            <img class="card-img" th:src="@{'/images/' + ${TradeboardReq.img_name}}" alt="..." th:idx="${TradeboardReq.tb_idx}"
+                                 style="width: 160px; height: 160px; object-fit: fit; "/>
                         </div>
-                        <h5 class="mb-0" th:text="${TradeboardReq.tb_title}">상품명</h5>
-                        <small th:text="${TradeboardReq.tb_price}+원">$0.00</small>
+                        <div class="text-center">
+                            <h5 class="mb-0" th:text="${TradeboardReq.tb_title}" style="height:48px">상품명</h5>
+                            <small th:text="${TradeboardReq.tb_price}+원">$0.00</small>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="d-flex justify-content-end mb-3 mt-3" style="width:837px">
-        <a th:href="@{/Trade/writeForm}" class="btn btn-primary">글 작성</a>
-    </div>
-    <script>
-        function handleImageClick(element) {
-         var tbIdx = element.getAttribute("data-tb-idx");
-         fetch("/Trade/getTradeboardInfo?tb_idx=" + tbIdx)
-         .then(response => response.json())
-           .then(data => {
-          window.location.href = "/Trade/productdetail?tb_idx=" + tbIdx;
-        })
-    .catch(error => console.error('Error fetching tradeboard info:', error));
-}
-    </script>
-    <div class="row">
-        <div class="col d-flex justify-content-center">
-            <nav aria-label="Page navigation example">
-                <ul class="pagination">
-                    <li class="page-item">
-                        <a class="page-link" th:href="@{/Trade/buylist(BuypageNum=${BuypageNum-1})}"
-                           th:classappend="${BuypageNum} == 1 ? 'disabled'" aria-label="Previous">
-                            <span aria-hidden="true">&laquo;</span>
-                        </a>
-                    </li>
-                    <li th:each="i:${#numbers.sequence(1, countBuyPage)}" class="page-item">
-                        <a class="page-link" th:href="@{/Trade/buylist(BuypageNum=${i})}"
-                           th:classappend="${#strings.replace(param.BuypageNum, ' ', '')} == ${i} ? 'active' : ''"
-                        >[[ ${i} ]]</a>
-                    </li>
-                    <li class="page-item">
-                        <a class="page-link" th:href="@{/Trade/buylist(BuypageNum=${BuypageNum+1})}"
-                           th:classappend="${BuypageNum} == ${countBuyPage} ? 'disabled'" aria-label="Next">
-                            <span aria-hidden="true">&raquo;</span>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
+        <div class="d-flex justify-content-end mb-3 mt-3" >
+            <a th:href="@{/Trade/writeForm}" class="btn btn-primary">글 작성</a>
+        </div>
+
+
+        <script>
+            function handleImageClick(element) {
+                 var tbIdx = element.getAttribute("data-tb-idx");
+                 fetch("/Trade/getTradeboardInfo?tb_idx=" + tbIdx)
+                   .then(response => response.json())
+                   .then(data => { window.location.href = "/Trade/productdetail?tb_idx=" + tbIdx;   })
+                   .catch(error => console.error('Error fetching tradeboard info:', error));
+              }
+        </script>
+        <div class="row">
+            <div class="col d-flex justify-content-center">
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination">
+                        <li class="page-item">
+                            <a class="page-link" th:href="@{/Trade/buylist(BuypageNum=${BuypageNum-1})}"
+                               th:classappend="${BuypageNum} == 1 ? 'disabled'" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                        <li th:each="i:${#numbers.sequence(1, countBuyPage)}" class="page-item">
+                            <a class="page-link" th:href="@{/Trade/buylist(BuypageNum=${i})}"
+                               th:classappend="${#strings.replace(param.BuypageNum, ' ', '')} == ${i} ? 'active' : ''"
+                            >[[ ${i} ]]</a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" th:href="@{/Trade/buylist(BuypageNum=${BuypageNum+1})}"
+                               th:classappend="${BuypageNum} == ${countBuyPage} ? 'disabled'" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
         </div>
     </div>
 </section>
