@@ -1,9 +1,11 @@
 package com.kb.joonggo.Tradeboard;
 import com.kb.joonggo.Image.ImageDTO;
 import com.kb.joonggo.Image.ImageRepository;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -12,10 +14,12 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.awt.*;
 import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -103,6 +107,7 @@ public class TradeboardController {
     @PostMapping("writeproc")
     public String writeproc(Model model,
                             MultipartFile file,
+                            @RequestParam(name = "mbr_idx", required = false) String mbr_idx,
                             @Valid TradeboardReq tradeboardReq,
                             BindingResult result) {
 
@@ -149,6 +154,17 @@ public class TradeboardController {
                 imageRepository.save(image);
 
             } else {
+                tradeboardReq.setImg_name("no_image.png");
+                tradeboardReq.setImg_path("C:/Users/KB/Desktop/joonggo/Spring boot/joonggo/src/main/resources/static/images/no_image.png");
+
+                ImageDTO image = ImageDTO.builder()
+                                .img_name(tradeboardReq.getImg_name())
+                                .img_path(tradeboardReq.getImg_path())
+                                .tb_idx(79)
+                                .build();
+                imageRepository.save(image);
+
+
                 System.out.println("파일이 비어있습니다.");
             }
 
@@ -183,7 +199,7 @@ public class TradeboardController {
                 .tb_category(tradeboardReq.getTb_category())
                 .tb_count(0)
                 .tb_state(tradeboardReq.getTb_state())
-//                .mbr_idx()
+                .mbr_idx(tradeboardReq.getMbr_idx())
 //                .img_idx()
                 .build();
 
@@ -192,48 +208,186 @@ public class TradeboardController {
 
         // 3. image 테이블 tb_idx 업데이트
         // 지금 작업중인 img_idx 찾기
-        int img_idx = imageRepository.search_img_idx(
-                tradeboardReq.getImg_name(),
-                tradeboardReq.getImg_path(),
-                79);
 
-        int tb_idx = tradeboardRepository.search_tb_idx(
-                tradeboardDTO.getTb_title(),
-                tradeboardDTO.getTb_content(),
-                tradeboardDTO.getTb_price(),
-                tradeboardDTO.getTb_category(),
-                tradeboardDTO.getTb_count(),
-                tradeboardDTO.getTb_state()
-        );
+            int img_idx = imageRepository.search_img_idx(
+                    tradeboardReq.getImg_name(),
+                    tradeboardReq.getImg_path(),
+                    79);
 
-        // image 테이블의 tb_idx 재설정(맞춰주기)
-        imageRepository.tb_idx_update(
-                tb_idx,
-                img_idx,
-                tradeboardReq.getImg_name(),
-                tradeboardReq.getImg_path()
-        );
-        System.out.println("image 테이블 tb_idx 업데이트 완료");
+            int tb_idx = tradeboardRepository.search_tb_idx(
+                    tradeboardDTO.getTb_title(),
+                    tradeboardDTO.getTb_content(),
+                    tradeboardDTO.getTb_price(),
+                    tradeboardDTO.getTb_category(),
+                    tradeboardDTO.getTb_count(),
+                    tradeboardDTO.getTb_state()
+            );
 
-        // 4. tb 테이블 img_idx 업데이트
+            // image 테이블의 tb_idx 재설정(맞춰주기)
+            imageRepository.tb_idx_update(
+                    tb_idx,
+                    img_idx,
+                    tradeboardReq.getImg_name(),
+                    tradeboardReq.getImg_path()
+            );
+            System.out.println("image 테이블 tb_idx 업데이트 완료");
 
-        System.out.println("tb 테이블 img_idx 업데이트 시작");
+            // 4. tb 테이블 img_idx 업데이트
+
+            System.out.println("tb 테이블 img_idx 업데이트 시작");
 
 
-        tradeboardRepository.img_idx_update(
-                img_idx,
-                tb_idx,
-                tradeboardReq.getTb_title(),
-                tradeboardReq.getTb_content(),
-                tradeboardReq.getTb_price(),
-                tradeboardReq.getTb_category(),
-                tradeboardReq.getTb_count(),
-                tradeboardReq.getTb_state()
-        );
-
-        System.out.println("tb 테이블 img_idx 업데이트 완료");
-        return "redirect:/";
+            tradeboardRepository.img_idx_update(
+                    img_idx,
+                    tb_idx,
+                    tradeboardReq.getTb_title(),
+                    tradeboardReq.getTb_content(),
+                    tradeboardReq.getTb_price(),
+                    tradeboardReq.getTb_category(),
+                    tradeboardReq.getTb_count(),
+                    tradeboardReq.getTb_state()
+            );
+        return "redirect:/Trade/selllist?SellpageNum=1";
     }
+
+    @GetMapping("updateform")
+    public String updateform(Model model, TradeboardReq tradeboardReq) {
+        model.addAttribute("first", "true");
+
+        TradeboardDTO tradeboardDTO = tradeboardRepository.selectBuyRow(tradeboardReq.getTb_idx());
+//
+        System.out.println(tradeboardDTO);
+        tradeboardReq = tradeboardReq.builder()
+                .tb_idx(tradeboardDTO.getTb_idx())
+                .tb_title(tradeboardDTO.getTb_title())
+                .tb_content(tradeboardDTO.getTb_content())
+                .tb_date(tradeboardDTO.getTb_date())
+                .tb_price(tradeboardDTO.getTb_price())
+                .tb_category(tradeboardDTO.getTb_category())
+                .tb_count(tradeboardDTO.getTb_count())
+                .tb_state(tradeboardDTO.getTb_state())
+                .mbr_idx(tradeboardDTO.getMbr_idx())
+                .img_idx(tradeboardDTO.getImg_idx())
+                .build();
+
+        System.out.println(tradeboardReq);
+
+        model.addAttribute("tradeboardReq",tradeboardReq);
+
+        return "Trade/updateform";
+    }
+
+    @PostMapping("updateproc")
+    public String updateproc(Model model,
+                             MultipartFile file,
+                             @RequestParam(name = "mbr_idx", required = false) String mbr_idx,
+                             @Valid TradeboardReq tradeboardReq,
+                             BindingResult result) {
+
+        // 1. image 테이블 update
+        try {
+            // 이미지 추가한 경우
+            if (!file.isEmpty()) {
+                // 파일이름을 설정
+                tradeboardReq.setImg_name(file.getOriginalFilename());
+                File dest = new File(uploadPath + "/" + tradeboardReq.getImg_name());
+
+                // 파일 경로 생성
+                Path filePath = Paths.get(uploadPath, tradeboardReq.getImg_name());
+
+                // 파일 경로 TB req에 설정
+                String img_path = filePath.toString().replace(File.separator, "/");
+                tradeboardReq.setImg_path(img_path);
+
+                try{
+                    File directory = new File(uploadPath);
+
+                    if (!directory.exists()) {
+                        directory.mkdirs();
+                    }
+
+                    file.transferTo(dest);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                // 유효성 검사
+                if (result.hasErrors()) {
+                    System.out.println("1. 이미지 테이블 업데이트 중 에러");
+                    return "redirect:/Freeboard/list";
+                }
+
+                // 수정하는 부분
+                imageRepository.modify(tradeboardReq.getImg_name(),img_path,tradeboardReq.getImg_idx());
+                System.out.println("이미지 테이블 수정 완료");
+                System.out.println(tradeboardReq.getImg_name()+","+img_path+","+tradeboardReq.getImg_idx());
+
+
+            } else { // 추가 안 한 경우 -> 그대로 db에 있는 img_idx 사용해야함
+                System.out.println("파일이 비어있습니다.");
+            }
+
+        } catch (Exception e) {
+            model.addAttribute("message", "파일 업로드 및 저장에 실패했습니다.");
+            e.printStackTrace();
+        }
+
+
+        // 2. tb 테이블 update
+        //유효성 검사
+        if (result.hasErrors()) {
+            System.out.println("2. tb 테이블 업데이트 중 에러");
+            return "redirect:/Freeboard/list";
+        }
+        System.out.println("에러 발생 X");
+
+        // 문자열로 된 date를 Date로 변환
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
+        Date parsedDate;
+        try {
+            parsedDate = tradeboardReq.getTb_date();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "redirect:/Freeboard/list";
+        }
+
+        TradeboardDTO tradeboardDTO = TradeboardDTO.builder()
+                .tb_idx(tradeboardReq.getTb_idx())
+                .tb_title(tradeboardReq.getTb_title())
+                .tb_content(tradeboardReq.getTb_content())
+                .tb_date(parsedDate)
+                .tb_price(tradeboardReq.getTb_price())
+                .tb_category(tradeboardReq.getTb_category())
+                .tb_count(tradeboardReq.getTb_count())
+                .tb_state(tradeboardReq.getTb_state())
+                .mbr_idx(tradeboardReq.getMbr_idx())
+//                .img_idx(tradeboardReq.getImg_idx())
+                .build();
+
+        // db update
+        tradeboardRepository.update(tradeboardDTO);
+        System.out.println("거래 테이블 수정 완료");
+        System.out.println(tradeboardDTO);
+
+
+        return "redirect:/Trade/selllist?SellpageNum=1";
+    }
+
+
+
+
+//    @PostMapping("delete")
+//    @ResponseBody
+//    public TradeboardJson delete(@RequestBody TradeboardJson tradeboardJson){
+//        // boardJson.idx = [1,2,3]
+////        List<Integer> idxList = new ArrayList<>();
+////        for (int temp : boardJson.getIdx())
+////            idxList.add(temp);
+//        int idx = tradeboardJson.getIdx();
+//        tradeboardRepository.delete(idx);
+//
+//        TradeboardJson bj = TradeboardJson.builder().msg("성공").build();
+//        return bj;
+//    }
 
     @GetMapping(value = "productdetail", params = "tb_idx")
     private String detail(Model model, @RequestParam(name = "tb_idx", required = false) Integer tb_idx) {
@@ -241,19 +395,7 @@ public class TradeboardController {
             TradeboardReq tradeboardReq = tradeboardRepository.selectRow2(tb_idx);
             model.addAttribute("TradeboardReq", tradeboardReq);
             List<TradeboardReq> showRecommend = tradeboardRepository.showRecommend(tradeboardReq.getTb_category(), tb_idx);
-//            model.addAttribute("showRecommend", showRecommend);
-
-            // 아예 등록된 상품이 없다는 가정은 배제.
-            if(showRecommend.isEmpty()){
-                // showRecommend가 비어있음, 카테고리 무관 + 조회수 높은 4개까지 추천
-                // showRecommend가 비어있음, 카테고리 별로 한개씩 + 조회수 높은 4개까지 추천
-                List<TradeboardReq> showRecommend2 = tradeboardRepository.showRecommend2(tb_idx);
-                model.addAttribute("showRecommend", showRecommend2);
-            }
-            else {
-                // showRecommend가 비어있지 않음, 카테고리 동일 + 조회수 높은 4개까지 추천
-                model.addAttribute("showRecommend", showRecommend);
-            }
+            model.addAttribute("showRecommend", showRecommend);
             return "Trade/productdetail";
         }
         else {

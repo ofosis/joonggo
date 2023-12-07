@@ -14,7 +14,7 @@
     <div class="container px-4 px-lg-5 my-5">
         <div class="row gx-4 gx-lg-5 align-items-center">
             <div class="col-md-6">
-                <img class="card-img-top mb-5 mb-md-0" width="100" height="500" th:src="@{'/images/' + ${TradeboardReq.img_name}}" alt="..." th:idx="${TradeboardReq.tb_idx}"/>
+                <img id="pagetbidx" class="card-img-top mb-5 mb-md-0" width="100" height="500" th:src="@{'/images/' + ${TradeboardReq.img_name}}" alt="..." th:idx="${TradeboardReq.tb_idx}"/>
             </div>
             <div class="col-md-6">
                 <div class="row align-items-center mb-3">
@@ -58,46 +58,45 @@
         </div>
     </div>
     <script>
-
         var mbr_idx = sessionStorage.getItem('mbr_idx');
 
- document.addEventListener('DOMContentLoaded', function () {
-     checkLoginStatus2();
- });
+        document.addEventListener('DOMContentLoaded', function () {
+            checkLoginStatus2();
+        });
 
- function checkLoginStatus2() {
-     var mbr_nick = sessionStorage.getItem('mbr_nick');
-     var mbr_idx_writer = document.getElementById('pagembr');
-     var mbr_idx_writer = mbr_idx_writer.getAttribute('data-tb-idx');
-     if (mbr_idx != mbr_idx_writer) {
-         hideBtn();
-     } else {
-         showBtn();
-     }
- }
+        function checkLoginStatus2() {
+            var mbr_nick = sessionStorage.getItem('mbr_nick');
+            var mbr_idx_writer = document.getElementById('pagembr');
+            var mbr_idx_writer = mbr_idx_writer.getAttribute('data-tb-idx');
+            if (mbr_idx != mbr_idx_writer) {
+                hideBtn();
+            } else {
+                showBtn();
+            }
+        }
 
- function showBtn() {
-     document.getElementById('deleteBtn').style.display = 'block';
-     document.getElementById('modifyBtn').style.display = 'block';
- }
+        function showBtn() {
+            document.getElementById('deleteBtn').style.display = 'block';
+            document.getElementById('modifyBtn').style.display = 'block';
+        }
 
- function hideBtn() {
-     document.getElementById('deleteBtn').style.display = 'none';
-     document.getElementById('modifyBtn').style.display = 'none';
- }
+        function hideBtn() {
+            document.getElementById('deleteBtn').style.display = 'none';
+            document.getElementById('modifyBtn').style.display = 'none';
+        }
 
 
- function goonclick(element) {
-     var mbr_idx = element.getAttribute("data-tb-idx");
-     fetch("/Trade/getsellbuylist?mbr_idx=" + mbr_idx)
-         .then(response => response.json())
-         .then(data => {
-             window.location.href = '/Trade/sellbuylist?mbr_idx=' + mbr_idx;
-         })
-         .catch(error => console.error('거래 정보를 가져오는 중 오류 발생:', error));
- }
+        function goonclick(element) {
+            var mbr_idx = element.getAttribute("data-tb-idx");
+            fetch("/Trade/getsellbuylist?mbr_idx=" + mbr_idx)
+                .then(response => response.json())
+                .then(data => {
+                    window.location.href = '/Trade/sellbuylist?mbr_idx=' + mbr_idx;
+                })
+                .catch(error => console.error('거래 정보를 가져오는 중 오류 발생:', error));
+        }
 
-                function doDelete(){
+        function doDelete(){
         const aa = {
             url:'/Trade/delete',
             type:'post',

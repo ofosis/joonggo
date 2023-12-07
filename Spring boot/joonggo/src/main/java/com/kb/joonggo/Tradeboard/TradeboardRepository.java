@@ -29,10 +29,9 @@ public interface TradeboardRepository {
 
     List<TradeboardReq> selectallproduct(int mbr_idx);
     public void insert(TradeboardDTO tradeboardDTO);
+    public void update(TradeboardDTO tradeboardDTO);
 
     public int search_tb_idx(String tb_title,String tb_content,int tb_price,String tb_category,int tb_count,String tb_state);
-
-    List<TradeboardReq> showRecommend2(@Param("tb_idx") int tb_idx);
 
     public void img_idx_update(
             int img_idx,
