@@ -1,16 +1,15 @@
-package com.kb.joonggo.CS;
+package com.kb.joonggo.Chat;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("CS")
-public class CSController {
+@RequestMapping("chat")
+public class ChatController {
 
-    @GetMapping("list")
-    public String list()
-    {
-        return "CS/list";
+    @GetMapping("showchat")
+    public String showchat(){
+        return "chat/showchat";
     }
 }
