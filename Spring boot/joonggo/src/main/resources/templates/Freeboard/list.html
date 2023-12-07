@@ -3,7 +3,6 @@
 <head th:replace="~{layout/layout :: head('자유게시판')}"></head>
 <body>
 <nav th:replace="~{layout/layout :: nav('Freeboard')}"></nav>
-<!-- Header-->
 <header th:replace="~{layout/layout :: header('home')}"></header>
 <div class="container p-3">
     <div class="row">
@@ -24,8 +23,8 @@
                         <tbody>
                         <tr th:each="FreeboardReq, rowStat : ${list}">
                             <td class="text-center">
-                                <input type="checkbox" name="fr_idx" id="" th:value="${FreeboardReq.fr_idx}"
-                                       class="form-check-input" onclick="addIdx(this);">
+<!--                                <input type="checkbox" name="fr_idx" id="" th:value="${FreeboardReq.fr_idx}"-->
+<!--                                       class="form-check-input" onclick="addIdx(this);">-->
                             </td>
                             <td th:text="${FreeboardReq.fr_idx}"></td>
                             <td>
@@ -52,37 +51,35 @@
 
 
                 <div class="row">
+
                     <div class="col d-flex justify-content-center">
                         <nav aria-label="Page navigation example">
                             <ul class="pagination">
-                                <!-- Previous 버튼 -->
                                 <li class="page-item">
                                     <a class="page-link"
                                        th:href="@{/Freeboard/list(pageNum=${pageNum != null ? pageNum - 1 : 1})}"
                                        th:classappend="${pageNum == 1 || pageNum == null ? 'disabled' : ''}">Previous</a>
                                 </li>
 
-                                <!-- 페이지 번호들 -->
                                 <li th:each="i:${#numbers.sequence(1, countPage != null ? countPage : 1)}"
                                     class="page-item">
-                                    <a class="page-link"
-                                       th:href="@{/Freeboard/list(pageNum=${i})}"
+                                    <a class="page-link" th:href="@{/Freeboard/list(pageNum=${i})}"
                                        th:classappend="${pageNum == i ? 'active' : ''}">[[ ${i} ]]</a>
                                 </li>
 
-                                <!-- Next 버튼 -->
                                 <li class="page-item" th:if="${pageNum != null && pageNum < countPage}">
                                     <a class="page-link" th:href="@{/Freeboard/list(pageNum=${pageNum + 1})}">Next</a>
                                 </li>
                             </ul>
+
                         </nav>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col">
-                        <a th:href="@{/Freeboard/writeform}" id="freeboardWriteForm" class="btn btn-dark">글쓰기</a>
-                        <button th:onclick="doDelete()" class="btn btn-dark">삭제</button>
+                        <a th:href="@{/Freeboard/writeform}" class="btn btn-dark">글쓰기</a>
+<!--                        <button th:onclick="doDelete()" class="btn btn-dark">삭제</button>-->
 
                     </div>
                 </div>
@@ -91,27 +88,38 @@
     </div>
 </div>
 </body>
-</html>
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-            checkLoginStatus2();
-        });
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    let idx = [];
 
-        function checkLoginStatus2() {
-            var mbr_idx = sessionStorage.getItem('mbr_idx');
-            var mbr_nick = sessionStorage.getItem('mbr_nick');
-            if (mbr_idx == null) {
-                hidefreeboardWriteForm();
-            } else {
-                showfreeboardWriteForm();
+    function addIdx(obj) {
+        let temp = $(obj).val();
+        if (idx.indexOf(temp) !== -1) {
+            let index = idx.indexOf(temp);
+            if (index !== -1) {
+                idx.splice(index, 1);
+            }
+        } else {
+            idx.push(temp);
+        }
+    }
+
+    function doDelete(){
+        const aa = {
+            url:'/board/delete',
+            type:'post',
+            contentType: "application/json",
+            dataType: 'json', // 추가
+            data: JSON.stringify({idx:idx}),
+            success:function(res){
+                window.location.href='/board/list';
+            },
+            error:function(e){
+                console.log(e);
             }
         }
+        $.ajax( aa );
+    }
 
-        function showfreeboardWriteForm() {
-            document.getElementById('freeboardWriteForm').style.display = 'inline-block';
-        }
-
-        function hidefreeboardWriteForm() {
-            document.getElementById('freeboardWriteForm').style.display = 'none';
-        }
 </script>
+</html>
