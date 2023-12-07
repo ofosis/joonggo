@@ -1,43 +1,62 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{layout/layout :: head(${FreeboardReq.fr_title})}">
+    <!-- 추가적인 스타일링을 위한 CSS 파일 연결 -->
+    <link rel="stylesheet" href="your-custom-style.css">
+    <style>
+        h1 {font-size: 10px;}
+    </style>
 </head>
 <body>
 <nav th:replace="~{layout/layout :: nav('Freeboard')}"></nav>
 <div class="container p-3">
-    <h1>FreeBoard > view</h1>
-    <div class="row">
+
+    <div class="row" style="outline: 1px solid lightgray;">
         <div class="col">
-            <div class="mb-3">
-                <label class="form-label">제목</label>
-                <p class="border p-2 m-3" th:text="${FreeboardReq.fr_title}"></p>
-            </div>
-            <div class="mb-3">
-                <label class="form-label">내용</label>
-                <p class="border p-3 m-3" th:text="${FreeboardReq.fr_content}"></p>
-            </div>
-            <div class="mb-3">
-                <label class="form-label">닉네임</label>
-                <p class="border p-2 m-3" th:text="${FreeboardReq.mbr_nick}"></p>
-            </div>
-            <div class="mb-3" th:if="${FreeboardReq.created_at != null}">
-                <label class="form-label">작성 시간</label>
-                <p class="border p-2 m-3"
-                   th:text="${#temporals.format(FreeboardReq.created_at, 'yyyy-MM-dd HH:mm:ss')}"></p>
-            </div>
+            <!-- 테이블 형식의 게시글 목록 -->
+            <table class="table">
+                <thead>
+                <tr>
+                    <th colspan="4"> 제목: <span th:text="${FreeboardReq.fr_title}"></span></th>
+                    <td colspan="2" class="text-end">
+                        조회수: <span th:text="${FreeboardReq.view_count}"></span>
+                    </td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td colspan="2">
+                        작성자: <span th:text="${FreeboardReq.mbr_nick}"></span>
+                    </td>
+                    <td colspan="2"></td> <!-- 등록일 칸 추가 -->
+                    <td colspan="2" class="text-end">
+                        등록일: <span
+                            th:text="${#temporals.format(FreeboardReq.created_at, 'yyyy-MM-dd HH:mm:ss')}"></span>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
 
-
+            <!-- 내용 칸 -->
+            <div class="mb-3" style="margin-left: -10px;">
+                <label class="form-label" style="margin-left: 20px;">내용</label>
+                <div class="border p-3 m-3" th:text="${FreeboardReq.fr_content}"></div>
+            </div>
+            <!-- 버튼 그룹 -->
             <div class="mb-3 row justify-content-between">
-                <!--                <div class="col-3 d-flex">-->
-                <!--                    <a th:href="@{/Freeboard/updateform(fr_idx=${Freeboard.fr_idx})}" class="btn btn-dark">수정</a>-->
-                <!--                </div>-->
-                <div class="col-3 d-flex justify-content-end">
+                <div class="col-3">
+                    <a th:href="@{'/Freeboard/updateform?fr_idx=' + ${FreeboardReq.fr_idx}}"
+                       class="btn btn-dark">수정</a>
+                </div>
+                <div class="col-3 text-end">
                     <a th:href="@{/Freeboard/list(pageNum=1)}" class="btn btn-dark">목록</a>
                 </div>
+
             </div>
         </div>
     </div>
 </div>
+</body>
 <!-- 뒤로가기 감지를 위한 스크립트 -->
 <script th:inline="javascript">
     /*<![CDATA[*/

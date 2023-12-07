@@ -3,14 +3,18 @@ package com.kb.joonggo.Freeboard;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("Freeboard")
@@ -55,7 +59,6 @@ public class FreeboardController {
 
         FreeboardReq freeboardreq = freeboardRepository.selectRow(fr_idx);
         model.addAttribute("FreeboardReq", freeboardreq);
-        System.out.println(freeboardreq);
         return "Freeboard/view";
     }
 
@@ -78,7 +81,12 @@ public class FreeboardController {
                             BindingResult result) {
 
         if (result.hasErrors()) {
+            System.out.println("Binding Result has errors:");
+            for (ObjectError error : result.getAllErrors()) {
+                System.out.println(error);
+            }
             model.addAttribute("FreeboardReq", freeboardReq);
+            System.out.println(freeboardReq);
             return "Freeboard/writeform";
         }
 
@@ -89,6 +97,7 @@ public class FreeboardController {
         FreeBoard freeboard = FreeBoard.builder()
                 .fr_content(freeboardReq.getFr_content())
                 .fr_title(freeboardReq.getFr_title())
+                .mbr_idx(freeboardReq.getMbr_idx())
                 .created_at(freeboardReq.getCreated_at())  // 작성 시간 추가
                 .build();
 
@@ -98,23 +107,13 @@ public class FreeboardController {
         return "redirect:/Freeboard/list";
     }
 
-
-    @GetMapping("updateform")
-    public String updateform(Model model, FreeboardReq freeboardReq) {
-        model.addAttribute("first", "true");
-
-        FreeboardReq freeboard = freeboardRepository.selectRow(freeboardReq.getFr_idx());
-
-        freeboardReq = FreeboardReq.builder()
-//                .fr_idx(freeboard.getFr_idx())
-                .fr_content(freeboard.getFr_content())
-                .fr_title(freeboard.getFr_title())
-                .build();
-
-        model.addAttribute("freeboardReq", freeboardReq);
-
+    @GetMapping("/updateform")
+    public String updateform(Model model, @RequestParam int fr_idx) {
+        FreeboardReq freeboard = freeboardRepository.selectRow(fr_idx);
+        model.addAttribute("FreeboardReq", freeboard);
         return "Freeboard/updateform";
     }
+
 
     @GetMapping("/search")
     public String search(@RequestParam String query, Model model) {
@@ -141,7 +140,7 @@ public class FreeboardController {
         /* 저장하는 부분 시작 */
         // boardReq 객체를 Board 객체로 변환
         FreeBoard freeboard = FreeBoard.builder()
-                .fr_idx(freeboardReq.getFr_idx()) // 업데이트 시에는 기존의 게시물을 업데이트해야 하므로 ID를 설정
+                .mbr_idx(freeboardReq.getMbr_idx()) // 업데이트 시에는 기존의 게시물을 업데이트해야 하므로 ID를 설정
                 .fr_content(freeboardReq.getFr_content())
                 .fr_title(freeboardReq.getFr_title())
                 .created_at(freeboardReq.getCreated_at())  // 작성 시간 업데이트
@@ -153,4 +152,19 @@ public class FreeboardController {
 
         return "redirect:/Freeboard/list";
     }
+
+
+    @PostMapping("delete")
+    @ResponseBody
+    public FreeboardJson delete(@RequestBody FreeboardJson freeboardJson) {
+        // boardJson.idx = [1,2,3]
+        List<Integer> idxList = Arrays.stream(freeboardJson.getIdx())
+                .boxed()
+                .collect(Collectors.toList());
+        freeboardRepository.delete(idxList);
+
+        FreeboardJson bj = FreeboardJson.builder().msg("성공").build();
+        return bj;
+    }
+
 }

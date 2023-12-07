@@ -10,6 +10,7 @@ import java.util.List;
 @Mapper
 public interface FreeboardRepository {
 
+
     static void update(FreeBoard freeboard) {
 
     }
@@ -26,14 +27,23 @@ public interface FreeboardRepository {
 
     FreeboardReq findByIdx(int fr_idx);
 
-    @Query("SELECT f FROM FreeBoard f WHERE f.fr_title LIKE %:query% OR f.fr_content LIKE %:query%")
-    List<FreeBoard> searchByTitleOrContent(@Param("query") String query);
 
 
     void save(FreeboardReq freeboard);
 
+
+    @Query("SELECT f FROM FreeBoard f WHERE f.fr_title LIKE %:query% OR f.fr_content LIKE %:query%")
+    List<FreeBoard> searchByTitleOrContent(@Param("query") String query);
+
     @Modifying
     @Query("UPDATE FreeBoard f SET f.view_count = f.view_count + 1 WHERE f.fr_idx = :frIdx")
     void updateViewCount(@Param("frIdx") int frIdx);
+
+    @Query("SELECT f FROM FreeBoard f WHERE f.fr_idx = :postId")
+    FreeBoard getPostById(@Param("postId") Long postId);
+
+    @Modifying
+    @Query("DELETE FROM FreeBoard f WHERE f.fr_idx = :postId")
+    void deletePost(@Param("postId") Long postId);
 
 }

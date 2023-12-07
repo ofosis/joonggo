@@ -9,20 +9,12 @@
     <div class="row">
         <div class="col">
             <form action="/Freeboard/writeproc" method="post" th:object="${FreeboardReq}">
-                <!--                <div class="mb-3">-->
-                <!--                    <label for="title" class="form-label">Title</label>-->
-                <!--                    <input type="text" name="title" id="title" placeholder="title"-->
-                <!--                           th:field="*{fr_title}"-->
-                <!--                           th:class="${#fields.hasErrors('fr_title')}? 'form-control is-invalid':'form-control' "-->
-                <!--                           th:classappend="${first != 'true'} ? 'is-valid'"-->
-                <!--                    />-->
-                <!--                    <p th:if="${#fields.hasErrors('fr_title')}" th:errors="*{title}" class="invalid-feedback"></p>-->
-                <!--                </div>-->
                 <div class="mb-3">
                     <label for="title" class="form-label">Title</label>
-                    <input type="text" name="title" id="title" placeholder="title"
+                    <input type="text" name="title" id="title" placeholder="글의 제목을 입력하세요"
                            th:field="*{fr_title}"
                            th:class="${#fields.hasErrors('fr_title')} ? 'form-control is-invalid' : 'form-control' + (${first != 'true'} ? ' is-valid' : '')"
+                           th:classappend="${first != 'true'} ? 'is-valid'"
                     />
                     <p th:if="${#fields.hasErrors('fr_title')}" th:errors="*{fr_title}" class="invalid-feedback"></p>
                 </div>
@@ -30,6 +22,7 @@
                 <div class="mb-3">
                     <label for="content" class="form-label">Content</label>
                     <textarea name="content" class="form-control fieldError" id="content" rows="3"
+                              placeholder="글의 내용을 입력하세요"
                               th:field="*{fr_content}"
                               th:class="${#fields.hasErrors('fr_content')}? 'form-control is-invalid':'form-control' "
                               th:classappend="${first != 'true'} ? 'is-valid'"></textarea>
@@ -37,12 +30,12 @@
                 </div>
 
                 <div class="mb-3">
-                    <label for="mbr_nick" class="form-label">mbr_nick</label>
-                    <input name="mbr_nick" type="text" class="form-control" id="mbr_nick" placeholder="mbr_idx"
-                           th:field="*{mbr_nick}" readonly
-                           th:class="${#fields.hasErrors('mbr_nick')}? 'form-control is-invalid':'form-control' "
+                    <label for="mbr_idx" class="form-label">mbr_idx</label>
+                    <input name="mbr_idx" type="text" class="form-control" id="mbr_idx" placeholder="mbr_idx"
+                           th:field="*{mbr_idx}" readonly
+                           th:class="${#fields.hasErrors('mbr_idx')}? 'form-control is-invalid':'form-control' "
                            th:classappend="${first != 'true'} ? 'is-valid'" />
-                    <p th:if="${#fields.hasErrors('mbr_nick')}" th:errors="*{mbr_nick}" class="invalid-feedback"></p>
+                    <p th:if="${#fields.hasErrors('mbr_idx')}" th:errors="*{mbr_idx}" class="invalid-feedback"></p>
                 </div>
 
 
@@ -70,10 +63,10 @@
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         // 세션 스토리지에서 mbr_idx 가져오기
-        var mbr_nick = sessionStorage.getItem('mbr_nick');
+        var mbr_idx = sessionStorage.getItem('mbr_idx');
 
         // 가져온 mbr_idx를 해당하는 input 필드에 할당
-        document.getElementById('mbr_nick').value = mbr_nick;
+        document.getElementById('mbr_idx').value = mbr_idx;
     });
 </script>
 </body>

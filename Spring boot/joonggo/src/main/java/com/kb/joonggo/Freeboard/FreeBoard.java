@@ -18,7 +18,7 @@ public class FreeBoard {
     private String fr_title;
     private String fr_content;
     private int mbr_idx;
-
+    private String mbr_nick;
     @NotNull
     private LocalDateTime created_at; // 작성 시간 필드 추가
 
