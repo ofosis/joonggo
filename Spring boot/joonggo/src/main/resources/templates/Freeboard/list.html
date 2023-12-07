@@ -52,9 +52,6 @@
 
 
                 <div class="row">
-                    <h1 style="font-size: 18px;">총 페이지 개수 = [[ ${countPage} ]]</h1>
-                    <h1 style="font-size: 18px;">총 행 개수 = [[ ${countRow} ]]</h1>
-                    <h1 style="font-size: 18px;">현재 페이지 [[${pageNum}]]</h1>
                     <div class="col d-flex justify-content-center">
                         <nav aria-label="Page navigation example">
                             <ul class="pagination">
@@ -84,7 +81,7 @@
 
                 <div class="row">
                     <div class="col">
-                        <a th:href="@{/Freeboard/writeform}" class="btn btn-dark">글쓰기</a>
+                        <a th:href="@{/Freeboard/writeform}" id="freeboardWriteForm" class="btn btn-dark">글쓰기</a>
                         <button th:onclick="doDelete()" class="btn btn-dark">삭제</button>
 
                     </div>
@@ -92,39 +89,29 @@
             </div>
         </div>
     </div>
+</div>
 </body>
 </html>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+            checkLoginStatus2();
+        });
 
+        function checkLoginStatus2() {
+            var mbr_idx = sessionStorage.getItem('mbr_idx');
+            var mbr_nick = sessionStorage.getItem('mbr_nick');
+            if (mbr_idx == null) {
+                hidefreeboardWriteForm();
+            } else {
+                showfreeboardWriteForm();
+            }
+        }
 
-<!--<script th:inline="javascript">-->
-<!--    /*<![CDATA[*/-->
-<!--    let idx = [];-->
-<!--    function addIdx(obj) {-->
-<!--        let temp = $(obj).val();-->
-<!--        if (idx.indexOf(temp) !== -1) {-->
-<!--            let index = idx.indexOf(temp);-->
-<!--            if (index !== -1) {-->
-<!--                idx.splice(index, 1);-->
-<!--            }-->
-<!--        } else {-->
-<!--            idx.push(temp);-->
-<!--        }-->
-<!--    }-->
-<!--    function doDelete() {-->
-<!--        const aa = {-->
-<!--            url: '/Freeboard/delete',-->
-<!--            type: 'post',-->
-<!--            contentType: 'application/json',-->
-<!--            dataType: 'json',-->
-<!--            data: JSON.stringify({ idx: idx }),-->
-<!--            success: function (res) {-->
-<!--                window.location.href = '/Freeboard/list';-->
-<!--            },-->
-<!--            error: function (e) {-->
-<!--                console.log(e);-->
-<!--            }-->
-<!--        };-->
-<!--        $.ajax(aa);-->
-<!--    }-->
-<!--    /*]]>*/-->
-<!--</script>-->
+        function showfreeboardWriteForm() {
+            document.getElementById('freeboardWriteForm').style.display = 'inline-block';
+        }
+
+        function hidefreeboardWriteForm() {
+            document.getElementById('freeboardWriteForm').style.display = 'none';
+        }
+</script>

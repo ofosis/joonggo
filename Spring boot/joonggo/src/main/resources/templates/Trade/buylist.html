@@ -27,18 +27,39 @@
             </div>
         </div>
         <div class="d-flex justify-content-end mb-3 mt-3" >
-            <a th:href="@{/Trade/writeForm}" class="btn btn-primary">글 작성</a>
+            <a th:href="@{/Trade/writeForm}" class="btn btn-primary" id="WriteForm_buy">글 작성</a>
         </div>
-
-
         <script>
-            function handleImageClick(element) {
-                 var tbIdx = element.getAttribute("data-tb-idx");
-                 fetch("/Trade/getTradeboardInfo?tb_idx=" + tbIdx)
-                   .then(response => response.json())
-                   .then(data => { window.location.href = "/Trade/productdetail?tb_idx=" + tbIdx;   })
-                   .catch(error => console.error('Error fetching tradeboard info:', error));
-              }
+            document.addEventListener('DOMContentLoaded', function () {
+            checkLoginStatus2();
+        });
+
+        function checkLoginStatus2() {
+            var mbr_idx = sessionStorage.getItem('mbr_idx');
+            var mbr_nick = sessionStorage.getItem('mbr_nick');
+            if (mbr_idx == null) {
+                hideWriteForm_buy();
+            } else {
+                showWriteForm_buy();
+            }
+        }
+
+        function showWriteForm_buy() {
+            document.getElementById('WriteForm_buy').style.display = 'block';
+        }
+
+        function hideWriteForm_buy() {
+            document.getElementById('WriteForm_buy').style.display = 'none';
+        }
+
+        function handleImageClick(element) {
+             var tbIdx = element.getAttribute("data-tb-idx");
+             fetch("/Trade/getTradeboardInfo?tb_idx=" + tbIdx)
+               .then(response => response.json())
+               .then(data => { window.location.href = "/Trade/productdetail?tb_idx=" + tbIdx;   })
+               .catch(error => console.error('Error fetching tradeboard info:', error));
+          }
+
         </script>
         <div class="row">
             <div class="col d-flex justify-content-center">

@@ -23,6 +23,7 @@
                     <input type="text" name="title" id="title" placeholder="title"
                            th:field="*{fr_title}"
                            th:class="${#fields.hasErrors('fr_title')} ? 'form-control is-invalid' : 'form-control' + (${first != 'true'} ? ' is-valid' : '')"
+                           th:classappend="${first != 'true'} ? ' is-valid' : ''"
                     />
                     <p th:if="${#fields.hasErrors('fr_title')}" th:errors="*{fr_title}" class="invalid-feedback"></p>
                 </div>

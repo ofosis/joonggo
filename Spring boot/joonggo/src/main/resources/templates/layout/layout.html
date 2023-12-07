@@ -47,10 +47,12 @@
                 my_info.text('내 정보');
                 console.log(mbr_nick);
                 showLoginAndJoin();
+                hideFreeboard();
             } else {
                 my_info.text(mbr_nick+' 님');
                 console.log(mbr_nick+'님 로그인 중');
                 showLogout();
+                showFreeboard();
             }
         }
 
@@ -73,6 +75,15 @@
             alert('로그아웃되었습니다.');
             window.location.reload();
         }
+
+        function showFreeboard() {
+            document.getElementById('Freeboard').style.display = 'block';
+        }
+
+        function hideFreeboard() {
+            document.getElementById('Freeboard').style.display = 'none';
+        }
+
     </script>
     <div class="container px-4 px-lg-5">
         <a class="navbar-brand display-1" th:classappend="${menu} == 'home'? 'active text-success' " style="font-weight: bold;" th:href="@{/}">
@@ -103,11 +114,8 @@
                 <li class="nav-item">
                     <a th:classappend="${menu} == 'Buyer'? 'active text-success' " class="nav-link" style="font-weight: bold;" th:href="@{/Trade/buylist?BuypageNum=1}">삽니다</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" id="Freeboard">
                     <a th:classappend="${menu} == 'Freeboard'? 'active text-success' " class="nav-link" style="font-weight: bold;" th:href="@{/Freeboard/list}">자유게시판</a>
-                </li>
-                <li class="nav-item">
-                    <a th:classappend="${menu} == 'WriteForm'? 'active text-success' " class="nav-link" style="font-weight: bold;" th:href="@{/Trade/writeForm}">임시글작성</a>
                 </li>
 
                 <li class="nav-item dropdown">
@@ -152,9 +160,6 @@
                     <li id="logoutMenuItem" style="display: none;"> <a class="dropdown-item" onclick="logout()" th:href="@{/}">로그아웃</a>  </li>
                 </ul>
             </div>
-
-
-
         </div>
     </div>
 </nav>
@@ -182,7 +187,7 @@
     </div>
 </header>
 <!-- Section-->
-<section th:fragment="section(menu)" class="py-5">
+<section  class="py-5">
     <div class="container px-4 px-lg-5 mt-5">
         <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
             <div class="col mb-5">

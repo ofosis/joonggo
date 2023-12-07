@@ -20,7 +20,6 @@
         LIMIT #{pageNum}, 3;
     </select>
 
-
     <select id="selectBuyRow" parameterType="Integer" resultType="TradeboardDTO">
         SELECT * FROM Tradeboard JOIN Member ON Tradeboard.mbr_idx = Member.mbr_idx WHERE tb_idx = #{tb_idx}
     </select>
@@ -101,11 +100,11 @@
 
     <insert id="insert" parameterType="TradeboardDTO">
         insert into Tradeboard
-        (tb_title, tb_content, tb_date, tb_price, tb_category, tb_count, tb_state)
-        <!--        mbr_idx, img_idx 제거함-->
+        (tb_title, tb_content, tb_date, tb_price, tb_category, tb_count, tb_state, mbr_idx)
+        <!--        img_idx 제거함-->
         values
-        (#{tb_title}, #{tb_content}, #{tb_date}, #{tb_price}, #{tb_category}, #{tb_count}, #{tb_state})
-        <!--        #{mbr_idx}, #{img_idx} 제거함-->
+        (#{tb_title}, #{tb_content}, #{tb_date}, #{tb_price}, #{tb_category}, #{tb_count}, #{tb_state}, #{mbr_idx})
+        <!--       #{img_idx} 제거함-->
     </insert>
 
     <select id="search_tb_idx" parameterType="map" resultType="Integer">
@@ -118,6 +117,20 @@
         AND tb_state = #{tb_state}
     </select>
 
+    <update id="update" parameterType="TradeboardDTO">
+        update Tradeboard
+        set
+        tb_title = #{tb_title},
+        tb_content = #{tb_content},
+        tb_date = #{tb_date},
+        tb_price = #{tb_price},
+        tb_category = #{tb_category},
+        tb_count = #{tb_count},
+        tb_state = #{tb_state},
+        img_idx = #{img_idx}
+        where tb_idx = #{tb_idx};
+    </update>
+
     <update id="img_idx_update" parameterType="map">
         update Tradeboard
         set img_idx = #{img_idx}
@@ -129,24 +142,5 @@
         AND tb_count = #{tb_count}
         AND tb_state = #{tb_state}
     </update>
-
-    <select id="showRecommend2" resultType="TradeboardReq" parameterType="Integer">
-        SELECT tb.tb_idx, tb.tb_title, tb.tb_content, tb.tb_date, tb.tb_price, tb.tb_category, tb.tb_count,
-        tb.tb_state, tb.mbr_idx, mem.mbr_nick, mem.mbr_addr, tb.img_idx, img.img_name, img.img_path
-        FROM Tradeboard tb
-        JOIN Member mem ON mem.mbr_idx = tb.mbr_idx
-        JOIN Image img ON img.img_idx = tb.img_idx
-        WHERE tb_state = '판매중'
-        AND tb.tb_idx != #{tb_idx}
-        AND (tb.tb_category, tb.tb_count) IN (
-        SELECT tb_category, MAX(tb_count) AS max_count
-        FROM Tradeboard tb
-        WHERE tb_state = '판매중' AND tb.tb_idx != #{tb_idx}
-        GROUP BY tb_category
-        )
-        ORDER BY tb_count DESC
-        LIMIT 4;
-    </select>
-
 
 </mapper>

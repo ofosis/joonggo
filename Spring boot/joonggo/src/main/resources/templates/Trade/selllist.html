@@ -27,12 +27,36 @@
             </div>
         </div>
         <div class="d-flex justify-content-end mb-3 mt-3">
-            <a th:href="@{/Trade/writeForm}" class="btn btn-primary">글 작성</a>
+            <a th:href="@{/Trade/writeForm}" class="btn btn-primary" id="WriteForm_sell">글 작성</a>
         </div>
     </div>
 
 
     <script>
+        document.addEventListener('DOMContentLoaded', function () {
+        checkLoginStatus2();
+    });
+
+    function checkLoginStatus2() {
+        var mbr_idx = sessionStorage.getItem('mbr_idx');
+        var mbr_nick = sessionStorage.getItem('mbr_nick');
+        if (mbr_idx == null) {
+            hideWriteForm_sell();
+        } else {
+            showWriteForm_sell();
+        }
+    }
+
+    function showWriteForm_sell() {
+            document.getElementById('WriteForm_sell').style.display = 'block';
+        }
+
+        function hideWriteForm_sell() {
+            document.getElementById('WriteForm_sell').style.display = 'none';
+        }
+
+
+
         function handleImageClick(element) {
          var tbIdx = element.getAttribute("data-tb-idx");
          fetch("/Trade/getTradeboardInfo?tb_idx=" + tbIdx)

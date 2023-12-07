@@ -64,7 +64,6 @@
         UPDATE Freeboard SET view_count = view_count + 1 WHERE fr_idx = #{frIdx}
     </update>
 
-
     <!--    <delete id="delete" parameterType="java.util.List">-->
     <!--        delete from board-->
     <!--        WHERE idx in-->

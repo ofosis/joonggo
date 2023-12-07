@@ -12,6 +12,13 @@
         (#{img_name}, #{img_path}, #{tb_idx});
     </insert>
 
+    <update id="modify" parameterType="map">
+        UPDATE Image
+        SET img_name = #{img_name},
+        img_path = #{img_path}
+        WHERE img_idx = #{img_idx};
+    </update>
+
     <select id="search_img_idx" parameterType="map" resultType="Integer">
         select img_idx from Image
         where img_name = #{img_name}
@@ -21,7 +28,7 @@
 
     <update id="tb_idx_update" parameterType="map">
         UPDATE Image
-            SET tb_idx = #{tb_idx}
+        SET tb_idx = #{tb_idx}
         WHERE img_idx= #{img_idx}
         AND img_name = #{img_name}
         AND img_path = #{img_path}
